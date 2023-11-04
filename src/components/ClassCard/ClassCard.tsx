@@ -22,7 +22,7 @@ function ClassCard({title, courseCode, type, colour}: ClassCardProps) {
             break;
     }
     return (
-        <div className={`flex flex-col p-5 py-2.5 w-72 gap-1 border-r-8 border-r-${colour}-400 shadow-sm rounded-md hover:bg-stone-100`}>
+        <div className={`flex flex-col p-5 py-2.5 w-72 gap-1 border-r-8 ${colour} shadow-sm rounded-md hover:bg-stone-100`}>
             <h1 className="text-lg font-medium line-clamp-1">{title}</h1>
             <p className=" text-xs text-gray-400 font-light">{courseCode}</p>
             <Badge className={cardColour + " text-sm px-4"}>{CourseType[type]}</Badge>
