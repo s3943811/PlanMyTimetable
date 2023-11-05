@@ -4,9 +4,9 @@ import Calendar from "./(Planner)/Calendar";
 
 export default function HomePage() {
   return (
-    <main className="flex flex-row w-screen">
-      <ClassListSidebar/>
-      <Calendar/>
+    <main className="flex w-screen flex-row">
+      <ClassListSidebar />
+      <Calendar />
     </main>
   );
 }

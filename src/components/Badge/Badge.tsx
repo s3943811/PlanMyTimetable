@@ -1,15 +1,19 @@
-
 interface BadgeProps {
-    children: React.ReactNode, 
-    className?: string
+  children: React.ReactNode;
+  className?: string;
 }
 
-function Badge({children, className}: BadgeProps) {
-    return (
-        <div className={"inline-flex items-center justify-center w-fit py-0.5 px-1.5 rounded-lg " + className}>
-            {children}
-        </div>
-    )
+function Badge({ children, className }: BadgeProps) {
+  return (
+    <div
+      className={
+        "inline-flex w-fit items-center justify-center rounded-lg px-1.5 py-0.5 " +
+        className
+      }
+    >
+      {children}
+    </div>
+  );
 }
 
 export default Badge;
