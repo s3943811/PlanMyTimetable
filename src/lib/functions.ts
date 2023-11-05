@@ -4,7 +4,7 @@ function getTimes(): Array<string> {
     time.setHours(0,0,0,0);
     while(time.getDate() === new Date().getDate()) {
         times.push(new Date(time).toLocaleTimeString([], {hour: '2-digit', minute:'2-digit', hour12: true}));
-        time.setMinutes(time.getMinutes() + 30);
+        time.setMinutes(time.getMinutes() + 60);
     }
     return times;
 }

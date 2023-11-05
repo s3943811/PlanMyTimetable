@@ -10,7 +10,7 @@ export default function Timeline() {
             </div>
             <div className="divide-y border-b h-full">
                 {times.map((time: string) => (
-                    <p className={`text-xs h-7 ${time.includes(':30') ? 'invisible' : ''}`} key={time}>{time}</p>
+                    <p className={`text-xs h-14 text-center `} key={time}>{time}</p>
                 ))}
             </div>
         </div>
