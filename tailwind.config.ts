@@ -5,6 +5,9 @@ export default {
   content: ["./src/**/*.tsx"],
   theme: {
     extend: {
+      gridTemplateRows: {
+        '96': 'repeat(96, minmax(0, 1fr))',
+      },
       fontFamily: {
         sans: ["var(--font-sans)", ...fontFamily.sans],
       },
