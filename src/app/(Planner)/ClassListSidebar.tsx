@@ -29,13 +29,13 @@ const data = [
         title: "Operating System Principles",
         courseCode: "COSC1114_2350_1322_AUSCY",
         type: CourseType.Lecture,
-        colour: "border-r-green-400"
+        colour: "border-r-orange-400"
     },
     {
         title: "Operating System Principles",
         courseCode: "COSC1114_2350_1322_AUSCY",
         type: CourseType.Tutorial,
-        colour: "border-r-green-400"
+        colour: "border-r-orange-400"
     },
     {
         title: "Computing Theory",
