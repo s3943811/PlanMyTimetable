@@ -17,3 +17,11 @@ export enum CourseType {
     Lecture,
     Tutorial,
 }
+
+export enum Days {
+    Monday,
+    Tuesday,
+    Wednesday,
+    Thursday,
+    Friday
+}
