@@ -1,15 +1,8 @@
-import { Badge } from "~/components";
-import { CourseType } from "~/lib/definitions";
-
-export interface ClassCardProps {
-  title: string;
-  courseCode: string;
-  type: CourseType;
-  colour: string;
-}
+import { Badge, Button } from "~/components";
+import { Course, CourseType } from "~/lib/definitions";
 
 // https://tailwindcss.com/docs/content-configuration#dynamic-class-names
-function ClassCard({ title, courseCode, type, colour }: ClassCardProps) {
+function ClassCard({ title, courseCode, type, colour, options }: Course) {
   var cardColour;
   switch (type) {
     case CourseType.Lecture:
@@ -21,6 +14,9 @@ function ClassCard({ title, courseCode, type, colour }: ClassCardProps) {
     default:
       cardColour = "";
       break;
+  }
+  const setCorrespondingEvents = () => {
+    
   }
   return (
     <div className={`flex w-72 flex-col gap-1 border-r-8 p-5 py-2.5 rounded-md shadow-sm hover:bg-stone-100 ${colour}`}>

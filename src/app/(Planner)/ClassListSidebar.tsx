@@ -12,6 +12,7 @@ function ClassListSidebar() {
           courseCode={item.courseCode}
           type={item.type}
           colour={item.colour}
+          options={item.options}
         />
       ))}
     </aside>
