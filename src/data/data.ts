@@ -1,6 +1,6 @@
-import { CourseType } from "~/lib/definitions";
+import { Course, CourseType } from "~/lib/definitions";
 
-const ClassListData = [
+const ClassListData: Array<Course> = [
   {
     title: "Full Stack Development",
     courseCode: "COSC2758_2350_1354_AUSCY",
@@ -233,14 +233,14 @@ const ClassListData = [
       {
         day: "Mon",
         start: "12:30",
-        duration: "120",
+        duration: 120,
         location: "080.04.006",
         campus_description: "Melbourne City",
       },
       {
         day: "Wed",
         start: "14:30",
-        duration: "120",
+        duration: 120,
         location: "-",
         campus_description: "Canvas",
       },
@@ -255,42 +255,42 @@ const ClassListData = [
       {
         day: "Tue",
         start: "14:30",
-        duration: "120",
+        duration: 120,
         location: "056.07.098",
         campus_description: "Melbourne City",
       },
       {
         day: "Fri",
         start: "14:30",
-        duration: "120",
+        duration: 120,
         location: "056.07.098",
         campus_description: "Melbourne City",
       },
       {
         day: "Fri",
         start: "10:30",
-        duration: "120",
+        duration: 120,
         location: "056.07.098",
         campus_description: "Melbourne City",
       },
       {
         day: "Tue",
         start: "10:30",
-        duration: "120",
+        duration: 120,
         location: "057.03.002",
         campus_description: "Melbourne City",
       },
       {
         day: "Mon",
         start: "18:30",
-        duration: "120",
+        duration: 120,
         location: "-",
         campus_description: "Canvas",
       },
       {
         day: "Thu",
         start: "15:30",
-        duration: "120",
+        duration: 120,
         location: "013.03.005",
         campus_description: "Melbourne City",
       },

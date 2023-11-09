@@ -1,15 +1,17 @@
 export type Course = {
-    id: string,
-    name: string,
-    times: [Time]
+    title: string,
+    courseCode: string,
+    type: CourseType,
+    colour: string,
+    options: Array<Time>
 }
 
 export type Time = {
     day: string,
-    time: string,
+    start: string,
+    duration: number,
     location: string,
-    Campus: string,
-    Duration: string
+    campus_description: string,
 }
 export enum CourseType {
     Lecture,
