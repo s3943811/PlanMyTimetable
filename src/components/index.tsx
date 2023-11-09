@@ -5,4 +5,5 @@ export { default as ClassCardClient } from "./ClassCard/ClassCardClient";
 export { default as Timeline } from "./Calendar/Timeline";
 export { default as Day } from "./Calendar/Day";
 export { default as DayGrid } from "./Calendar/DayGrid";
+export { default as Planner } from "./Calendar/Planner";
 export { default as Button } from "./Button/Button";
