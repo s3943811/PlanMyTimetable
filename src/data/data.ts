@@ -1,11 +1,11 @@
-import { Course, CourseType } from "~/lib/definitions";
+import { Course, CourseType, ColourPalette } from "~/lib/definitions";
 
 const ClassListData: Array<Course> = [
   {
     title: "Full Stack Development",
     courseCode: "COSC2758_2350_1354_AUSCY",
     type: CourseType.Lecture,
-    colour: "border-r-purple-400",
+    colour: ColourPalette.purple,
     options: [
       {
         day: "Thu",
@@ -20,7 +20,7 @@ const ClassListData: Array<Course> = [
     title: "Full Stack Development",
     courseCode: "COSC2758_2350_1354_AUSCY",
     type: CourseType.Tutorial,
-    colour: "border-r-purple-400",
+    colour: ColourPalette.purple,
     options: [
       {
         day: "Mon",
@@ -56,7 +56,7 @@ const ClassListData: Array<Course> = [
     title: "Software Eng: Process & Tools ",
     courseCode: "COSC2299_2350_1332_AUSCY",
     type: CourseType.Lecture,
-    colour: "border-r-yellow-400",
+    colour: ColourPalette.yellow,
     options: [
       {
         day: "Tue",
@@ -78,7 +78,7 @@ const ClassListData: Array<Course> = [
     title: "Software Eng: Process & Tools ",
     courseCode: "COSC2299_2350_1332_AUSCY",
     type: CourseType.Tutorial,
-    colour: "border-r-yellow-400",
+    colour: ColourPalette.yellow,
     options: [
       {
         day: "Fri",
@@ -142,7 +142,7 @@ const ClassListData: Array<Course> = [
     title: "Operating System Principles",
     courseCode: "COSC1114_2350_1322_AUSCY",
     type: CourseType.Lecture,
-    colour: "border-r-orange-400",
+    colour: ColourPalette.orange,
     options: [
       {
         day: "Wed",
@@ -164,7 +164,7 @@ const ClassListData: Array<Course> = [
     title: "Operating System Principles",
     courseCode: "COSC1114_2350_1322_AUSCY",
     type: CourseType.Tutorial,
-    colour: "border-r-orange-400",
+    colour: ColourPalette.orange,
     options: [
       {
         day: "Fri",
@@ -214,7 +214,7 @@ const ClassListData: Array<Course> = [
     title: "Computing Theory",
     courseCode: "COSC1107_2350_1321_AUSCY",
     type: CourseType.Lecture,
-    colour: "border-r-red-400",
+    colour: ColourPalette.red,
     options: [
       {
         day: "Mon",
@@ -236,7 +236,7 @@ const ClassListData: Array<Course> = [
     title: "Computing Theory",
     courseCode: "COSC1107_2350_1321_AUSCY",
     type: CourseType.Tutorial,
-    colour: "border-r-red-400",
+    colour: ColourPalette.red,
     options: [
       {
         day: "Tue",

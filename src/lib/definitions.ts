@@ -2,7 +2,7 @@ export type Course = {
     title: string,
     courseCode: string,
     type: CourseType,
-    colour: string,
+    colour: ColourPalette,
     options: Array<Time>
 }
 
@@ -24,4 +24,11 @@ export enum Days {
     Wednesday,
     Thursday,
     Friday
+}
+
+export enum ColourPalette {
+    purple,
+    yellow,
+    orange,
+    red
 }
