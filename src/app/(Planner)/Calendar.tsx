@@ -4,7 +4,7 @@ import { Timeline, Planner } from "~/components";
 function Calendar() {
   return (
     <section className="flex w-full grow flex-row">
-      <Timeline />
+      {/* <Timeline /> */}
       <Planner />
     </section>
   );
