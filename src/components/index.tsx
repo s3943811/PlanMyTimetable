@@ -7,3 +7,4 @@ export { default as Day } from "./Calendar/Day";
 export { default as DayGrid } from "./Calendar/DayGrid";
 export { default as Planner } from "./Calendar/Planner";
 export { default as Button } from "./Button/Button";
+export { default as Event } from "./Event/Event";
