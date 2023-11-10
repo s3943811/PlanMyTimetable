@@ -2,7 +2,7 @@ import { Badge } from "~/components";
 import { Course, CourseType } from "~/lib/definitions";
 
 // https://tailwindcss.com/docs/content-configuration#dynamic-class-names
-function ClassCard({ course }: { course: Course }) {
+export default function ClassCard({ course }: { course: Course }) {
   var cardColour;
   switch (course.type) {
     case CourseType.Lecture:
@@ -26,5 +26,3 @@ function ClassCard({ course }: { course: Course }) {
     </>
   );
 }
-
-export default ClassCard;
