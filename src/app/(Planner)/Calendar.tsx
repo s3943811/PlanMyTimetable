@@ -1,5 +1,10 @@
 import React from "react";
-import { CalendarHeader, TimeSlot, Event, PreviewEvent } from "~/components";
+import {
+  CalendarHeader,
+  TimeSlot,
+  Event,
+  PreviewEventClient,
+} from "~/components";
 import { ClassListData } from "~/data/data";
 
 function Calendar() {
@@ -33,7 +38,7 @@ function Calendar() {
             />
           </React.Fragment>
         ))} */}
-        {ClassListData[1]?.options.map((time) => <PreviewEvent time={time} />)}
+        <PreviewEventClient />
       </div>
     </section>
   );
