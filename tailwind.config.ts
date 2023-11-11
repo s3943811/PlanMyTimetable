@@ -6,7 +6,7 @@ export default {
   theme: {
     extend: {
       gridTemplateRows: {
-        '48': 'repeat(48, minmax(0, 1fr))',
+        "48": "repeat(48, minmax(0, 1fr))",
       },
       fontFamily: {
         sans: ["var(--font-sans)", ...fontFamily.sans],

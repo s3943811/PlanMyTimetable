@@ -54,6 +54,25 @@ export function compareDays(day1: string, day2: Days) {
       return day1 === "Fri";
   }
 }
+export function getDayEnum(day: string) {
+  switch (day) {
+    case "Mon":
+      return Days.Monday;
+    case "Tue":
+      return Days.Tuesday;
+    case "Wed":
+      return Days.Wednesday;
+    case "Thu":
+      return Days.Thursday;
+    case "Fri":
+      return Days.Friday;
+  }
+}
+export function getRowIndex(time: string) {
+  const delimiterIndex = time.indexOf(":");
+  const hour = Number(time.substring(0, delimiterIndex));
+  return 3 + Math.ceil(hour * 2) - 10;
+}
 
 export function addMinutesToTimeString(
   time: string,
