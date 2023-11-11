@@ -82,3 +82,16 @@ export const rowStart: Record<number, string> = {
   38: "row-start-[38]",
   39: "row-start-[39]",
 };
+export const rowSpans: Record<number, string> = {
+  1: "row-span-1",
+  2: "row-span-2",
+  3: "row-span-3",
+  4: "row-span-4",
+  5: "row-span-5",
+  6: "row-span-6",
+};
+
+export enum TimeSlotVariant {
+  normal,
+  placeholder,
+}

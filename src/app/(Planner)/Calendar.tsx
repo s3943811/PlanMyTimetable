@@ -1,11 +1,12 @@
 import React from "react";
-import { CalendarHeader, TimeSlot, Event } from "~/components";
+import { CalendarHeader, TimeSlot, Event, PreviewEvent } from "~/components";
 import { ClassListData } from "~/data/data";
+import { TimeSlotVariant } from "~/lib/definitions";
 
 function Calendar() {
   return (
     <section className="flex w-full grow flex-row">
-      <div className="grid w-full grid-cols-[auto,repeat(5,1fr)] grid-rows-[2.5rem,repeat(38,50px)]">
+      <div className="grid w-full grid-cols-[auto,repeat(5,1fr)] grid-rows-[2.5rem,repeat(38,2.35rem)]">
         <CalendarHeader />
         {Array.from({ length: 38 }, (_, index) => (
           <React.Fragment key={index}>
@@ -16,14 +17,34 @@ function Calendar() {
             >
               {index % 2 !== 1 && `${index / 2 + 5}:00`}
             </div>
-            <TimeSlot col={2} row={2 + index} />
-            <TimeSlot col={3} row={2 + index} />
-            <TimeSlot col={4} row={2 + index} />
-            <TimeSlot col={5} row={2 + index} />
-            <TimeSlot col={6} row={2 + index} />
+            <TimeSlot
+              col={2}
+              row={2 + index}
+              variantType={TimeSlotVariant.placeholder}
+            />
+            <TimeSlot
+              col={3}
+              row={2 + index}
+              variantType={TimeSlotVariant.placeholder}
+            />
+            <TimeSlot
+              col={4}
+              row={2 + index}
+              variantType={TimeSlotVariant.placeholder}
+            />
+            <TimeSlot
+              col={5}
+              row={2 + index}
+              variantType={TimeSlotVariant.placeholder}
+            />
+            <TimeSlot
+              col={6}
+              row={2 + index}
+              variantType={TimeSlotVariant.placeholder}
+            />
           </React.Fragment>
         ))}
-        {ClassListData.map((item) => (
+        {/* {ClassListData.map((item) => (
           <React.Fragment key={item.courseCode + item.type}>
             <Event
               title={item.title}
@@ -32,7 +53,8 @@ function Calendar() {
               time={item.options[0]!}
             />
           </React.Fragment>
-        ))}
+        ))} */}
+        {ClassListData[1]?.options.map((time) => <PreviewEvent time={time} />)}
       </div>
     </section>
   );
