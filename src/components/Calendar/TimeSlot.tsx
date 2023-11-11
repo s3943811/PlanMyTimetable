@@ -1,22 +1,10 @@
-import { TimeSlotVariant, colStart, rowStart } from "~/lib/definitions";
+import { colStart, rowStart } from "~/lib/definitions";
 import React from "react";
 
-export default function TimeSlot({
-  col,
-  row,
-  variantType,
-}: {
-  col: number;
-  row: number;
-  variantType: TimeSlotVariant;
-}) {
-  const variant: Record<TimeSlotVariant, string> = {
-    0: "bg-inherit",
-    1: "border-stone-300/80 bg-stone-300/50",
-  };
+export default function TimeSlot({ col, row }: { col: number; row: number }) {
   return (
     <div
-      className={`${colStart[col]} ${rowStart[row]} border-b border-r  ${variant[variantType]}`}
+      className={`${colStart[col]} ${rowStart[row]} border-b border-r border-slate-100`}
     ></div>
   );
 }

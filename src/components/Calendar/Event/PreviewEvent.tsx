@@ -9,7 +9,7 @@ export default function PreviewEvent({ time }: { time: Time }) {
         rowStart[getRowIndex(time.start)]
       } ${
         rowSpans[rowSpan]
-      } m-0.5 rounded border-[0.18rem] border-dashed bg-white/80 px-3 py-2`}
+      } m-0.5 rounded border-[0.18rem] border-dashed bg-slate-300/20  px-3 py-2`}
     ></div>
   );
 }

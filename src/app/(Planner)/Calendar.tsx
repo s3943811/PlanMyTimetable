@@ -1,7 +1,6 @@
 import React from "react";
 import { CalendarHeader, TimeSlot, Event, PreviewEvent } from "~/components";
 import { ClassListData } from "~/data/data";
-import { TimeSlotVariant } from "~/lib/definitions";
 
 function Calendar() {
   return (
@@ -17,31 +16,11 @@ function Calendar() {
             >
               {index % 2 !== 1 && `${index / 2 + 5}:00`}
             </div>
-            <TimeSlot
-              col={2}
-              row={2 + index}
-              variantType={TimeSlotVariant.placeholder}
-            />
-            <TimeSlot
-              col={3}
-              row={2 + index}
-              variantType={TimeSlotVariant.placeholder}
-            />
-            <TimeSlot
-              col={4}
-              row={2 + index}
-              variantType={TimeSlotVariant.placeholder}
-            />
-            <TimeSlot
-              col={5}
-              row={2 + index}
-              variantType={TimeSlotVariant.placeholder}
-            />
-            <TimeSlot
-              col={6}
-              row={2 + index}
-              variantType={TimeSlotVariant.placeholder}
-            />
+            <TimeSlot col={2} row={2 + index} />
+            <TimeSlot col={3} row={2 + index} />
+            <TimeSlot col={4} row={2 + index} />
+            <TimeSlot col={5} row={2 + index} />
+            <TimeSlot col={6} row={2 + index} />
           </React.Fragment>
         ))}
         {/* {ClassListData.map((item) => (

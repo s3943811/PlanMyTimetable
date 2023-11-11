@@ -90,8 +90,3 @@ export const rowSpans: Record<number, string> = {
   5: "row-span-5",
   6: "row-span-6",
 };
-
-export enum TimeSlotVariant {
-  normal,
-  placeholder,
-}
