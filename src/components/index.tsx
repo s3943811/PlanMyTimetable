@@ -6,4 +6,5 @@ export { default as DayGrid } from "./Calendar/DayGrid";
 export { default as CalendarHeader } from "./Calendar/CalendarHeader";
 export { default as TimeSlot } from "./Calendar/TimeSlot";
 export { default as Button } from "./Button/Button";
-export { default as Event } from "./Event/Event";
+export { default as Event } from "./Calendar/Event/Event";
+export { default as PreviewEvent } from "./Calendar/Event/PreviewEvent";

@@ -4,6 +4,7 @@ import {
   ColourPalette,
   colStart,
   rowStart,
+  rowSpans,
 } from "~/lib/definitions";
 import {
   addMinutesToTimeString,
@@ -25,14 +26,7 @@ export default function Event({ title, type, colour, time }: EventProps) {
     3: "bg-red-400/40 text-red-800 shadow-red-100 border-l-[7px] border-l-red-500",
   };
   const rowSpan: number = time.duration / 30;
-  const rowSpans: Record<number, string> = {
-    1: "row-span-1",
-    2: "row-span-2",
-    3: "row-span-3",
-    4: "row-span-4",
-    5: "row-span-5",
-    6: "row-span-6",
-  };
+
   return (
     <div
       className={`${colStart[getDayEnum(time.day)! + 2]} ${
