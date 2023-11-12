@@ -1,10 +1,10 @@
 "use client";
 import { DragOverlay } from "@dnd-kit/core";
 import { usePreview } from "~/contexts/PreviewContext";
-import ClassCard from "./ClassCard";
+import ClassCard from "../ClassCard/ClassCard";
 import { colourVariants, CourseType } from "~/lib/definitions";
 
-export default function DragOverlayClassCard() {
+export default function ClassCardDragOverlay() {
   const { activeCourse } = usePreview();
   return (
     <DragOverlay
