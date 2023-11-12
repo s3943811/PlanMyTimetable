@@ -16,7 +16,7 @@ export default function Calendar() {
         {Array.from({ length: 38 }, (_, index) => (
           <React.Fragment key={index}>
             <div
-              className={`sticky left-0 col-start-[1] ${
+              className={`col-start-[1] ${
                 "row-start-[" + [2 + index] + "]"
               } border-r border-slate-100 bg-white p-1.5 text-right text-xs font-medium uppercase text-slate-400`}
             >

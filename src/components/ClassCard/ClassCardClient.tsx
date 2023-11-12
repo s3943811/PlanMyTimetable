@@ -33,7 +33,7 @@ export default function ClassCardClient({
       ref={setNodeRef}
       {...listeners}
       {...attributes}
-      className={`${
+      className={`z-50 ${
         isDragging && "opacity-50"
       } flex w-72 flex-row gap-1 rounded-md border-r-[6.5px] px-2.5 py-2.5 shadow-sm ${
         disabled ? "hover:cursor-no-drop" : "hover:cursor-grab"

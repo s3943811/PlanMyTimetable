@@ -4,7 +4,7 @@ import { ClassListData } from "~/data/data";
 
 export default function ClassListSidebar() {
   return (
-    <aside className="flex min-h-screen w-64 min-w-fit flex-col gap-3 border-r p-3">
+    <aside className="sticky top-0 flex h-screen min-h-screen w-64 min-w-fit flex-col gap-3 border-r p-3">
       {ClassListData.map((item) => (
         <ClassCardClient
           key={item.courseCode + CourseType[item.type]}
