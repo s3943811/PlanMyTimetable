@@ -9,4 +9,4 @@ export { default as ClearPreferences } from "./Button/ClearPreferenceButton";
 export { default as Event } from "./Calendar/Event/Event";
 export { default as EventList } from "./Calendar/Event/EventList";
 export { default as PreviewEventClient } from "./Calendar/Event/PreviewEventClient";
-export { default as DragOverlay } from "./ClassCard/DragOverlayClassCard";
+export { default as DragOverlay } from "./DragOverlay/DragOverlay";

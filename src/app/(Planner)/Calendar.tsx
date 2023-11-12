@@ -2,11 +2,9 @@ import React from "react";
 import {
   CalendarHeader,
   TimeSlot,
-  Event,
   PreviewEventClient,
   EventList,
 } from "~/components";
-import { ClassListData } from "~/data/data";
 
 export default function Calendar() {
   return (
@@ -29,16 +27,6 @@ export default function Calendar() {
             <TimeSlot col={6} row={2 + index} />
           </React.Fragment>
         ))}
-        {/* {ClassListData.map((item) => (
-          <React.Fragment key={item.courseCode + item.type}>
-            <Event
-              title={item.title}
-              type={item.type}
-              colour={item.colour}
-              time={item.options[0]!}
-            />
-          </React.Fragment>
-        ))} */}
         <EventList />
         <PreviewEventClient />
       </div>
