@@ -1,4 +1,4 @@
-import { ClassCard, ClassCardClient } from "~/components";
+import { ClassCard, ClassCardClient, DragOverlay } from "~/components";
 import { CourseType } from "~/lib/definitions";
 import { ClassListData } from "~/data/data";
 
@@ -16,6 +16,7 @@ function ClassListSidebar() {
           />
         </ClassCardClient>
       ))}
+      <DragOverlay />
     </aside>
   );
 }
