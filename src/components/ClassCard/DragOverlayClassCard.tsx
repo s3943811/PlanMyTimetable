@@ -3,7 +3,8 @@ import { DragOverlay } from "@dnd-kit/core";
 import { usePreview } from "~/contexts/PreviewContext";
 import ClassCard from "./ClassCard";
 import { colourVariants, CourseType } from "~/lib/definitions";
-function DragOverlayClassCard() {
+
+export default function DragOverlayClassCard() {
   const { activeCourse } = usePreview();
   return (
     <DragOverlay>
@@ -22,5 +23,3 @@ function DragOverlayClassCard() {
     </DragOverlay>
   );
 }
-
-export default DragOverlayClassCard;

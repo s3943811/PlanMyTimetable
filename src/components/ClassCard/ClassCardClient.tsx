@@ -1,17 +1,14 @@
 "use client";
-import { usePreview } from "~/contexts/PreviewContext";
 import { Course, colourVariants } from "~/lib/definitions";
-import { useRef, useEffect } from "react";
 import { useDraggable } from "@dnd-kit/core";
 
-function ClassCardClient({
+export default function ClassCardClient({
   children,
   course,
 }: {
   children: React.ReactNode;
   course: Course;
 }) {
-  const { activeCourse } = usePreview();
   const { attributes, listeners, setNodeRef, transform, isDragging } =
     useDraggable({
       id: course.courseCode + course.type,
@@ -36,5 +33,3 @@ function ClassCardClient({
     </div>
   );
 }
-
-export default ClassCardClient;

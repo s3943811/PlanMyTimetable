@@ -2,7 +2,7 @@ import { ClassCard, ClassCardClient, DragOverlay } from "~/components";
 import { CourseType } from "~/lib/definitions";
 import { ClassListData } from "~/data/data";
 
-function ClassListSidebar() {
+export default function ClassListSidebar() {
   return (
     <aside className="flex min-h-screen w-64 min-w-fit flex-col gap-3 border-r p-3">
       {ClassListData.map((item) => (
@@ -20,5 +20,3 @@ function ClassListSidebar() {
     </aside>
   );
 }
-
-export default ClassListSidebar;

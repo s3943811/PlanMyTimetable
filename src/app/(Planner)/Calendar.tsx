@@ -7,7 +7,7 @@ import {
 } from "~/components";
 import { ClassListData } from "~/data/data";
 
-function Calendar() {
+export default function Calendar() {
   return (
     <section className="flex w-full grow flex-row">
       <div className="grid w-full grid-cols-[auto,repeat(5,1fr)] grid-rows-[2.5rem,repeat(38,2.35rem)]">
@@ -43,5 +43,3 @@ function Calendar() {
     </section>
   );
 }
-
-export default Calendar;

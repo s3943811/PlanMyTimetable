@@ -1,9 +1,9 @@
 "use client";
-
 import { usePreview } from "~/contexts/PreviewContext";
 import { colStart, rowStart, rowSpans, Time } from "~/lib/definitions";
 import { getDayEnum, getRowIndex } from "~/lib/functions";
 import React from "react";
+
 export default function PreviewEventClient() {
   const { activeCourse } = usePreview();
 
