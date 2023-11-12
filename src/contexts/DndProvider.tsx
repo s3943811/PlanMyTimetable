@@ -6,7 +6,7 @@ import { restrictToWindowEdges } from "@dnd-kit/modifiers";
 import { Preference } from "~/lib/definitions";
 import { useSearchParams, usePathname, useRouter } from "next/navigation";
 export function DndProvider({ children }: { children: React.ReactNode }) {
-  const { setActiveCourse } = usePreview();
+  const { setActiveCourse, events, setEvents } = usePreview();
   const router = useRouter();
   const pathname = usePathname();
   const searchParams = useSearchParams();
@@ -29,18 +29,62 @@ export function DndProvider({ children }: { children: React.ReactNode }) {
         colour: active.data.current?.course.colour,
         time: over.data.current?.time,
       };
-      const newPref = createQueryString(
-        "pref",
-        encodeURIComponent(JSON.stringify(preference)),
+      const currentPref = searchParams.getAll("pref");
+      /**
+       * Search the events array and determine wherther the element being dragged matches an event
+       * This was done so that elements can be dragged within the calendar and not be duplicated but rather moved
+       */
+      const isAlreadyEvent = events.find(
+        (course) =>
+          course.title === active.data.current?.course.title &&
+          course.courseCode === active.data.current?.course.courseCode &&
+          course.type === active.data.current?.course.type &&
+          course.colour === active.data.current?.course.colour,
       );
-      const currentPref = searchParams.get("pref");
-      if (currentPref) {
-        const url = `${pathname}?${searchParams}&${newPref}`;
-        console.log(url);
-        router.push(url);
+      if (isAlreadyEvent) {
+        /**
+         * If we determine we have an element that has already been dropped once
+         * we then decode the url params and replace the element with the new preference and re-encode it
+         * replacing the previous string
+         * uing the setState (setEvents) is key has the useEffect is looking for if the length of currentPref (searchParams.getAll("pref"))
+         * changes, which dosen't occur here since its already been dropped
+         * this was done to keep the other preferences
+         */
+        let parsedPrefs = currentPref.map((item) =>
+          JSON.parse(decodeURIComponent(item)),
+        );
+        parsedPrefs = parsedPrefs.map((item) => {
+          if (
+            item.title === preference.title &&
+            item.courseCode === preference.courseCode &&
+            item.type === preference.type &&
+            item.colour === preference.colour
+          ) {
+            return preference;
+          }
+          return item;
+        });
+        const newPrefs = parsedPrefs.map((element) => {
+          return createQueryString(
+            "pref",
+            encodeURIComponent(JSON.stringify(element)),
+          );
+        });
+        router.replace(`${pathname}?${newPrefs.join("&")}`);
+        setEvents(parsedPrefs);
       } else {
-        console.log("3");
-        router.push(`${pathname}?${searchParams}&${newPref}`);
+        const newPref = createQueryString(
+          "pref",
+          encodeURIComponent(JSON.stringify(preference)),
+        );
+        if (currentPref) {
+          const url = `${pathname}?${searchParams}&${newPref}`;
+          console.log(url);
+          router.push(url);
+        } else {
+          console.log("3");
+          router.push(`${pathname}?${searchParams}&${newPref}`);
+        }
       }
     }
     setActiveCourse(null);
