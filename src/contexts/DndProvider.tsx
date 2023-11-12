@@ -48,11 +48,15 @@ export function DndProvider({ children }: { children: React.ReactNode }) {
   function handleDragStart(event: DragStartEvent) {
     setActiveCourse(event.active.data.current?.course);
   }
+  function handleDragCancel() {
+    setActiveCourse(null);
+  }
 
   return (
     <DndContext
       onDragEnd={handleDragEnd}
       onDragStart={handleDragStart}
+      onDragCancel={handleDragCancel}
       modifiers={[restrictToWindowEdges]}
     >
       {children}
