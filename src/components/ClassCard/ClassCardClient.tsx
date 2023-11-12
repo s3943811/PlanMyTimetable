@@ -15,6 +15,10 @@ export default function ClassCardClient({
       data: {
         course: course,
       },
+      attributes: {
+        role: "div",
+        tabIndex: 0,
+      },
     });
 
   return (
@@ -24,9 +28,9 @@ export default function ClassCardClient({
       {...attributes}
       className={`${
         isDragging && "opacity-50"
-      } flex w-72 flex-col gap-1 rounded-md border-r-[6.5px] p-5 py-2.5 shadow-sm hover:bg-stone-100 ${
+      } flex w-72 flex-row gap-1 rounded-md border-r-[6.5px] px-2.5 py-2.5 shadow-sm hover:cursor-grab hover:bg-stone-100 ${
         colourVariants[course.colour]
-      } focus:ring-1 focus:ring-stone-200 active:bg-stone-100`}
+      } items-center focus:ring-1 focus:ring-stone-200 active:cursor-grab active:bg-stone-100`}
       tabIndex={0}
     >
       {children}
