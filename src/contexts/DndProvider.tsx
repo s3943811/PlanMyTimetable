@@ -1,12 +1,12 @@
 "use client";
 import { DndContext, DragEndEvent, DragStartEvent } from "@dnd-kit/core";
 import { useCallback } from "react";
-import { usePreview } from "./PreviewContext";
-import { restrictToWindowEdges } from "@dnd-kit/modifiers";
+import { usePreview, DragType } from "./PreviewContext";
+import { restrictToWindowEdges, snapCenterToCursor } from "@dnd-kit/modifiers";
 import { Preference } from "~/lib/definitions";
 import { useSearchParams, usePathname, useRouter } from "next/navigation";
 export function DndProvider({ children }: { children: React.ReactNode }) {
-  const { setActiveCourse, events, setEvents } = usePreview();
+  const { setActiveCourse, events, setEvents, setDragType } = usePreview();
   const router = useRouter();
   const pathname = usePathname();
   const searchParams = useSearchParams();
@@ -90,6 +90,11 @@ export function DndProvider({ children }: { children: React.ReactNode }) {
     setActiveCourse(null);
   }
   function handleDragStart(event: DragStartEvent) {
+    setDragType(
+      event.active.id?.toString().includes("event")
+        ? DragType.event
+        : DragType.course,
+    );
     setActiveCourse(event.active.data.current?.course);
   }
   function handleDragCancel() {
@@ -101,7 +106,7 @@ export function DndProvider({ children }: { children: React.ReactNode }) {
       onDragEnd={handleDragEnd}
       onDragStart={handleDragStart}
       onDragCancel={handleDragCancel}
-      modifiers={[restrictToWindowEdges]}
+      modifiers={[restrictToWindowEdges, snapCenterToCursor]}
     >
       {children}
     </DndContext>

@@ -10,18 +10,31 @@ interface PreviewContext {
   setActiveCourse: (course: Course | null) => void;
   events: Array<Preference>;
   setEvents: (preference: Array<Preference>) => void;
+  dragType: DragType | null;
+  setDragType: (dragType: DragType | null) => void;
+}
+export enum DragType {
+  event,
+  course,
 }
 const PreviewContext = createContext({} as PreviewContext);
-
 export function usePreview() {
   return useContext(PreviewContext);
 }
 export function PreviewProvider({ children }: PreviewProviderProps) {
   const [activeCourse, setActiveCourse] = useState<Course | null>(null);
   const [events, setEvents] = useState<Array<Preference>>([]);
+  const [dragType, setDragType] = useState<DragType | null>(null);
   return (
     <PreviewContext.Provider
-      value={{ activeCourse, setActiveCourse, events, setEvents }}
+      value={{
+        activeCourse,
+        setActiveCourse,
+        events,
+        setEvents,
+        dragType,
+        setDragType,
+      }}
     >
       {children}
     </PreviewContext.Provider>

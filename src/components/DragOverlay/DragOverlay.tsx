@@ -1,11 +1,11 @@
 "use client";
 import { Preference } from "~/lib/definitions";
-import { usePreview } from "~/contexts/PreviewContext";
+import { usePreview, DragType } from "~/contexts/PreviewContext";
 import ClassCardDragOverlay from "./ClassCardDragOverlay";
 import EventDragOverlay from "./EventDragOverlay";
 
 export default function DragOverlay() {
-  const { events, activeCourse } = usePreview();
+  const { events, activeCourse, dragType } = usePreview();
   const event: Preference | undefined = events.find(
     (course) =>
       course.title === activeCourse?.title &&
@@ -13,5 +13,9 @@ export default function DragOverlay() {
       course.type === activeCourse?.type &&
       course.colour === activeCourse?.colour,
   );
-  return event ? <EventDragOverlay /> : <ClassCardDragOverlay />;
+  return event && dragType === DragType.event ? (
+    <EventDragOverlay />
+  ) : (
+    <ClassCardDragOverlay />
+  );
 }
