@@ -13,6 +13,14 @@ export type Time = {
   location: string;
   campus_description: string;
 };
+
+export type Preference = {
+  title: string;
+  courseCode: string;
+  type: CourseType;
+  colour: ColourPalette;
+  time: Time;
+};
 export enum CourseType {
   Lecture,
   Tutorial,

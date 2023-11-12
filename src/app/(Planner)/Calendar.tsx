@@ -4,6 +4,7 @@ import {
   TimeSlot,
   Event,
   PreviewEventClient,
+  EventList,
 } from "~/components";
 import { ClassListData } from "~/data/data";
 
@@ -38,6 +39,7 @@ export default function Calendar() {
             />
           </React.Fragment>
         ))} */}
+        <EventList />
         <PreviewEventClient />
       </div>
     </section>

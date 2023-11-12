@@ -6,5 +6,6 @@ export { default as CalendarHeader } from "./Calendar/CalendarHeader";
 export { default as TimeSlot } from "./Calendar/TimeSlot";
 export { default as Button } from "./Button/Button";
 export { default as Event } from "./Calendar/Event/Event";
+export { default as EventList } from "./Calendar/Event/EventList";
 export { default as PreviewEventClient } from "./Calendar/Event/PreviewEventClient";
 export { default as DragOverlay } from "./ClassCard/DragOverlayClassCard";
