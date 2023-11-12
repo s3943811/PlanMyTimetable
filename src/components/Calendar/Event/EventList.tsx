@@ -1,6 +1,7 @@
 "use client";
 import { useSearchParams } from "next/navigation";
 import Event from "./Event";
+import EventClient from "./EventClient";
 import { useEffect } from "react";
 import React from "react";
 import { usePreview } from "~/contexts/PreviewContext";
@@ -18,12 +19,14 @@ export default function EventList() {
 
   return events.map((item) => (
     <React.Fragment key={item.courseCode + item.type}>
-      <Event
-        title={item.title}
-        type={item.type}
-        colour={item.colour}
-        time={item.time}
-      />
+      <EventClient preference={item}>
+        <Event
+          title={item.title}
+          type={item.type}
+          colour={item.colour}
+          time={item.time}
+        />
+      </EventClient>
     </React.Fragment>
   ));
 }
