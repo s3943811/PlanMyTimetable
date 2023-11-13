@@ -10,7 +10,7 @@ export default function ClearPreferencesButton() {
   return (
     <Button
       onClick={() => {
-        router.push(`${pathname}`);
+        router.push(`${pathname}`, { scroll: false });
       }}
     >
       <MdClear /> Clear

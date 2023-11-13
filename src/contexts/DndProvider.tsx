@@ -1,15 +1,31 @@
 "use client";
-import { DndContext, DragEndEvent, DragStartEvent } from "@dnd-kit/core";
+import {
+  DndContext,
+  DragEndEvent,
+  DragStartEvent,
+  MouseSensor,
+  TouchSensor,
+  KeyboardSensor,
+  useSensor,
+  useSensors,
+} from "@dnd-kit/core";
 import { useCallback } from "react";
 import { usePreview, DragType } from "./PreviewContext";
-import { restrictToWindowEdges, snapCenterToCursor } from "@dnd-kit/modifiers";
+import { restrictToWindowEdges } from "@dnd-kit/modifiers";
 import { Preference } from "~/lib/definitions";
 import { useSearchParams, usePathname, useRouter } from "next/navigation";
 export function DndProvider({ children }: { children: React.ReactNode }) {
   const { setActiveCourse, events, setEvents, setDragType } = usePreview();
+  const sensors = useSensors(
+    useSensor(MouseSensor),
+    useSensor(TouchSensor),
+    useSensor(KeyboardSensor),
+  );
+
   const router = useRouter();
   const pathname = usePathname();
   const searchParams = useSearchParams();
+
   const createQueryString = useCallback(
     (name: string, value: string) => {
       const params = new URLSearchParams(searchParams);
@@ -19,6 +35,7 @@ export function DndProvider({ children }: { children: React.ReactNode }) {
     },
     [searchParams],
   );
+
   function handleDragEnd(event: DragEndEvent) {
     const { active, over } = event;
     if (over && over.data.current?.accepts === active.data.current?.course) {
@@ -70,7 +87,7 @@ export function DndProvider({ children }: { children: React.ReactNode }) {
             encodeURIComponent(JSON.stringify(element)),
           );
         });
-        router.replace(`${pathname}?${newPrefs.join("&")}`);
+        router.replace(`${pathname}?${newPrefs.join("&")}`, { scroll: false });
         setEvents(parsedPrefs);
       } else {
         const newPref = createQueryString(
@@ -80,15 +97,18 @@ export function DndProvider({ children }: { children: React.ReactNode }) {
         if (currentPref) {
           const url = `${pathname}?${searchParams}&${newPref}`;
           console.log(url);
-          router.push(url);
+          router.push(url, { scroll: false });
         } else {
           console.log("3");
-          router.push(`${pathname}?${searchParams}&${newPref}`);
+          router.push(`${pathname}?${searchParams}&${newPref}`, {
+            scroll: false,
+          });
         }
       }
     }
     setActiveCourse(null);
   }
+
   function handleDragStart(event: DragStartEvent) {
     setDragType(
       event.active.id?.toString().includes("event")
@@ -97,16 +117,18 @@ export function DndProvider({ children }: { children: React.ReactNode }) {
     );
     setActiveCourse(event.active.data.current?.course);
   }
+
   function handleDragCancel() {
     setActiveCourse(null);
   }
 
   return (
     <DndContext
+      sensors={sensors}
       onDragEnd={handleDragEnd}
       onDragStart={handleDragStart}
       onDragCancel={handleDragCancel}
-      modifiers={[restrictToWindowEdges, snapCenterToCursor]}
+      modifiers={[restrictToWindowEdges]}
     >
       {children}
     </DndContext>
