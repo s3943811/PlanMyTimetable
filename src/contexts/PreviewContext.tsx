@@ -12,6 +12,8 @@ interface PreviewContext {
   setEvents: (preference: Array<Preference>) => void;
   dragType: DragType | null;
   setDragType: (dragType: DragType | null) => void;
+  over: boolean;
+  setOver: (over: boolean) => void;
 }
 export enum DragType {
   event,
@@ -25,6 +27,8 @@ export function PreviewProvider({ children }: PreviewProviderProps) {
   const [activeCourse, setActiveCourse] = useState<Course | null>(null);
   const [events, setEvents] = useState<Array<Preference>>([]);
   const [dragType, setDragType] = useState<DragType | null>(null);
+  const [over, setOver] = useState<boolean>(false);
+  // console.log(over);
   return (
     <PreviewContext.Provider
       value={{
@@ -34,6 +38,8 @@ export function PreviewProvider({ children }: PreviewProviderProps) {
         setEvents,
         dragType,
         setDragType,
+        over,
+        setOver,
       }}
     >
       {children}
