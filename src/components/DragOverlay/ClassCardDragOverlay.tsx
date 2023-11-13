@@ -6,7 +6,6 @@ import { colourVariants, CourseType } from "~/lib/definitions";
 
 export default function ClassCardDragOverlay() {
   const { activeCourse, over } = usePreview();
-  console.log(over);
   return (
     <DragOverlay
       className={`z-50 flex w-72 flex-row items-center gap-1 rounded-md border-r-[6.5px] bg-stone-100 px-2.5 py-2.5 shadow-sm ${

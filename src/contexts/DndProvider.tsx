@@ -98,10 +98,8 @@ export function DndProvider({ children }: { children: React.ReactNode }) {
         );
         if (currentPref) {
           const url = `${pathname}?${searchParams}&${newPref}`;
-          console.log(url);
           router.push(url, { scroll: false });
         } else {
-          console.log("3");
           router.push(`${pathname}?${searchParams}&${newPref}`, {
             scroll: false,
           });

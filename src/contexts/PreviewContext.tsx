@@ -28,7 +28,6 @@ export function PreviewProvider({ children }: PreviewProviderProps) {
   const [events, setEvents] = useState<Array<Preference>>([]);
   const [dragType, setDragType] = useState<DragType | null>(null);
   const [over, setOver] = useState<boolean>(false);
-  // console.log(over);
   return (
     <PreviewContext.Provider
       value={{
