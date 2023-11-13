@@ -6,7 +6,7 @@ import { colStart, rowStart, rowSpans, Preference } from "~/lib/definitions";
 import { getDayEnum, getRowIndex } from "~/lib/functions";
 
 export default function EventDragOverlay() {
-  const { events, activeCourse } = usePreview();
+  const { events, activeCourse, over } = usePreview();
   const event: Preference = events.find(
     (course) =>
       course.title === activeCourse?.title &&
@@ -30,7 +30,9 @@ export default function EventDragOverlay() {
         rowStart[getRowIndex(event.time.start)]
       } ${rowSpans[rowSpan]} m-0.5 flex flex-col overflow-hidden ${
         colourVariants[event.colour]
-      } rounded px-3 py-2`}
+      } rounded px-3 py-2 ${
+        over ? "hover:cursor-copy" : "hover:cursor-grabbing"
+      }`}
     >
       {activeCourse && (
         <Event

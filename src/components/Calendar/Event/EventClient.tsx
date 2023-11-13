@@ -24,7 +24,7 @@ export default function EventClient({
       course.type === preference.type &&
       course.colour === preference.colour,
   );
-  const { attributes, listeners, setNodeRef, isDragging } = useDraggable({
+  const { attributes, listeners, setNodeRef, isDragging, over } = useDraggable({
     id: "event" + preference.courseCode + preference.type,
     data: {
       course: course,
@@ -47,7 +47,7 @@ export default function EventClient({
         isDragging && "opacity-50"
       } m-0.5 flex flex-col overflow-hidden ${
         colourVariants[preference.colour]
-      } rounded px-3 py-2 hover:cursor-grab`}
+      } rounded px-3 py-2 ${over ? "hover:cursor-copy" : "hover:cursor-grab"}`}
     >
       {children}
     </div>

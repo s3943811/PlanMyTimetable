@@ -8,6 +8,7 @@ import {
   KeyboardSensor,
   useSensor,
   useSensors,
+  DragOverEvent,
 } from "@dnd-kit/core";
 import { useCallback } from "react";
 import { usePreview, DragType } from "./PreviewContext";
@@ -15,7 +16,8 @@ import { restrictToWindowEdges } from "@dnd-kit/modifiers";
 import { Preference } from "~/lib/definitions";
 import { useSearchParams, usePathname, useRouter } from "next/navigation";
 export function DndProvider({ children }: { children: React.ReactNode }) {
-  const { setActiveCourse, events, setEvents, setDragType } = usePreview();
+  const { setActiveCourse, events, setEvents, setDragType, setOver } =
+    usePreview();
   const sensors = useSensors(
     useSensor(MouseSensor),
     useSensor(TouchSensor),
@@ -106,6 +108,7 @@ export function DndProvider({ children }: { children: React.ReactNode }) {
         }
       }
     }
+    setOver(false);
     setActiveCourse(null);
   }
 
@@ -120,6 +123,15 @@ export function DndProvider({ children }: { children: React.ReactNode }) {
 
   function handleDragCancel() {
     setActiveCourse(null);
+    setOver(false);
+  }
+
+  function handleDragOver(event: DragOverEvent) {
+    if (event.over) {
+      setOver(true);
+    } else {
+      setOver(false);
+    }
   }
 
   return (
@@ -128,6 +140,7 @@ export function DndProvider({ children }: { children: React.ReactNode }) {
       onDragEnd={handleDragEnd}
       onDragStart={handleDragStart}
       onDragCancel={handleDragCancel}
+      onDragOver={handleDragOver}
       modifiers={[restrictToWindowEdges]}
     >
       {children}
