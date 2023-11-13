@@ -32,7 +32,7 @@ function PreviewEvent({ time, course }: { time: Time; course: Course }) {
       ${
         isOver
           ? "border-[0.19rem] border-dashed border-green-500 bg-green-500/40"
-          : "border-[0.18rem] border-dashed bg-slate-300/20"
+          : "border-[0.18rem] border-dashed bg-slate-300/30"
       }
        m-0.5 rounded px-3 py-2 hover:cursor-copy`}
     ></div>
