@@ -8,6 +8,14 @@ export default {
       gridTemplateRows: {
         "48": "repeat(48, minmax(0, 1fr))",
       },
+      fontSize: {
+        md: [
+          "1.125rem",
+          {
+            lineHeight: "1.625",
+          },
+        ],
+      },
       fontFamily: {
         sans: ["var(--font-sans)", ...fontFamily.sans],
       },
