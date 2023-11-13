@@ -8,6 +8,7 @@ import { useCallback } from "react";
 import { Popover } from "react-tiny-popover";
 import { useState } from "react";
 import { ClassListData } from "~/data/data";
+import { ClearPreferences } from "..";
 
 export default function AllocatedPopover() {
   const colourVariants = {
@@ -29,15 +30,27 @@ export default function AllocatedPopover() {
         onClickOutside={() => setIsOpen(false)}
         content={
           <div className="flex w-[17rem] flex-col items-center gap-1 rounded-lg border bg-white p-3 shadow-lg">
-            {events.map((event, index) => (
-              <Badge
-                key={event.courseCode + event.type}
-                className={`${colourVariants[event.colour]} items-center gap-1`}
-              >
-                {`${event.title} - ${CourseType[event.type]}`}
-                <Remove index={index} colour={event.colour} />
-              </Badge>
-            ))}
+            {events.length === 0 ? (
+              <p className="text-sm">
+                Nothing allocated. To allocate a course drag it onto a event in
+                the calendar.
+              </p>
+            ) : (
+              <>
+                {events.map((event, index) => (
+                  <Badge
+                    key={event.courseCode + event.type}
+                    className={`${
+                      colourVariants[event.colour]
+                    } items-center gap-1`}
+                  >
+                    {`${event.title} - ${CourseType[event.type]}`}
+                    <Remove index={index} colour={event.colour} />
+                  </Badge>
+                ))}
+                <ClearPreferences setIsOpen={setIsOpen} />
+              </>
+            )}
           </div>
         }
       >
@@ -64,7 +77,7 @@ function Remove({ index, colour }: { index: number; colour: ColourPalette }) {
     3: "hover:bg-red-50/60",
   };
 
-  const { setEvents, events } = usePreview();
+  const { events } = usePreview();
 
   const createQueryString = useCallback(
     (name: string, value: string) => {
@@ -86,7 +99,6 @@ function Remove({ index, colour }: { index: number; colour: ColourPalette }) {
       );
     });
     router.replace(`${pathname}?${newPrefs.join("&")}`, { scroll: false });
-    setEvents(newEvents);
   };
   return (
     <button
