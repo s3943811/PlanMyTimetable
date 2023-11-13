@@ -1,6 +1,5 @@
 import Link from "next/link";
 import { BsCalendar3 } from "react-icons/bs";
-import { ClearPreferences } from "..";
 
 function Navbar() {
   return (
@@ -14,7 +13,6 @@ function Navbar() {
           Home
         </Link>
       </div>
-      <ClearPreferences />
     </nav>
   );
 }
