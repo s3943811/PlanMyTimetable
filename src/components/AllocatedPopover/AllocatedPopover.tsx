@@ -4,7 +4,7 @@ import Badge from "../Badge/Badge";
 import { ColourPalette, CourseType } from "~/lib/definitions";
 import { HiOutlineX, HiChevronUp, HiChevronDown } from "react-icons/hi";
 import { useSearchParams, usePathname, useRouter } from "next/navigation";
-import { useCallback } from "react";
+import { SetStateAction, useCallback } from "react";
 import { Popover } from "react-tiny-popover";
 import { useState } from "react";
 import { ClassListData } from "~/data/data";
@@ -21,7 +21,7 @@ export default function AllocatedPopover() {
   const [isOpen, setIsOpen] = useState(false);
   return (
     <div
-      className={`flex max-w-full flex-col items-center gap-2 border-t border-t-neutral-200/60 p-2`}
+      className={`flex max-w-full flex-col items-center gap-2 border-t border-t-neutral-100 p-2`}
     >
       <Popover
         isOpen={isOpen}
@@ -45,7 +45,11 @@ export default function AllocatedPopover() {
                     } items-center gap-1`}
                   >
                     {`${event.title} - ${CourseType[event.type]}`}
-                    <Remove index={index} colour={event.colour} />
+                    <Remove
+                      index={index}
+                      colour={event.colour}
+                      setIsOpen={setIsOpen}
+                    />
                   </Badge>
                 ))}
                 <ClearPreferences setIsOpen={setIsOpen} />
@@ -55,7 +59,7 @@ export default function AllocatedPopover() {
         }
       >
         <button
-          className="ring-offset-background mt-1 inline-flex h-8 w-fit items-center justify-center  whitespace-nowrap rounded-md border border-neutral-200 px-4 py-2 font-medium hover:bg-neutral-100"
+          className="ring-offset-background mt-1 inline-flex h-8 w-fit items-center justify-center  whitespace-nowrap rounded-md border border-neutral-200 px-4 py-2 text-sm  hover:bg-neutral-100"
           onClick={() => setIsOpen(!isOpen)}
         >
           {events.length}/{ClassListData.length} Allocated{" "}
@@ -66,7 +70,15 @@ export default function AllocatedPopover() {
   );
 }
 
-function Remove({ index, colour }: { index: number; colour: ColourPalette }) {
+function Remove({
+  index,
+  colour,
+  setIsOpen,
+}: {
+  index: number;
+  colour: ColourPalette;
+  setIsOpen: (value: SetStateAction<boolean>) => void;
+}) {
   const router = useRouter();
   const pathname = usePathname();
   const searchParams = useSearchParams();
@@ -98,6 +110,7 @@ function Remove({ index, colour }: { index: number; colour: ColourPalette }) {
         encodeURIComponent(JSON.stringify(element)),
       );
     });
+    setIsOpen(newEvents.length !== 0);
     router.replace(`${pathname}?${newPrefs.join("&")}`, { scroll: false });
   };
   return (
