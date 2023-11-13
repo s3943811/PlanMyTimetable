@@ -3,7 +3,7 @@ import { BsCalendar3 } from "react-icons/bs";
 
 function Navbar() {
   return (
-    <nav className="sticky top-0 flex h-screen flex-col items-center justify-between border-r bg-white p-3 pt-10">
+    <nav className="sticky top-0 flex h-screen flex-col items-center justify-between border-r bg-white p-3 pt-8">
       <div>
         <Link
           href="/"

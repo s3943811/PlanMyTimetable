@@ -20,13 +20,13 @@ export default function ClassCard({ course }: { course: Course }) {
     <>
       <RxDragHandleDots2 color="#737373" />
       <div className="px-1.5">
-        <h1 className="line-clamp-1 pb-0.5 text-lg font-medium">
+        <h1 className="line-clamp-1 pb-0.5 text-base font-medium">
           {course.title}
         </h1>
-        <p className=" pb-1 text-xs font-light text-neutral-400">
+        <p className="text-xs font-light text-neutral-400">
           {course.courseCode}
         </p>
-        <Badge className={cardColour + " px-4 text-sm"}>
+        <Badge className={cardColour + " px-3.5 text-xs"}>
           {CourseType[course.type]}
         </Badge>
       </div>

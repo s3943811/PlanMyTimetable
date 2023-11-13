@@ -13,7 +13,7 @@ export default function ClearPreferencesButton({
   //   const searchParams = useSearchParams();
   return (
     <button
-      className="ring-offset-background inline-flex h-[1.4rem] w-fit items-center justify-center whitespace-nowrap rounded-md bg-neutral-900 px-2.5 py-1.5 text-xs font-medium text-neutral-50 hover:bg-neutral-800"
+      className="ring-offset-background mt-1.5 inline-flex h-[1.4rem] w-fit items-center justify-center whitespace-nowrap rounded-md bg-neutral-900 px-2.5 py-1.5 text-xs font-medium text-neutral-50 hover:bg-neutral-800"
       onClick={() => {
         router.push(`${pathname}`, { scroll: false });
         setIsOpen(false);
