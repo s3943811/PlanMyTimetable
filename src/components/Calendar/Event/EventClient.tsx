@@ -47,7 +47,7 @@ export default function EventClient({
         isDragging && "opacity-50"
       } m-0.5 flex flex-col overflow-hidden ${
         colourVariants[preference.colour]
-      } rounded px-3 py-2`}
+      } rounded px-3 py-2 hover:cursor-grab`}
     >
       {children}
     </div>
