@@ -4,13 +4,11 @@ import {
   TimeSlot,
   PreviewEventClient,
   EventList,
-  Toolbar,
 } from "~/components";
 
 export default function Calendar() {
   return (
     <section className="flex w-full grow flex-col">
-      <Toolbar />
       <div className="grid w-full grid-cols-[auto,repeat(5,1fr)] grid-rows-[2.5rem,repeat(38,2.35rem)]">
         <CalendarHeader />
         {Array.from({ length: 38 }, (_, index) => (

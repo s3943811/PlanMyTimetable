@@ -4,7 +4,7 @@ export { default as ClassCard } from "./ClassCard/ClassCard";
 export { default as ClassCardClient } from "./ClassCard/ClassCardClient";
 export { default as CalendarHeader } from "./Calendar/CalendarHeader";
 export { default as TimeSlot } from "./Calendar/TimeSlot";
-export { default as Toolbar } from "./Calendar/Toolbar";
+export { default as AllocatedPopover } from "./AllocatedPopover/AllocatedPopover";
 export { default as Button } from "./Button/Button";
 export { default as ClearPreferences } from "./Button/ClearPreferenceButton";
 export { default as Event } from "./Calendar/Event/Event";
