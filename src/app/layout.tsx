@@ -21,7 +21,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body className={`font-sans ${inter.variable} flex flex-row`}>
+      <body className={`font-sans ${inter.variable} flex`}>
         <Navbar />
         {children}
       </body>

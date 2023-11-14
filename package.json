@@ -9,11 +9,14 @@
     "start": "next start"
   },
   "dependencies": {
+    "@dnd-kit/core": "^6.1.0",
+    "@dnd-kit/modifiers": "^7.0.0",
     "@t3-oss/env-nextjs": "^0.7.0",
     "next": "^13.5.4",
     "react": "18.2.0",
     "react-dom": "18.2.0",
     "react-icons": "^4.11.0",
+    "react-tiny-popover": "^8.0.4",
     "zod": "^3.22.4"
   },
   "devDependencies": {

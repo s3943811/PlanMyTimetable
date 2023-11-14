@@ -13,6 +13,14 @@ export type Time = {
   location: string;
   campus_description: string;
 };
+
+export type Preference = {
+  title: string;
+  courseCode: string;
+  type: CourseType;
+  colour: ColourPalette;
+  time: Time;
+};
 export enum CourseType {
   Lecture,
   Tutorial,
@@ -89,4 +97,10 @@ export const rowSpans: Record<number, string> = {
   4: "row-span-4",
   5: "row-span-5",
   6: "row-span-6",
+};
+export const colourVariants = {
+  0: "border-r-purple-400",
+  1: "border-r-yellow-400",
+  2: "border-r-orange-400",
+  3: "border-r-red-400",
 };
