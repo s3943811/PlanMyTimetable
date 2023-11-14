@@ -21,7 +21,7 @@ export default function AllocatedPopover() {
   const [isOpen, setIsOpen] = useState(false);
   return (
     <div
-      className={`flex max-w-full flex-col items-center gap-2 border-t border-t-neutral-100 p-2 pt-3.5`}
+      className={`mt-auto flex max-w-full flex-col items-center gap-2 border-t border-t-neutral-50 p-2 pt-3.5`}
     >
       <Popover
         isOpen={isOpen}
