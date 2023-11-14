@@ -1,7 +1,6 @@
 "use client";
 import { Course, colourVariants } from "~/lib/definitions";
 import { useDraggable } from "@dnd-kit/core";
-import { usePreview } from "~/contexts/PreviewContext";
 export default function ClassCardClient({
   children,
   course,

@@ -59,7 +59,7 @@ export default function AllocatedPopover() {
         }
       >
         <button
-          className="ring-offset-background mt-1 inline-flex h-8 w-fit items-center justify-center  whitespace-nowrap rounded-md border border-neutral-200 px-4 py-2 text-sm  hover:bg-neutral-100"
+          className="ring-offset-background mt-1 inline-flex h-8 w-fit items-center justify-center  whitespace-nowrap rounded-md border border-neutral-200 px-4 py-2 text-sm  hover:bg-neutral-50"
           onClick={() => setIsOpen(!isOpen)}
         >
           {events.length}/{ClassListData.length} Allocated{" "}
