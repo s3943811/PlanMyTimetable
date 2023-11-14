@@ -1,6 +1,7 @@
 "use client";
 import { Course, colourVariants } from "~/lib/definitions";
 import { useDraggable } from "@dnd-kit/core";
+import { usePreview } from "~/contexts/PreviewContext";
 export default function ClassCardClient({
   children,
   course,
@@ -18,6 +19,14 @@ export default function ClassCardClient({
       tabIndex: 0,
     },
   });
+  const { events } = usePreview();
+  const isAllocated = events.find(
+    (item) =>
+      item.title === course.title &&
+      item.courseCode === course.courseCode &&
+      item.type === course.type &&
+      item.colour === course.colour,
+  );
   return (
     <div
       ref={setNodeRef}
@@ -25,9 +34,11 @@ export default function ClassCardClient({
       {...attributes}
       className={`z-50 ${
         isDragging && "opacity-50"
-      } flex w-72 flex-row gap-1 rounded-md border-r-[6.5px] px-2.5 py-2.5 shadow-sm hover:bg-stone-100 ${
+      } flex w-72 flex-row gap-1 rounded-md border-r-[6.5px] px-2.5 py-2.5 shadow-sm hover:bg-neutral-100 ${
+        isAllocated ? "bg-neutral-50" : "bg-white"
+      } ${
         colourVariants[course.colour]
-      } items-center hover:cursor-grab focus:ring-1 focus:ring-stone-200 active:cursor-grab active:bg-stone-100`}
+      } items-center hover:cursor-grab focus:ring-1 focus:ring-neutral-200 active:cursor-grab active:bg-neutral-100`}
       tabIndex={0}
     >
       {children}
