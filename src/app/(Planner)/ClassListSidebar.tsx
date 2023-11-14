@@ -3,6 +3,7 @@ import {
   ClassCardClient,
   DragOverlay,
   AllocatedPopover,
+  Button,
 } from "~/components";
 import { CourseType } from "~/lib/definitions";
 import { ClassListData } from "~/data/data";
@@ -15,11 +16,10 @@ export default function ClassListSidebar() {
         <h2 className="inline-flex items-center gap-1 text-md font-medium">
           Classes
         </h2>
-        {/* focus:ring-2 focus:ring-neutral-400/50 focus:ring-offset-2 focus:ring-offset-neutral-50 */}
-        <button className="inline-flex h-8 w-fit items-center justify-center gap-1 whitespace-nowrap rounded-md border border-neutral-200 px-4 py-2 text-sm hover:bg-neutral-50 ">
+        <Button variant="outline">
           <HiOutlinePlusCircle />
           Add
-        </button>
+        </Button>
       </div>
       {ClassListData.map((item) => (
         <ClassCardClient

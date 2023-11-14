@@ -8,7 +8,7 @@ import { SetStateAction, useCallback } from "react";
 import { Popover } from "react-tiny-popover";
 import { useState } from "react";
 import { ClassListData } from "~/data/data";
-import { ClearPreferences } from "..";
+import { Button, ClearPreferences } from "..";
 
 export default function AllocatedPopover() {
   const colourVariants = {
@@ -21,7 +21,7 @@ export default function AllocatedPopover() {
   const [isOpen, setIsOpen] = useState(false);
   return (
     <div
-      className={`flex max-w-full flex-col items-center gap-2 border-t border-t-neutral-100 p-2`}
+      className={`flex max-w-full flex-col items-center gap-2 border-t border-t-neutral-100 p-2 pt-3.5`}
     >
       <Popover
         isOpen={isOpen}
@@ -58,13 +58,10 @@ export default function AllocatedPopover() {
           </div>
         }
       >
-        <button
-          className="ring-offset-background mt-1 inline-flex h-8 w-fit items-center justify-center  whitespace-nowrap rounded-md border border-neutral-200 px-4 py-2 text-sm  hover:bg-neutral-50"
-          onClick={() => setIsOpen(!isOpen)}
-        >
+        <Button variant="outline" onClick={() => setIsOpen(!isOpen)}>
           {events.length}/{ClassListData.length} Allocated{" "}
           {isOpen ? <HiChevronDown /> : <HiChevronUp />}
-        </button>
+        </Button>
       </Popover>
     </div>
   );
