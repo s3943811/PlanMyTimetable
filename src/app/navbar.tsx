@@ -1,5 +1,5 @@
-import { HiCalendar } from "react-icons/hi";
-import { RetainLink } from "~/components";
+import { HiCalendar, HiQuestionMarkCircle } from "react-icons/hi";
+import { RetainLink, buttonVariants } from "~/components";
 function Navbar() {
   return (
     <nav className="sticky top-0 flex h-screen flex-col items-center justify-between border-r bg-white p-3 pt-8">
