@@ -3,11 +3,10 @@ import {
   ClassCardClient,
   DragOverlay,
   AllocatedPopover,
-  Button,
+  Add,
 } from "~/components";
 import { CourseType } from "~/lib/definitions";
 import { ClassListData } from "~/data/data";
-import { HiPlus, HiOutlinePlusCircle } from "react-icons/hi";
 
 export default function ClassListSidebar() {
   return (
@@ -16,10 +15,7 @@ export default function ClassListSidebar() {
         <h2 className="inline-flex items-center gap-1 text-md font-medium">
           Classes
         </h2>
-        <Button variant="outline">
-          <HiOutlinePlusCircle />
-          Add
-        </Button>
+        <Add />
       </div>
       <div className="scrollbar-hide flex flex-col gap-3 overflow-y-auto overflow-x-hidden pb-4 pt-1">
         {ClassListData.map((item) => (

@@ -11,6 +11,7 @@
   "dependencies": {
     "@dnd-kit/core": "^6.1.0",
     "@dnd-kit/modifiers": "^7.0.0",
+    "@radix-ui/react-dialog": "^1.0.5",
     "@t3-oss/env-nextjs": "^0.7.0",
     "next": "^13.5.4",
     "react": "18.2.0",
