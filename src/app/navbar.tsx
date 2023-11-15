@@ -12,6 +12,11 @@ function Navbar() {
           Home
         </RetainLink>
       </div>
+      <div>
+        <RetainLink className={buttonVariants["ghost"]} href="/help">
+          <HiQuestionMarkCircle size={25} />
+        </RetainLink>
+      </div>
     </nav>
   );
 }
