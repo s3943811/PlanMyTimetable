@@ -1,6 +1,5 @@
-import Link from "next/link";
-import { HiCalendar, HiOutlineAdjustments } from "react-icons/hi";
-import { RetainLink, Button } from "~/components";
+import { HiCalendar } from "react-icons/hi";
+import { RetainLink } from "~/components";
 function Navbar() {
   return (
     <nav className="sticky top-0 flex h-screen flex-col items-center justify-between border-r bg-white p-3 pt-8">
