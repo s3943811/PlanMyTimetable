@@ -23,7 +23,7 @@ export default function RootLayout({
     <html lang="en">
       <body className={`font-sans ${inter.variable} flex`}>
         <Navbar />
-        {children}
+        <main className="flex w-screen flex-row">{children}</main>
       </body>
     </html>
   );
