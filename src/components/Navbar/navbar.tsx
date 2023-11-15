@@ -13,10 +13,6 @@ function Navbar() {
           Home
         </RetainLink>
       </div>
-      <Button variant="outline">
-        <HiOutlineAdjustments />
-        Edit
-      </Button>
     </nav>
   );
 }
