@@ -42,7 +42,7 @@ export default function AllocatedPopover() {
                     key={event.courseCode + event.type}
                     className={`${
                       colourVariants[event.colour]
-                    } items-center gap-1`}
+                    } w-[15rem] items-center justify-between gap-1`}
                   >
                     {`${event.title} - ${CourseType[event.type]}`}
                     <Remove
