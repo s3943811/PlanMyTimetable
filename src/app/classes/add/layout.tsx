@@ -1,3 +1,5 @@
+import Tabs from "./tabs";
+
 export default function AddLayout({ children }: { children: React.ReactNode }) {
   return (
     <section className="container flex grow flex-col p-8">
@@ -5,6 +7,7 @@ export default function AddLayout({ children }: { children: React.ReactNode }) {
       <p className="font-light text-neutral-500/90">
         Add class details, times, and locations.
       </p>
+      <Tabs />
       <div
         data-orientation="horizontal"
         role="none"

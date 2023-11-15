@@ -1,4 +1,7 @@
-import ClassForm from "../ClassForm";
 export default function Page() {
-  return <ClassForm></ClassForm>;
+  return (
+    <div>
+      <h3>Automatically gather timetable information?</h3>
+    </div>
+  );
 }
