@@ -3,10 +3,13 @@ import {
   ClassCardClient,
   DragOverlay,
   AllocatedPopover,
-  Add,
+  RetainLink,
+  buttonVariants,
+  Tooltip,
 } from "~/components";
 import { CourseType } from "~/lib/definitions";
 import { ClassListData } from "~/data/data";
+import { HiOutlineAdjustments, HiOutlinePlusCircle } from "react-icons/hi";
 
 export default function ClassListSidebar() {
   return (
@@ -15,9 +18,26 @@ export default function ClassListSidebar() {
         <h2 className="inline-flex items-center gap-1 text-md font-medium">
           Classes
         </h2>
-        <Add />
+        <div className="inline-flex gap-1">
+          <Tooltip message={"Add"}>
+            <RetainLink
+              className={buttonVariants["outlineIcon"]}
+              href="/classes/add"
+            >
+              <HiOutlinePlusCircle />
+            </RetainLink>
+          </Tooltip>
+          <Tooltip message={"Manage"}>
+            <RetainLink
+              className={buttonVariants["outlineIcon"]}
+              href="/classes/manage"
+            >
+              <HiOutlineAdjustments />
+            </RetainLink>
+          </Tooltip>
+        </div>
       </div>
-      <div className="scrollbar-hide flex flex-col gap-3 overflow-y-auto overflow-x-hidden pb-4 pt-1">
+      <div className="flex flex-col gap-3 overflow-y-auto overflow-x-hidden pb-4 pt-1 scrollbar-hide">
         {ClassListData.map((item) => (
           <ClassCardClient
             key={item.courseCode + CourseType[item.type]}
