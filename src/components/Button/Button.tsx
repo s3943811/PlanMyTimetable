@@ -1,6 +1,6 @@
 import { forwardRef } from "react";
 interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
-  variant?: "normal" | "outline" | "outlineIcon" | undefined;
+  variant?: "normal" | "outline" | "outlineIcon" | "ghost" | undefined;
 }
 export const buttonVariants = {
   normal:
@@ -9,6 +9,8 @@ export const buttonVariants = {
     "inline-flex h-8 w-fit items-center justify-center gap-1 whitespace-nowrap rounded-md border border-neutral-200 px-4 py-2 text-sm hover:bg-neutral-50 ",
   outlineIcon:
     "inline-flex h-8 w-fit items-center justify-center gap-1 whitespace-nowrap rounded-md border border-neutral-200 px-2.5 py-2 text-sm hover:bg-neutral-50 ",
+  ghost:
+    "inline-flex h-8 w-fit items-center justify-center gap-1 whitespace-nowrap rounded-md px-2.5 py-2 text-sm hover:bg-neutral-50 active:bg-neutral-100",
 };
 
 const Button = forwardRef<HTMLButtonElement, ButtonProps>(
