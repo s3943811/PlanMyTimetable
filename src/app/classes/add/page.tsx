@@ -1,8 +1,9 @@
 import Link from "next/link";
+
 export default function Page() {
   return (
-    <div>
-      <div className="mt-1 inline-flex h-10 w-fit items-center justify-center gap-3 rounded-lg text-sm">
+    <>
+      <div className="mt-1 inline-flex h-10 w-fit items-center justify-center gap-3 rounded-lg ">
         <Link
           href="/classes/add"
           className={`inline-flex w-full items-center justify-center rounded-md py-1.5 font-medium underline decoration-[1.5px] underline-offset-[7px] transition-all`}
@@ -20,9 +21,29 @@ export default function Page() {
       <div
         data-orientation="horizontal"
         role="none"
-        className=" my-4 h-[1px] w-full shrink-0 bg-neutral-200"
+        className=" my-3 h-[1px] w-full shrink-0 bg-neutral-200"
       ></div>
-      <h3>Automatically gather timetable information?</h3>
-    </div>
+      <div className="space-y-4">
+        <h3 className="text-md font-medium">Automatic data gathering</h3>
+        <p className="text-sm">
+          If your university uses Allocate+ for timetable purposes, you can
+          gather the data automatically using the following steps
+        </p>
+        <ol className="list-inside list-decimal space-y-3 text-sm marker:font-medium">
+          <li>
+            Bookmark the following code ( drag this into the bookmarks bar ) :
+          </li>
+          <div className="w-full rounded-md border p-2 text-sm">
+            <a href="">
+              <code className="prose-code: my-2 p-2">{`function Test() {
+            do stuff }`}</code>
+            </a>
+          </div>
+          <li>Navigate to your Allocate+ system and login.</li>
+          <li>Click and run the bookmarklet on this page.</li>
+          <li>You will then be redirected to a new page with your data.</li>
+        </ol>
+      </div>
+    </>
   );
 }

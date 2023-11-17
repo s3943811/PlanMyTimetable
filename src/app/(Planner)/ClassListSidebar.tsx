@@ -30,7 +30,7 @@ export default function ClassListSidebar() {
           <Tooltip message={"Manage"}>
             <RetainLink
               className={buttonVariants["outlineIcon"]}
-              href="/classes/manage"
+              href="/classes"
             >
               <HiOutlineAdjustments />
             </RetainLink>

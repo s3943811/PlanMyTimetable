@@ -4,7 +4,7 @@ import Link from "next/link";
 export default function Page() {
   return (
     <>
-      <div className="mt-1 inline-flex h-10 w-fit items-center justify-center gap-3 rounded-lg text-sm">
+      <div className="mt-1 inline-flex h-10 w-fit items-center justify-center gap-3 rounded-lg ">
         <Link
           href="/classes/add"
           className={`inline-flex w-full items-center justify-center rounded-md py-1.5 font-light text-neutral-500/90 transition-all`}
@@ -22,7 +22,7 @@ export default function Page() {
       <div
         data-orientation="horizontal"
         role="none"
-        className=" my-4 h-[1px] w-full shrink-0 bg-neutral-200"
+        className=" my-3 h-[1px] w-full shrink-0 bg-neutral-200"
       ></div>
       <ClassForm></ClassForm>
     </>
