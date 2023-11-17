@@ -4,6 +4,7 @@ interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
     | "normal"
     | "normalLarge"
     | "secondary"
+    | "secondaryIcon"
     | "outline"
     | "outlineIcon"
     | "ghostIcon"
@@ -15,6 +16,8 @@ export const buttonVariants = {
     "inline-flex h-8 w-fit items-center justify-center gap-1 whitespace-nowrap rounded-md bg-neutral-900 shadow px-4 py-2 text-sm text-neutral-50 hover:bg-neutral-700 ",
   secondary:
     "inline-flex h-8 w-fit items-center justify-center gap-1 whitespace-nowrap rounded-md bg-neutral-100/80 shadow-sm px-4 py-2 text-sm hover:bg-neutral-100 ",
+  secondaryIcon:
+    "inline-flex h-8 w-fit items-center justify-center gap-1 whitespace-nowrap rounded-md bg-neutral-100/80 shadow-sm px-2.5 py-2 text-sm hover:bg-neutral-100 ",
   outline:
     "inline-flex h-8 w-fit items-center justify-center gap-1 whitespace-nowrap rounded-md border border-neutral-200 px-4 py-2 text-sm hover:bg-neutral-50 ",
   outlineIcon:
