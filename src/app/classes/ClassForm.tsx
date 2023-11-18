@@ -12,7 +12,6 @@ import {
   HiOutlinePlusCircle,
   HiOutlineMinusCircle,
 } from "react-icons/hi";
-import { CourseType } from "~/lib/definitions";
 import { zodResolver } from "@hookform/resolvers/zod";
 import * as z from "zod";
 
@@ -33,6 +32,7 @@ const formSchema = z.object({
     .min(1, { message: "Name is required" })
     .max(120, { message: "Name must be less than 120 characters" }),
   code: z.string(),
+  type: z.enum(["Lecture", "Tutorial", "Workshop", "Practical", "Other"]),
   duration: z.coerce
     .number()
     .gte(1, { message: "Duration must be at least 1 minute." })
@@ -46,11 +46,13 @@ export default function ClassForm() {
   const {
     register,
     handleSubmit,
+    watch,
     control,
     formState: { errors },
   } = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
+      type: "Lecture",
       options: [
         {
           day: "Monday",
@@ -61,6 +63,7 @@ export default function ClassForm() {
       ],
     },
   });
+  const watchType = watch("type");
   const { fields, append, remove } = useFieldArray({
     control,
     name: "options",
@@ -121,8 +124,28 @@ export default function ClassForm() {
           (optional). For example, COSC2758.
         </p>
       </div>
-      {/* TODO: Placeholder here to create tabs */}
-      {/* <div className="h-10 space-y-2 rounded-md bg-neutral-200"></div> */}
+      <div className=" space-y-2">
+        <label
+          className="ml-0.5 text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
+          htmlFor="course_code"
+        >
+          Type
+        </label>
+        <select
+          className=" flex h-10 w-full appearance-none rounded-md border bg-white px-3 py-2 text-sm shadow-sm
+          disabled:cursor-not-allowed disabled:opacity-50"
+          {...register("type")}
+        >
+          <option>Lecture</option>
+          <option>Tutorial</option>
+          <option>Workshop</option>
+          <option>Practical</option>
+          <option>Other</option>
+        </select>
+        <p className="text-xs font-light text-neutral-500/90">
+          The type of class. For example, a Lecture or a Workshop.
+        </p>
+      </div>
       <div className="sticky top-0 z-50 inline-flex justify-between bg-white">
         <div className="space-y-1">
           <h3 className="text-lg font-medium">Options</h3>
@@ -182,7 +205,7 @@ export default function ClassForm() {
             <ErrorMessage>{errors.duration.message}</ErrorMessage>
           )}
           <p className="text-xs font-light text-neutral-500/90">
-            How long the {CourseType[CourseType.Lecture]} goes for in minutes.
+            How long the {watchType} goes for in minutes.
           </p>
         </div>
         {errors.options && (
@@ -191,7 +214,7 @@ export default function ClassForm() {
         {fields.map((fields, index) => (
           <div key={fields.id}>
             <OptionForm
-              type={CourseType.Lecture}
+              type={watchType}
               register={register}
               errors={errors}
               index={index}
@@ -201,7 +224,7 @@ export default function ClassForm() {
         ))}
       </div>
       <div className="ml-auto space-x-5">
-        <Button variant="normalLarge">Submit</Button>
+        <Button variant="normalLarge">Add Class</Button>
       </div>
     </form>
   );
@@ -214,7 +237,7 @@ function OptionForm({
   index,
   remove,
 }: {
-  type: CourseType;
+  type: "Lecture" | "Tutorial" | "Workshop" | "Practical" | "Other";
   register: UseFormRegister<z.infer<typeof formSchema>>;
   errors: FieldErrors<z.infer<typeof formSchema>>;
   index: number;
@@ -289,7 +312,7 @@ function OptionForm({
               </ErrorMessage>
             )}
             <p className="text-xs font-light text-neutral-500/90">
-              The time the {CourseType[type]} starts.
+              The time the {type} starts.
             </p>
           </div>
         </div>
@@ -324,7 +347,7 @@ function OptionForm({
               </ErrorMessage>
             )}
             <p className="text-xs font-light text-neutral-500/90">
-              What room the {CourseType[type]} will be in (if online write "-").
+              What room the {type} will be in (if online write "-").
             </p>
           </div>
           <div className=" w-full space-y-2">
@@ -356,8 +379,8 @@ function OptionForm({
               </ErrorMessage>
             )}
             <p className="text-xs font-light text-neutral-500/90">
-              What campus the {CourseType[type]} will be on. For example, RMIT
-              students may write "Melbourne City" or "Canvas".
+              What campus the {type} will be on. For example, RMIT students may
+              write "Melbourne City" or "Canvas".
             </p>
           </div>
         </div>
