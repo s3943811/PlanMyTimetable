@@ -14,6 +14,7 @@ import {
 } from "react-icons/hi";
 import { zodResolver } from "@hookform/resolvers/zod";
 import * as z from "zod";
+import { useUrlState } from "~/hooks/useUrlState";
 
 const optionSchema = z.object({
   day: z.enum(["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"]),
@@ -27,7 +28,7 @@ const optionSchema = z.object({
   campus: z.string().min(1, { message: "Campus is required" }),
 });
 const formSchema = z.object({
-  name: z
+  title: z
     .string()
     .min(1, { message: "Name is required" })
     .max(120, { message: "Name must be less than 120 characters" }),
@@ -69,9 +70,10 @@ export default function ClassForm() {
     name: "options",
   });
 
+  const { appendState, decode } = useUrlState();
+
   function onSubmit(values: z.infer<typeof formSchema>) {
-    // TODO: Deal with this
-    console.log(values);
+    appendState([values], "state", "/classes");
   }
   return (
     <form className="contents space-y-7" onSubmit={handleSubmit(onSubmit)}>
@@ -83,20 +85,20 @@ export default function ClassForm() {
           Name
         </label>
         <input
-          {...register("name")}
+          {...register("title")}
           id="course_name"
           placeholder="Name"
           className={`flex h-10 w-full rounded-md border ${
-            errors.name && "border-red-300"
+            errors.title && "border-red-300"
           } px-3 py-2 text-sm shadow-sm file:border-0 
           file:bg-transparent file:font-medium placeholder:text-neutral-500/90 ${
-            errors.name
+            errors.title
               ? " focus:ring-red-400/60"
               : " focus:ring-neutral-400/60"
           } focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-1
           disabled:cursor-not-allowed disabled:opacity-50`}
         />
-        {errors.name && <ErrorMessage>{errors.name.message}</ErrorMessage>}
+        {errors.title && <ErrorMessage>{errors.title.message}</ErrorMessage>}
         <p className="text-xs font-light text-neutral-500/90">
           This is the name of the class in plain text. For example, Full Stack
           Development.
