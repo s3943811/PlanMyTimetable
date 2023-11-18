@@ -154,19 +154,18 @@ export default function ClassForm() {
           </p>
         </div>
         <div className=" inline-flex gap-1">
-          <Tooltip message={"Remove all"}>
-            <Button
-              variant="secondaryIcon"
-              type="button"
-              onClick={() => {
-                for (let i = fields.length - 1; i > 0; i--) {
-                  remove(i);
-                }
-              }}
-            >
-              <HiOutlineXCircle />
-            </Button>
-          </Tooltip>
+          <Button
+            variant="secondaryIcon"
+            type="button"
+            onClick={() => {
+              for (let i = fields.length - 1; i > 0; i--) {
+                remove(i);
+              }
+            }}
+          >
+            <HiOutlineXCircle /> Remove All
+          </Button>
+
           <Button
             variant="secondary"
             type="button"
@@ -224,6 +223,9 @@ export default function ClassForm() {
         ))}
       </div>
       <div className="ml-auto space-x-5">
+        <Button variant="outlineLarge" type="reset">
+          Clear
+        </Button>
         <Button variant="normalLarge">Add Class</Button>
       </div>
     </form>
