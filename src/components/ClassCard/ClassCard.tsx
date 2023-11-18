@@ -12,8 +12,14 @@ export default function ClassCard({ course }: { course: Course }) {
     case CourseType.Tutorial:
       cardColour = "bg-blue-500/90 text-blue-50";
       break;
+    case CourseType.Practical:
+      cardColour = "bg-rose-500/90 text-rose-50";
+      break;
+    case CourseType.Workshop:
+      cardColour = "bg-amber-500/90 text-amber-50";
+      break;
     default:
-      cardColour = "";
+      cardColour = "bg-neutral-500/90 text-neutral-50";
       break;
   }
   return (

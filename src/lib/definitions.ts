@@ -24,6 +24,9 @@ export type Preference = {
 export enum CourseType {
   Lecture,
   Tutorial,
+  Workshop,
+  Practical,
+  Other,
 }
 
 export enum Days {
