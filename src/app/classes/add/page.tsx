@@ -1,22 +1,22 @@
-import Link from "next/link";
+import { RetainLink } from "~/components";
 
 export default function Page() {
   return (
     <>
       <div className="mt-1 inline-flex h-10 w-fit items-center justify-center gap-3 rounded-lg ">
-        <Link
+        <RetainLink
           href="/classes/add"
           className={`inline-flex w-full items-center justify-center rounded-md py-1.5 font-medium underline decoration-[1.5px] underline-offset-[7px] transition-all`}
         >
           Automatic
-        </Link>
+        </RetainLink>
         <span>/</span>
-        <Link
+        <RetainLink
           href="/classes/add/manual"
           className={`inline-flex w-full items-center justify-center rounded-md py-1.5 pr-3 font-light text-neutral-500/90 transition-all`}
         >
           <p>Manual</p>
-        </Link>
+        </RetainLink>
       </div>
       <div
         data-orientation="horizontal"
