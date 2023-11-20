@@ -38,10 +38,10 @@ export enum Days {
 }
 
 export enum ColourPalette {
-  purple,
-  yellow,
-  orange,
-  red,
+  Purple,
+  Yellow,
+  Orange,
+  Red,
 }
 
 export const colStart: Record<number, string> = {
