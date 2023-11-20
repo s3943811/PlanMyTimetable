@@ -3,12 +3,11 @@ import { usePreview } from "~/contexts/PreviewContext";
 import Badge from "../Badge/Badge";
 import { ColourPalette, CourseType } from "~/lib/definitions";
 import { HiOutlineX, HiChevronUp, HiChevronDown } from "react-icons/hi";
-import { useSearchParams, usePathname, useRouter } from "next/navigation";
-import { SetStateAction, useCallback } from "react";
+import { SetStateAction } from "react";
 import { Popover } from "react-tiny-popover";
 import { useState } from "react";
-import { ClassListData } from "~/data/data";
 import { Button, ClearPreferences } from "..";
+import { useUrlState } from "~/hooks/useUrlState";
 
 export default function AllocatedPopover() {
   const colourVariants = {
@@ -17,7 +16,7 @@ export default function AllocatedPopover() {
     2: "bg-orange-200 text-orange-900 text-xs",
     3: "bg-red-200 text-red-900 text-xs",
   };
-  const { events } = usePreview();
+  const { events, courseData } = usePreview();
   const [isOpen, setIsOpen] = useState(false);
   return (
     <div
@@ -59,7 +58,7 @@ export default function AllocatedPopover() {
         }
       >
         <Button variant="outline" onClick={() => setIsOpen(!isOpen)}>
-          {events.length}/{ClassListData.length} Allocated{" "}
+          {events.length}/{courseData.length} Allocated{" "}
           {isOpen ? <HiChevronDown /> : <HiChevronUp />}
         </Button>
       </Popover>
@@ -76,9 +75,6 @@ function Remove({
   colour: ColourPalette;
   setIsOpen: (value: SetStateAction<boolean>) => void;
 }) {
-  const router = useRouter();
-  const pathname = usePathname();
-  const searchParams = useSearchParams();
   const colourVariants = {
     0: "hover:bg-purple-50/60 ",
     1: "hover:bg-yellow-50/60",
@@ -87,28 +83,12 @@ function Remove({
   };
 
   const { events } = usePreview();
-
-  const createQueryString = useCallback(
-    (name: string, value: string) => {
-      const params = new URLSearchParams(searchParams);
-      params.set(name, value);
-
-      return params.toString();
-    },
-    [searchParams],
-  );
+  const { replaceState } = useUrlState();
 
   const handleRemove = () => {
     const newEvents = events.toSpliced(index, 1);
-
-    const newPrefs = newEvents.map((element) => {
-      return createQueryString(
-        "pref",
-        encodeURIComponent(JSON.stringify(element)),
-      );
-    });
+    replaceState(newEvents, "pref");
     setIsOpen(newEvents.length !== 0);
-    router.replace(`${pathname}?${newPrefs.join("&")}`, { scroll: false });
   };
   return (
     <button

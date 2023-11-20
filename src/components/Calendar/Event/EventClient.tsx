@@ -2,7 +2,8 @@ import { useDraggable } from "@dnd-kit/core";
 import { Preference } from "~/lib/definitions";
 import { colStart, rowStart, rowSpans } from "~/lib/definitions";
 import { getDayEnum, getRowIndex } from "~/lib/functions";
-import { ClassListData } from "~/data/data";
+import { usePreview } from "~/contexts/PreviewContext";
+
 interface EventClientProps {
   children: React.ReactNode;
   preference: Preference;
@@ -11,13 +12,14 @@ export default function EventClient({
   children,
   preference,
 }: EventClientProps) {
+  const { courseData } = usePreview();
   const colourVariants = {
     0: "bg-purple-400/40 text-purple-800 shadow-purple-100 border-l-[7px] border-l-purple-500",
     1: "bg-yellow-400/40 text-yellow-800 shadow-yellow-100 border-l-[7px] border-l-yellow-500",
     2: "bg-orange-400/40 text-orange-800 shadow-orange-100 border-l-[7px] border-l-orange-500",
     3: "bg-red-400/40 text-red-800 shadow-red-100 border-l-[7px] border-l-red-500",
   };
-  const course = ClassListData.find(
+  const course = courseData.find(
     (course) =>
       course.title === preference.title &&
       course.courseCode === preference.courseCode &&

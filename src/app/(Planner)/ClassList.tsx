@@ -1,13 +1,14 @@
 "use client";
 import { ClassCard, ClassCardClient, DragOverlay } from "~/components";
-import { Course, CourseType } from "~/lib/definitions";
-import { useUrlState } from "~/hooks/useUrlState";
+import { CourseType } from "~/lib/definitions";
 import { HiOutlineAcademicCap } from "react-icons/hi";
 import Link from "next/link";
+import { usePreview } from "~/contexts/PreviewContext";
+
 export default function ClassList() {
-  const { decode } = useUrlState();
-  const ClassListData: [Course] = decode("state");
-  if (!ClassListData) {
+  const { courseData } = usePreview();
+
+  if (!courseData) {
     return (
       <div className=" flex h-full flex-col items-center justify-center gap-3 pb-4 pt-1">
         <HiOutlineAcademicCap size={96} />
@@ -23,7 +24,7 @@ export default function ClassList() {
   }
   return (
     <div className="flex flex-col gap-3 overflow-y-auto overflow-x-hidden pb-4 pt-1 scrollbar-hide">
-      {ClassListData.map((item) => (
+      {courseData.map((item) => (
         <ClassCardClient
           key={item.courseCode + CourseType[item.type]}
           course={item}

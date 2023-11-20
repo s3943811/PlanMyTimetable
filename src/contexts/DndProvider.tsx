@@ -14,7 +14,7 @@ import { useCallback } from "react";
 import { usePreview, DragType } from "./PreviewContext";
 import { restrictToWindowEdges } from "@dnd-kit/modifiers";
 import { Preference } from "~/lib/definitions";
-import { useSearchParams, usePathname, useRouter } from "next/navigation";
+import { useUrlState } from "~/hooks/useUrlState";
 export function DndProvider({ children }: { children: React.ReactNode }) {
   const { setActiveCourse, events, setEvents, setDragType, setOver } =
     usePreview();
@@ -23,20 +23,7 @@ export function DndProvider({ children }: { children: React.ReactNode }) {
     useSensor(TouchSensor),
     useSensor(KeyboardSensor),
   );
-
-  const router = useRouter();
-  const pathname = usePathname();
-  const searchParams = useSearchParams();
-
-  const createQueryString = useCallback(
-    (name: string, value: string) => {
-      const params = new URLSearchParams(searchParams);
-      params.set(name, value);
-
-      return params.toString();
-    },
-    [searchParams],
-  );
+  const { searchParams, decode, replaceState, appendState } = useUrlState();
 
   function handleDragEnd(event: DragEndEvent) {
     const { active, over } = event;
@@ -48,7 +35,7 @@ export function DndProvider({ children }: { children: React.ReactNode }) {
         colour: active.data.current?.course.colour,
         time: over.data.current?.time,
       };
-      const currentPref = searchParams.getAll("pref");
+      const currentPref = searchParams.get("pref");
       /**
        * Search the events array and determine wherther the element being dragged matches an event
        * This was done so that elements can be dragged within the calendar and not be duplicated but rather moved
@@ -69,10 +56,8 @@ export function DndProvider({ children }: { children: React.ReactNode }) {
          * changes, which dosen't occur here since its already been dropped
          * this was done to keep the other preferences
          */
-        let parsedPrefs = currentPref.map((item) =>
-          JSON.parse(decodeURIComponent(item)),
-        );
-        parsedPrefs = parsedPrefs.map((item) => {
+        let parsedPrefs = decode("pref");
+        parsedPrefs = parsedPrefs.map((item: Preference) => {
           if (
             item.title === preference.title &&
             item.courseCode === preference.courseCode &&
@@ -83,27 +68,10 @@ export function DndProvider({ children }: { children: React.ReactNode }) {
           }
           return item;
         });
-        const newPrefs = parsedPrefs.map((element) => {
-          return createQueryString(
-            "pref",
-            encodeURIComponent(JSON.stringify(element)),
-          );
-        });
-        router.replace(`${pathname}?${newPrefs.join("&")}`, { scroll: false });
+        replaceState(parsedPrefs, "pref");
         setEvents(parsedPrefs);
       } else {
-        const newPref = createQueryString(
-          "pref",
-          encodeURIComponent(JSON.stringify(preference)),
-        );
-        if (currentPref) {
-          const url = `${pathname}?${searchParams}&${newPref}`;
-          router.push(url, { scroll: false });
-        } else {
-          router.push(`${pathname}?${searchParams}&${newPref}`, {
-            scroll: false,
-          });
-        }
+        appendState(preference, "pref");
       }
     }
     setOver(false);
