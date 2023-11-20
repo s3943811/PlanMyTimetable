@@ -15,20 +15,20 @@ export default function ClassListSidebar() {
           Classes
         </h2>
         <div className="inline-flex gap-1">
-          <Tooltip message={"Add"}>
-            <RetainLink
-              className={buttonVariants["outlineIcon"]}
-              href="/classes/add"
-            >
-              <HiOutlinePlusCircle />
-            </RetainLink>
-          </Tooltip>
           <Tooltip message={"Manage"}>
             <RetainLink
               className={buttonVariants["outlineIcon"]}
               href="/classes"
             >
               <HiOutlineAdjustments />
+            </RetainLink>
+          </Tooltip>
+          <Tooltip message={"Add"}>
+            <RetainLink
+              className={buttonVariants["outlineIcon"]}
+              href="/classes/add"
+            >
+              <HiOutlinePlusCircle />
             </RetainLink>
           </Tooltip>
         </div>
