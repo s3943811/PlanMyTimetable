@@ -1,5 +1,6 @@
-import { useState, useCallback } from "react";
+import { useCallback } from "react";
 import { useSearchParams, usePathname, useRouter } from "next/navigation";
+import JSONCrush from "jsoncrush";
 
 export function useUrlState() {
   const router = useRouter();
@@ -15,55 +16,46 @@ export function useUrlState() {
     },
     [searchParams],
   );
-  //   to push a new state to the back
-  const pushState = (
-    element: any,
-    prefName: string,
-    location: string = pathname,
-  ): void => {
-    const newState = encodeURIComponent(btoa(JSON.stringify(element)));
-    const newPref = createQueryString(prefName, newState);
-
-    router.push(`${location}?${searchParams}&${newPref}`, { scroll: false });
-  };
   // to replace the instance of the state or create a new state
   const appendState = (
     element: any,
     prefName: string,
     location: string = pathname,
-  ): void => {
+  ) => {
     const state: Array<any> = decode(prefName);
     let encoded;
     let params = new URLSearchParams(searchParams);
     if (state) {
       state.push(element);
-      encoded = encodeURIComponent(btoa(JSON.stringify(state)));
+      encoded = JSONCrush.crush(JSON.stringify(state));
       params.delete(prefName);
+    } else if (Array.isArray(element)) {
+      encoded = JSONCrush.crush(JSON.stringify(element));
     } else {
-      encoded = encodeURIComponent(btoa(JSON.stringify(element)));
+      encoded = JSONCrush.crush(JSON.stringify([element]));
     }
-    encoded = createQueryString(prefName, encoded);
-    router.replace(`${location}?${params}&${encoded}`, { scroll: false });
+
+    const query = createQueryString(prefName, encoded);
+    router.replace(`${location}?${query}`, { scroll: false });
   };
   // to replace url state with states to be kept and new state
   const replaceState = (
     element: any,
     prefName: string,
-    keep: string[] = [],
     location: string = pathname,
   ): void => {
-    const keepParams = keep.map((item) => searchParams.get(item));
+    console.log(searchParams.toString());
 
-    const newState = encodeURIComponent(btoa(JSON.stringify(element)));
+    const newState = JSONCrush.crush(JSON.stringify(element));
     const newPref = createQueryString(prefName, newState);
 
-    router.push(`${location}?${keepParams}&${newPref}`, { scroll: false });
+    router.push(`${location}?${newPref}`, { scroll: false });
   };
   // decode url states
   const decode = (pref: string) => {
     const encodedValue = searchParams.get(pref);
-    return encodedValue && JSON.parse(atob(decodeURIComponent(encodedValue)));
+    return encodedValue && JSON.parse(JSONCrush.uncrush(encodedValue));
   };
 
-  return { decode, replaceState, pushState, appendState };
+  return { decode, replaceState, appendState, searchParams };
 }
