@@ -15,25 +15,33 @@ import {
 import { zodResolver } from "@hookform/resolvers/zod";
 import * as z from "zod";
 import { useUrlState } from "~/hooks/useUrlState";
+import { ColourPalette, Course, CourseType } from "~/lib/definitions";
 
 const optionSchema = z.object({
-  day: z.enum(["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"]),
+  day: z.enum(["Mon", "Tue", "Wed", "Thu", "Fri"]),
   start_time: z
     .string()
+    .trim()
     .regex(
       /^([0-1][0-9]|2[0-3]):[0-5][0-9](:[0-5][0-9])?$/,
       "Invalid time format",
     ),
-  room: z.string().min(1, { message: "Room is required" }),
-  campus: z.string().min(1, { message: "Campus is required" }),
+  room: z.string().trim().min(1, { message: "Room is required" }),
+  campus: z.string().trim().min(1, { message: "Campus is required" }),
 });
 const formSchema = z.object({
   title: z
     .string()
+    .trim()
     .min(1, { message: "Name is required" })
     .max(120, { message: "Name must be less than 120 characters" }),
-  code: z.string(),
+  code: z
+    .string()
+    .trim()
+    .min(1, { message: "Code is required" })
+    .max(120, { message: "Code must be less than 120 characters" }),
   type: z.enum(["Lecture", "Tutorial", "Workshop", "Practical", "Other"]),
+  colour: z.enum(["Purple", "Yellow", "Red", "Orange"]),
   duration: z.coerce
     .number()
     .gte(1, { message: "Duration must be at least 1 minute." })
@@ -56,7 +64,7 @@ export default function ClassForm() {
       type: "Lecture",
       options: [
         {
-          day: "Monday",
+          day: "Mon",
           start_time: "",
           room: "",
           campus: "",
@@ -73,7 +81,23 @@ export default function ClassForm() {
   const { appendState, decode } = useUrlState();
 
   function onSubmit(values: z.infer<typeof formSchema>) {
-    appendState([values], "state", "/classes");
+    const course: Course = {
+      title: values.title,
+      courseCode: values.code,
+      type: CourseType[values.type as keyof typeof CourseType],
+      colour: ColourPalette[values.colour as keyof typeof ColourPalette],
+      options: values.options.map((item) => {
+        return {
+          day: item.day,
+          start: item.start_time,
+          duration: values.duration,
+          location: item.room,
+          campus_description: item.campus,
+        };
+      }),
+    };
+    console.log(course);
+    appendState(course, "state", "/classes");
   }
   return (
     <form className="contents space-y-7" onSubmit={handleSubmit(onSubmit)}>
@@ -107,7 +131,7 @@ export default function ClassForm() {
       <div className=" space-y-2">
         <label
           className="ml-0.5 text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
-          htmlFor="course_code"
+          htmlFor="type"
         >
           Code
         </label>
@@ -115,15 +139,41 @@ export default function ClassForm() {
           {...register("code")}
           id="course_code"
           placeholder="Code"
-          className="flex h-10 w-full rounded-md border px-3 py-2 text-sm shadow-sm 
-          file:border-0 file:bg-transparent file:font-medium
-          placeholder:text-neutral-400/90 focus:ring-neutral-400/60 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-1
-          disabled:cursor-not-allowed disabled:opacity-50"
+          className={`flex h-10 w-full rounded-md border ${
+            errors.title && "border-red-300"
+          } px-3 py-2 text-sm shadow-sm file:border-0 
+          file:bg-transparent file:font-medium placeholder:text-neutral-500/90 ${
+            errors.title
+              ? " focus:ring-red-400/60"
+              : " focus:ring-neutral-400/60"
+          } focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-1
+          disabled:cursor-not-allowed disabled:opacity-50`}
         />
         {errors.code && <ErrorMessage>{errors.code.message}</ErrorMessage>}
         <p className="text-xs font-light text-neutral-500/90">
           This is a code used to describe the course by the university
           (optional). For example, COSC2758.
+        </p>
+      </div>
+      <div className=" space-y-2">
+        <label
+          className="ml-0.5 text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
+          htmlFor="colour"
+        >
+          Colour
+        </label>
+        <select
+          className=" flex h-10 w-full appearance-none rounded-md border bg-white px-3 py-2 text-sm shadow-sm
+          disabled:cursor-not-allowed disabled:opacity-50"
+          {...register("colour")}
+        >
+          <option>Purple</option>
+          <option>Yellow</option>
+          <option>Red</option>
+          <option>Orange</option>
+        </select>
+        <p className="text-xs font-light text-neutral-500/90">
+          A colour for the class.
         </p>
       </div>
       <div className=" space-y-2">
@@ -172,7 +222,7 @@ export default function ClassForm() {
             variant="secondary"
             type="button"
             onClick={() =>
-              append({ day: "Monday", start_time: "", room: "", campus: "" })
+              append({ day: "Mon", start_time: "", room: "", campus: "" })
             }
           >
             <HiOutlinePlusCircle /> Add Option
@@ -273,11 +323,11 @@ function OptionForm({
           disabled:cursor-not-allowed disabled:opacity-50"
               {...register(`options.${index}.day`)}
             >
-              <option>Monday</option>
-              <option>Tuesday</option>
-              <option>Wednesday</option>
-              <option>Thursday</option>
-              <option>Friday</option>
+              <option value="Mon">Monday</option>
+              <option value="Tue">Tuesday</option>
+              <option value="Wed">Wednesday</option>
+              <option value="Thu">Thursday</option>
+              <option value="Fri">Friday</option>
             </select>
             {errors.options && (
               <ErrorMessage>{errors.options[index]?.day?.message}</ErrorMessage>
