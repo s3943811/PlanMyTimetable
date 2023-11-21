@@ -16,7 +16,9 @@ export function useUrlState() {
     },
     [searchParams],
   );
-  // to replace the instance of the state or create a new state
+  // This method will take an state array encoding in the url and add the new item to that array
+  // re-encode and push to url
+  // if that item exists
   const appendState = (
     element: any,
     prefName: string,
@@ -36,26 +38,44 @@ export function useUrlState() {
     }
 
     const query = createQueryString(prefName, encoded);
-    router.replace(`${location}?${query}`, { scroll: false });
+    router.push(`${location}?${query}`, { scroll: false });
   };
-  // to replace url state with states to be kept and new state
+
+  // This method will replace the state in the url with the new element
   const replaceState = (
     element: any,
     prefName: string,
     location: string = pathname,
   ): void => {
-    console.log(searchParams.toString());
+    // console.log(searchParams.toString());
 
     const newState = JSONCrush.crush(JSON.stringify(element));
     const newPref = createQueryString(prefName, newState);
 
     router.push(`${location}?${newPref}`, { scroll: false });
   };
+
+  // This will replace all the states that are passed similar to replaceState
+  const replaceMultiple = (
+    elements: { element: any; prefName: string }[],
+    location: string = pathname,
+  ) => {
+    let currParams = new URLSearchParams(searchParams);
+    const encoded = elements.map((item) => {
+      return {
+        element: JSONCrush.crush(JSON.stringify(item.element)),
+        prefName: item.prefName,
+      };
+    });
+    encoded.map((item) => currParams.set(item.prefName, item.element));
+    router.push(`${location}?${currParams}`, { scroll: false });
+  };
+
   // decode url states
   const decode = (pref: string) => {
     const encodedValue = searchParams.get(pref);
     return encodedValue && JSON.parse(JSONCrush.uncrush(encodedValue));
   };
 
-  return { decode, replaceState, appendState, searchParams };
+  return { decode, replaceState, replaceMultiple, appendState, searchParams };
 }
