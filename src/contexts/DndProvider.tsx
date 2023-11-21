@@ -10,11 +10,11 @@ import {
   useSensors,
   DragOverEvent,
 } from "@dnd-kit/core";
-import { useCallback } from "react";
 import { usePreview, DragType } from "./PreviewContext";
 import { restrictToWindowEdges } from "@dnd-kit/modifiers";
 import { Preference } from "~/lib/definitions";
 import { useUrlState } from "~/hooks/useUrlState";
+
 export function DndProvider({ children }: { children: React.ReactNode }) {
   const { setActiveCourse, events, setEvents, setDragType, setOver } =
     usePreview();
@@ -68,9 +68,11 @@ export function DndProvider({ children }: { children: React.ReactNode }) {
           }
           return item;
         });
+        // replace the old "event" with this new one
         replaceState(parsedPrefs, "pref");
         setEvents(parsedPrefs);
       } else {
+        // add a new event
         appendState(preference, "pref");
       }
     }

@@ -31,12 +31,12 @@ export function PreviewProvider({ children }: PreviewProviderProps) {
   const [events, setEvents] = useState<Array<Preference>>([]);
   const [dragType, setDragType] = useState<DragType | null>(null);
   const [over, setOver] = useState<boolean>(false);
-  const { decode } = useUrlState();
+  const { decode, searchParams } = useUrlState();
   const [courseData, setCourseData] = useState<Course[]>([]);
   useEffect(() => {
     const data = decode("state");
     setCourseData(data);
-  }, []);
+  }, [searchParams.get("state")]);
   return (
     <PreviewContext.Provider
       value={{
