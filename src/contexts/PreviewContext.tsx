@@ -1,5 +1,6 @@
 "use client";
-import React, { createContext, useContext, useState } from "react";
+import React, { createContext, useContext, useState, useEffect } from "react";
+import { useUrlState } from "~/hooks/useUrlState";
 import { Course, Preference } from "~/lib/definitions";
 
 interface PreviewProviderProps {
@@ -14,6 +15,8 @@ interface PreviewContext {
   setDragType: (dragType: DragType | null) => void;
   over: boolean;
   setOver: (over: boolean) => void;
+  courseData: Course[];
+  setCourseData: (course: Course[]) => void;
 }
 export enum DragType {
   event,
@@ -28,6 +31,12 @@ export function PreviewProvider({ children }: PreviewProviderProps) {
   const [events, setEvents] = useState<Array<Preference>>([]);
   const [dragType, setDragType] = useState<DragType | null>(null);
   const [over, setOver] = useState<boolean>(false);
+  const { decode, searchParams } = useUrlState();
+  const [courseData, setCourseData] = useState<Course[]>([]);
+  useEffect(() => {
+    const data = decode("state");
+    setCourseData(data);
+  }, [searchParams.get("state")]);
   return (
     <PreviewContext.Provider
       value={{
@@ -39,6 +48,8 @@ export function PreviewProvider({ children }: PreviewProviderProps) {
         setDragType,
         over,
         setOver,
+        courseData,
+        setCourseData,
       }}
     >
       {children}

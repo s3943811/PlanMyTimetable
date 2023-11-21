@@ -7,7 +7,7 @@ export type Course = {
 };
 
 export type Time = {
-  day: string;
+  day: "Mon" | "Tue" | "Wed" | "Thu" | "Fri";
   start: string;
   duration: number;
   location: string;
@@ -24,6 +24,9 @@ export type Preference = {
 export enum CourseType {
   Lecture,
   Tutorial,
+  Workshop,
+  Practical,
+  Other,
 }
 
 export enum Days {
@@ -35,10 +38,10 @@ export enum Days {
 }
 
 export enum ColourPalette {
-  purple,
-  yellow,
-  orange,
-  red,
+  Purple,
+  Yellow,
+  Orange,
+  Red,
 }
 
 export const colStart: Record<number, string> = {

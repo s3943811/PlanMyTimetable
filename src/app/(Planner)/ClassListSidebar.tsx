@@ -1,31 +1,37 @@
-import {
-  ClassCard,
-  ClassCardClient,
-  DragOverlay,
-  AllocatedPopover,
-} from "~/components";
-import { CourseType } from "~/lib/definitions";
-import { ClassListData } from "~/data/data";
+import { RetainLink, buttonVariants, Tooltip } from "~/components";
+import { HiOutlineAdjustments, HiOutlinePlusCircle } from "react-icons/hi";
 
-export default function ClassListSidebar() {
+export default function ClassListSidebar({
+  children,
+}: {
+  children: React.ReactNode;
+}) {
   return (
-    <aside className="sticky top-0 flex h-screen min-h-screen w-64 min-w-fit flex-col gap-3 overflow-y-auto overflow-x-hidden border-r p-3">
-      <div className=" inline-flex border-b border-b-neutral-50 px-3 py-1 font-medium">
-        <h2 className="inline-flex items-center gap-1 text-md">Classes</h2>
+    <aside className="sticky top-0 flex h-screen min-h-screen w-64 min-w-fit flex-col border-r p-3">
+      <div className=" inline-flex w-72 justify-between border-b border-b-neutral-50 py-1 pl-3 pr-1">
+        <h2 className="inline-flex items-center gap-1 text-md font-medium">
+          Classes
+        </h2>
+        <div className="inline-flex gap-1">
+          <Tooltip message={"Edit"}>
+            <RetainLink
+              className={buttonVariants["outlineIcon"]}
+              href="/classes"
+            >
+              <HiOutlineAdjustments />
+            </RetainLink>
+          </Tooltip>
+          <Tooltip message={"Add"}>
+            <RetainLink
+              className={buttonVariants["outlineIcon"]}
+              href="/classes/add"
+            >
+              <HiOutlinePlusCircle />
+            </RetainLink>
+          </Tooltip>
+        </div>
       </div>
-      {ClassListData.map((item) => (
-        <ClassCardClient
-          key={item.courseCode + CourseType[item.type]}
-          course={item}
-        >
-          <ClassCard
-            key={item.courseCode + CourseType[item.type]}
-            course={item}
-          />
-        </ClassCardClient>
-      ))}
-      <DragOverlay />
-      <AllocatedPopover />
+      {children}
     </aside>
   );
 }

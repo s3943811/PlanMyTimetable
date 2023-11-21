@@ -11,8 +11,10 @@ export default function Event({ title, type, colour, time }: EventProps) {
 
   return (
     <>
-      <h1 className="font-medium">{title}</h1>
-      <p className="text-sm font-normal">
+      <h1 className="line-clamp-1 text-sm font-medium lg:line-clamp-none lg:text-base">
+        {title}
+      </h1>
+      <p className="text-xs font-normal lg:text-sm">
         {time.start} - {endTime}
       </p>
       <p className=" text-xs font-light">{`${CourseType[type]}, ${time.campus_description} (${time.location})`}</p>

@@ -1,21 +1,23 @@
 "use client";
-import { useSearchParams } from "next/navigation";
 import Event from "./Event";
 import EventClient from "./EventClient";
 import { useEffect } from "react";
 import React from "react";
 import { usePreview } from "~/contexts/PreviewContext";
+import { useUrlState } from "~/hooks/useUrlState";
+
 export default function EventList() {
-  const searchParams = useSearchParams();
-  const pref = searchParams.getAll("pref");
+  const { searchParams, decode } = useUrlState();
+  const pref = searchParams.get("pref");
   const { events, setEvents } = usePreview();
 
   useEffect(() => {
-    const parsedPrefs = pref.map((item) =>
-      JSON.parse(decodeURIComponent(item)),
-    );
-    setEvents(parsedPrefs);
-  }, [pref.length]);
+    const parsedPrefs = decode("pref");
+    if (parsedPrefs) {
+      console.log(parsedPrefs);
+      setEvents(parsedPrefs);
+    }
+  }, [pref]);
 
   return events.map((item) => (
     <React.Fragment key={item.courseCode + item.type}>

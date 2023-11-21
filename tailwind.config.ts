@@ -1,5 +1,6 @@
 import { type Config } from "tailwindcss";
 import { fontFamily } from "tailwindcss/defaultTheme";
+import plugin from "tailwindcss/plugin";
 
 export default {
   content: ["./src/**/*.{tsx,ts}"],
@@ -21,5 +22,22 @@ export default {
       },
     },
   },
-  plugins: [],
+  plugins: [
+    plugin(function ({ addUtilities }) {
+      addUtilities({
+        ".scrollbar-hide": {
+          /* IE and Edge */
+          "-ms-overflow-style": "none",
+
+          /* Firefox */
+          "scrollbar-width": "none",
+
+          /* Safari and Chrome */
+          "&::-webkit-scrollbar": {
+            display: "none",
+          },
+        },
+      });
+    }),
+  ],
 } satisfies Config;

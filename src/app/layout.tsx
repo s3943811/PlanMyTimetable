@@ -1,7 +1,7 @@
 import "~/styles/globals.css";
 
 import { Inter } from "next/font/google";
-import { Navbar } from "~/components";
+import Navbar from "./navbar";
 
 const inter = Inter({
   subsets: ["latin"],
@@ -23,7 +23,7 @@ export default function RootLayout({
     <html lang="en">
       <body className={`font-sans ${inter.variable} flex`}>
         <Navbar />
-        {children}
+        <main className="flex w-screen flex-row">{children}</main>
       </body>
     </html>
   );

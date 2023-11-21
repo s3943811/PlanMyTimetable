@@ -3,9 +3,9 @@ import { Course, CourseType, ColourPalette } from "~/lib/definitions";
 const ClassListData: Array<Course> = [
   {
     title: "Full Stack Development",
-    courseCode: "COSC2758_2350_1354_AUSCY",
+    courseCode: "COSC2758",
     type: CourseType.Lecture,
-    colour: ColourPalette.purple,
+    colour: ColourPalette.Purple,
     options: [
       {
         day: "Thu",
@@ -18,9 +18,9 @@ const ClassListData: Array<Course> = [
   },
   {
     title: "Full Stack Development",
-    courseCode: "COSC2758_2350_1354_AUSCY",
+    courseCode: "COSC2758",
     type: CourseType.Tutorial,
-    colour: ColourPalette.purple,
+    colour: ColourPalette.Purple,
     options: [
       {
         day: "Mon",
@@ -54,9 +54,9 @@ const ClassListData: Array<Course> = [
   },
   {
     title: "Software Eng: Process & Tools ",
-    courseCode: "COSC2299_2350_1332_AUSCY",
+    courseCode: "COSC2299",
     type: CourseType.Lecture,
-    colour: ColourPalette.yellow,
+    colour: ColourPalette.Yellow,
     options: [
       {
         day: "Tue",
@@ -76,9 +76,9 @@ const ClassListData: Array<Course> = [
   },
   {
     title: "Software Eng: Process & Tools ",
-    courseCode: "COSC2299_2350_1332_AUSCY",
+    courseCode: "COSC2299",
     type: CourseType.Tutorial,
-    colour: ColourPalette.yellow,
+    colour: ColourPalette.Yellow,
     options: [
       {
         day: "Fri",
@@ -140,9 +140,9 @@ const ClassListData: Array<Course> = [
   },
   {
     title: "Operating System Principles",
-    courseCode: "COSC1114_2350_1322_AUSCY",
+    courseCode: "COSC1114",
     type: CourseType.Lecture,
-    colour: ColourPalette.orange,
+    colour: ColourPalette.Orange,
     options: [
       {
         day: "Wed",
@@ -162,9 +162,9 @@ const ClassListData: Array<Course> = [
   },
   {
     title: "Operating System Principles",
-    courseCode: "COSC1114_2350_1322_AUSCY",
+    courseCode: "COSC1114",
     type: CourseType.Tutorial,
-    colour: ColourPalette.orange,
+    colour: ColourPalette.Orange,
     options: [
       {
         day: "Fri",
@@ -212,9 +212,9 @@ const ClassListData: Array<Course> = [
   },
   {
     title: "Computing Theory",
-    courseCode: "COSC1107_2350_1321_AUSCY",
+    courseCode: "COSC1107",
     type: CourseType.Lecture,
-    colour: ColourPalette.red,
+    colour: ColourPalette.Red,
     options: [
       {
         day: "Mon",
@@ -234,9 +234,9 @@ const ClassListData: Array<Course> = [
   },
   {
     title: "Computing Theory",
-    courseCode: "COSC1107_2350_1321_AUSCY",
+    courseCode: "COSC1107",
     type: CourseType.Tutorial,
-    colour: ColourPalette.red,
+    colour: ColourPalette.Red,
     options: [
       {
         day: "Tue",
