@@ -1,4 +1,4 @@
-import { Days } from "./definitions";
+import { ColourPalette, CourseType, Days } from "./definitions";
 
 export function getTimes(): Array<string> {
   let times = [];
@@ -99,4 +99,51 @@ export function addMinutesToTimeString(
     .padStart(2, "0")}:${updatedMinutes.toString().padStart(2, "0")}`;
 
   return updatedTimeString;
+}
+
+export function getCourseTypeString(
+  type: CourseType,
+): "Lecture" | "Tutorial" | "Workshop" | "Practical" | "Other" {
+  switch (type) {
+    case CourseType.Lecture:
+      return "Lecture";
+    case CourseType.Tutorial:
+      return "Tutorial";
+    case CourseType.Workshop:
+      return "Workshop";
+    case CourseType.Practical:
+      return "Practical";
+    default:
+      return "Other";
+  }
+}
+
+// export function getCourseType(type: string): CourseType {
+//   switch (type) {
+//     case "Lecture":
+//       return CourseType.Lecture;
+//     case "Tutorial":
+//       return CourseType.Tutorial;
+//     case "Workshop":
+//       return CourseType.Workshop;
+//     case "Practical":
+//       return CourseType.Practical;
+//     default:
+//       return CourseType.Other;
+//   }
+// }
+
+export function getColourString(
+  colour: ColourPalette,
+): "Purple" | "Yellow" | "Red" | "Orange" {
+  switch (colour) {
+    case ColourPalette.Purple:
+      return "Purple";
+    case ColourPalette.Yellow:
+      return "Yellow";
+    case ColourPalette.Orange:
+      return "Orange";
+    case ColourPalette.Red:
+      return "Red";
+  }
 }

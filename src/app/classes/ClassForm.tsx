@@ -7,6 +7,7 @@ import {
   FieldErrors,
 } from "react-hook-form";
 import { Button, Tooltip } from "~/components";
+import { useEffect } from "react";
 import {
   HiOutlineXCircle,
   HiOutlinePlusCircle,
@@ -16,6 +17,8 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import * as z from "zod";
 import { useUrlState } from "~/hooks/useUrlState";
 import { ColourPalette, Course, CourseType } from "~/lib/definitions";
+import { usePreview } from "~/contexts/PreviewContext";
+import { getCourseTypeString } from "~/lib/functions";
 
 const optionSchema = z.object({
   day: z.enum(["Mon", "Tue", "Wed", "Thu", "Fri"]),
@@ -25,11 +28,15 @@ const optionSchema = z.object({
     .regex(
       /^([0-1][0-9]|2[0-3]):[0-5][0-9](:[0-5][0-9])?$/,
       "Invalid time format",
+    )
+    .regex(
+      /^(0[5-9]|1[0-9]|2[0-3]):[0-5][0-9]$/,
+      "Time must start on or after 5 am",
     ),
   room: z.string().trim().min(1, { message: "Room is required" }),
   campus: z.string().trim().min(1, { message: "Campus is required" }),
 });
-const formSchema = z.object({
+export const formSchema = z.object({
   title: z
     .string()
     .trim()
@@ -51,34 +58,50 @@ const formSchema = z.object({
     .min(1, { message: "At least one option is required" }),
 });
 
-export default function ClassForm() {
+const val: z.infer<typeof formSchema> = {
+  title: "",
+  code: "",
+  type: "Lecture",
+  colour: "Purple",
+  duration: NaN,
+  options: [
+    {
+      day: "Mon",
+      start_time: "",
+      room: "",
+      campus: "",
+    },
+  ],
+};
+
+export default function ClassForm({
+  defaultValues,
+}: {
+  defaultValues?: z.infer<typeof formSchema>;
+}) {
   const {
     register,
     handleSubmit,
     watch,
+    reset,
     control,
     formState: { errors },
   } = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
-    defaultValues: {
-      type: "Lecture",
-      options: [
-        {
-          day: "Mon",
-          start_time: "",
-          room: "",
-          campus: "",
-        },
-      ],
-    },
+    defaultValues: defaultValues || val,
   });
+
+  useEffect(() => {
+    reset(defaultValues);
+  }, [defaultValues, reset]);
   const watchType = watch("type");
   const { fields, append, remove } = useFieldArray({
     control,
     name: "options",
   });
 
-  const { appendState, decode } = useUrlState();
+  const { appendState, replaceState } = useUrlState();
+  const { courseData } = usePreview();
 
   function onSubmit(values: z.infer<typeof formSchema>) {
     const course: Course = {
@@ -97,6 +120,20 @@ export default function ClassForm() {
       }),
     };
     console.log(course);
+    if (defaultValues) {
+      const courses = courseData.map((item) => {
+        if (
+          item.title === defaultValues!.title &&
+          item.courseCode === defaultValues!.code &&
+          getCourseTypeString(item.type) === defaultValues!.type
+        ) {
+          return course;
+        }
+        return item;
+      });
+      replaceState(courses, "state", "/classes");
+      return;
+    }
     appendState(course, "state", "/classes");
   }
   return (
@@ -198,7 +235,7 @@ export default function ClassForm() {
           The type of class. For example, a Lecture or a Workshop.
         </p>
       </div>
-      <div className="sticky top-0 z-50 inline-flex justify-between bg-white">
+      <div className="sticky top-0 z-10 inline-flex justify-between bg-white">
         <div className="space-y-1">
           <h3 className="text-lg font-medium">Options</h3>
           <p className="text-xs font-light text-neutral-500/90">
@@ -207,7 +244,7 @@ export default function ClassForm() {
         </div>
         <div className=" inline-flex gap-1">
           <Button
-            variant="secondaryIcon"
+            variant="secondary"
             type="button"
             onClick={() => {
               for (let i = fields.length - 1; i > 0; i--) {
@@ -275,10 +312,14 @@ export default function ClassForm() {
         ))}
       </div>
       <div className="ml-auto space-x-5">
-        <Button variant="outlineLarge" type="reset">
-          Clear
+        {!defaultValues && (
+          <Button variant="outlineLarge" type="reset">
+            Clear
+          </Button>
+        )}
+        <Button variant="normalLarge">
+          {defaultValues ? `Update Class` : "Add Class"}
         </Button>
-        <Button variant="normalLarge">Add Class</Button>
       </div>
     </form>
   );

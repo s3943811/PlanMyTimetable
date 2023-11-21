@@ -7,7 +7,7 @@ export type Course = {
 };
 
 export type Time = {
-  day: string;
+  day: "Mon" | "Tue" | "Wed" | "Thu" | "Fri";
   start: string;
   duration: number;
   location: string;
