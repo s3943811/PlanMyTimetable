@@ -14,7 +14,7 @@ export default function ClassList() {
   const { courseData } = usePreview();
   const { active, setActive } = useClassForm();
   useEffect(() => {
-    courseData[0] && handleClick(courseData[0]);
+    courseData && courseData[0] && handleClick(courseData[0]);
   }, [courseData]);
 
   const handleClick = (item: Course) => {
@@ -35,7 +35,7 @@ export default function ClassList() {
     };
     setActive(x);
   };
-  if (courseData.length === 0) {
+  if (!courseData || courseData.length === 0) {
     return (
       <aside className="flex grow flex-col border-r p-3 py-1">
         <div className=" flex h-full w-full flex-col items-center justify-center gap-3 pb-4 pt-1">

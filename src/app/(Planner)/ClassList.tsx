@@ -9,7 +9,7 @@ import { RxDragHandleDots2 } from "react-icons/rx";
 export default function ClassList() {
   const { courseData } = usePreview();
 
-  if (courseData.length === 0) {
+  if (!courseData || courseData.length === 0) {
     return (
       <div className=" flex h-full flex-col items-center justify-center gap-3 pb-4 pt-1">
         <HiOutlineAcademicCap size={96} />

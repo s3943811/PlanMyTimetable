@@ -58,7 +58,7 @@ export default function AllocatedPopover() {
         }
       >
         <Button variant="outline" onClick={() => setIsOpen(!isOpen)}>
-          {events.length}/{courseData.length} Allocated{" "}
+          {events.length}/{(courseData && courseData.length) ?? 0} Allocated{" "}
           {isOpen ? <HiChevronDown /> : <HiChevronUp />}
         </Button>
       </Popover>

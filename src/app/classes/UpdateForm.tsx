@@ -38,7 +38,7 @@ export default function UpdateForm() {
       { element: newEvents, prefName: "pref" },
     ]);
   };
-  if (courseData.length === 0) {
+  if (!courseData || courseData.length === 0) {
     return;
   }
   return (
