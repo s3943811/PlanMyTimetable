@@ -15,8 +15,8 @@ import {
   DialogTitle,
   DialogDescription,
 } from "@radix-ui/react-dialog";
-import { Friend } from "~/app/(Planner)/CalendarToolbar";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { useFriend, Friend } from "~/contexts/FriendContext";
 
 const formSchema = z.object({
   name: z.string().trim().min(1, { message: "Name is required" }),
@@ -28,13 +28,7 @@ const formSchema = z.object({
     }),
 });
 
-export default function AddFriend({
-  friendData,
-  setFriendData,
-}: {
-  friendData: Friend[];
-  setFriendData: React.Dispatch<React.SetStateAction<Friend[]>>;
-}) {
+export default function AddFriend() {
   const {
     register,
     handleSubmit,
@@ -42,6 +36,7 @@ export default function AddFriend({
   } = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
   });
+  const { setFriendData, friendData } = useFriend();
   function onSubmit(values: z.infer<typeof formSchema>) {
     const pref = new URL(values.link).searchParams.get("pref")!;
 

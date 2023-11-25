@@ -2,17 +2,12 @@
 import { Popover } from "react-tiny-popover";
 import React, { useState } from "react";
 import { Button } from "~/components";
-import { Friend } from "~/app/(Planner)/CalendarToolbar";
+import { useFriend, Friend } from "~/contexts/FriendContext";
 import { HiOutlineX, HiChevronUp, HiChevronDown } from "react-icons/hi";
 
-export default function FriendPopover({
-  friendData,
-  setFriendData,
-}: {
-  friendData: Friend[];
-  setFriendData: React.Dispatch<React.SetStateAction<Friend[]>>;
-}) {
+export default function FriendPopover() {
   const [isOpen, setIsOpen] = useState(false);
+  const { setFriendData, friendData } = useFriend();
 
   function setActive(item: Friend) {
     const newData = friendData.map((friend) => {
