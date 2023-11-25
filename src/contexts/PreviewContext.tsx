@@ -28,11 +28,12 @@ export function usePreview() {
 }
 export function PreviewProvider({ children }: PreviewProviderProps) {
   const [activeCourse, setActiveCourse] = useState<Course | null>(null);
-  const [events, setEvents] = useState<Array<Preference>>([]);
   const [dragType, setDragType] = useState<DragType | null>(null);
   const [over, setOver] = useState<boolean>(false);
+
   const { decode, searchParams } = useUrlState();
-  const [courseData, setCourseData] = useState<Course[]>([]);
+  const [events, setEvents] = useState<Array<Preference>>(decode("pref") ?? []);
+  const [courseData, setCourseData] = useState<Course[]>(decode("state"));
   useEffect(() => {
     const data = decode("state");
     setCourseData(data);
