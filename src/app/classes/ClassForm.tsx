@@ -342,7 +342,7 @@ function OptionForm({
     <div className="relative rounded-md border px-2.5 py-2 pb-3">
       {index !== 0 && (
         <div className="absolute right-1 top-1">
-          <Tooltip message="Remove">
+          <Tooltip message="Remove" position="top">
             <Button variant="ghostIcon" onClick={() => remove(index)}>
               <HiOutlineMinusCircle />
             </Button>
