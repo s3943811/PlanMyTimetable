@@ -5,11 +5,12 @@ import {
   PreviewEventClient,
   EventList,
 } from "~/components";
+import CalendarToolbar from "./CalendarToolbar";
 
 export default function Calendar() {
   return (
     <section className="flex w-full grow flex-col">
-      <div className="grid w-full grid-cols-[auto,repeat(5,1fr)] grid-rows-[2.5rem,repeat(38,2.35rem)]">
+      <div className="grid max-h-[93vh] w-full grid-cols-[auto,repeat(5,1fr)] grid-rows-[2.5rem,repeat(38,2.35rem)] overflow-auto">
         <CalendarHeader />
         {Array.from({ length: 38 }, (_, index) => (
           <React.Fragment key={index}>
@@ -30,6 +31,7 @@ export default function Calendar() {
         <EventList />
         <PreviewEventClient />
       </div>
+      <CalendarToolbar />
     </section>
   );
 }
