@@ -3,7 +3,7 @@ import { Popover } from "react-tiny-popover";
 import React, { useState } from "react";
 import { Button } from "~/components";
 import { useFriend, Friend } from "~/contexts/FriendContext";
-import { HiOutlineX, HiChevronUp, HiChevronDown } from "react-icons/hi";
+import { HiOutlineX, HiOutlineSelector } from "react-icons/hi";
 
 export default function FriendPopover() {
   const [isOpen, setIsOpen] = useState(false);
@@ -27,6 +27,7 @@ export default function FriendPopover() {
 
   return (
     <Popover
+      containerClassName="z-50"
       isOpen={isOpen}
       positions={["top"]}
       padding={10}
@@ -48,7 +49,7 @@ export default function FriendPopover() {
                     type="checkbox"
                     className=""
                     checked={item.active}
-                    onClick={() => setActive(item)}
+                    onChange={() => setActive(item)}
                   />
                   <p
                     className={` ${
@@ -82,7 +83,7 @@ export default function FriendPopover() {
       }
     >
       <Button variant="outline" onClick={() => setIsOpen(!isOpen)}>
-        Friends
+        Friends <HiOutlineSelector />
       </Button>
     </Popover>
   );
