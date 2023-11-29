@@ -63,7 +63,7 @@ export default function AddFriend() {
       </DialogTrigger>
       <DialogPortal>
         <DialogOverlay className="fixed inset-0 z-50 backdrop-brightness-[.65]" />
-        <DialogContent className="fixed left-[50%] top-[50%] z-50 grid w-full max-w-md translate-x-[-40%] translate-y-[-50%] gap-4 rounded-lg border bg-white p-6 shadow-lg">
+        <DialogContent className="fixed left-[50%] top-[50%] z-[999] grid w-full max-w-md translate-x-[-40%] translate-y-[-50%] gap-4 rounded-lg border bg-white p-6 shadow-lg">
           <div className="flex flex-col space-y-1.5">
             <DialogTitle className="text-lg font-medium leading-none tracking-tight">
               Add a friend
