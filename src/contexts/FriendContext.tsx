@@ -1,8 +1,7 @@
 "use client";
 
-import { createContext, useContext } from "react";
+import { createContext, useContext, useState, useEffect } from "react";
 import { Preference } from "~/lib/definitions";
-import { useLocalStorage } from "~/hooks/useLocalStorage";
 
 export type Friend = {
   id: string;
@@ -17,8 +16,8 @@ interface FriendProviderProps {
 }
 
 interface FriendContext {
-  friendData: Friend[];
-  setFriendData: React.Dispatch<React.SetStateAction<Friend[]>>;
+  friendData: Friend[] | null;
+  setFriendData: React.Dispatch<React.SetStateAction<Friend[] | null>>;
 }
 
 const FriendContext = createContext({} as FriendContext);
@@ -27,7 +26,27 @@ export function useFriend() {
 }
 
 export function FriendProvider({ children }: FriendProviderProps) {
-  const [friendData, setFriendData] = useLocalStorage<Friend[]>("friends", []);
+  const [friendData, setFriendData] = useState<Friend[] | null>(null);
+
+  useEffect(() => {
+    if (typeof window !== "undefined") {
+      const storedValue = window.localStorage.getItem("friends");
+      if (storedValue !== null) {
+        setFriendData(JSON.parse(storedValue));
+      }
+    }
+  }, []);
+
+  useEffect(() => {
+    if (typeof window !== "undefined" && friendData !== null) {
+      window.localStorage.setItem("friends", JSON.stringify(friendData));
+    }
+  }, [friendData]);
+
+  if (!friendData) {
+    return <>{children}</>;
+  }
+
   return (
     <FriendContext.Provider value={{ friendData, setFriendData }}>
       {children}
