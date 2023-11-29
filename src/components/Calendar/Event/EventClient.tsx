@@ -19,6 +19,7 @@ export default function EventClient({
   const { friendData } = useFriend();
   const friendsTaking = useMemo(
     () =>
+      friendData &&
       friendData
         .filter((friend) => {
           return (
@@ -86,7 +87,7 @@ export default function EventClient({
       } rounded px-3 py-2 ${over ? "hover:cursor-copy" : "hover:cursor-grab"}`}
     >
       {children}
-      {friendsTaking.length !== 0 && (
+      {friendsTaking && friendsTaking.length !== 0 && (
         <p className=" mt-2 text-xs font-light">
           This is also being taken at this time by: {friendsTaking.join(", ")}
         </p>
