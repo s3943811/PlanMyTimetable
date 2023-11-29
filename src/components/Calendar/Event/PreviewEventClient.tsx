@@ -1,22 +1,33 @@
 "use client";
 import { usePreview } from "~/contexts/PreviewContext";
 import { colStart, rowStart, rowSpans, Time, Course } from "~/lib/definitions";
-import { getDayEnum, getRowIndex } from "~/lib/functions";
-import React from "react";
+import { getDayEnum, getRowIndex, groupByStartAndDay } from "~/lib/functions";
+import React, { useMemo } from "react";
 import Clash from "./Clash";
 import { useDroppable } from "@dnd-kit/core";
 
 export default function PreviewEventClient() {
   const { activeCourse } = usePreview();
-  const clash = activeCourse?.options.filter((obj, index, self) => {
-    return (
-      self.filter((t) => t.start === obj.start && t.day === obj.day).length > 1
-    );
-  });
-  const clashes = groupByStartAndDay(clash);
 
-  const noClash = activeCourse?.options.filter(
-    (option) => !clashes.flat().includes(option),
+  const clashes: Time[][] = useMemo(
+    () =>
+      groupByStartAndDay(
+        activeCourse?.options.filter((obj, index, self) => {
+          return (
+            self.filter((t) => t.start === obj.start && t.day === obj.day)
+              .length > 1
+          );
+        }),
+      ),
+    [activeCourse],
+  );
+
+  const noClash = useMemo(
+    () =>
+      activeCourse?.options.filter(
+        (option) => !clashes.flat().includes(option),
+      ),
+    [clashes, activeCourse],
   );
 
   return (
@@ -92,17 +103,4 @@ function PreviewEvent({
        m-0.5 rounded px-3 py-2 hover:cursor-copy`}
     ></div>
   );
-}
-
-function groupByStartAndDay(items: Time[] | undefined): Array<Array<Time>> {
-  const groups: any = {};
-  items &&
-    items.forEach((item) => {
-      const key: string = `${item.start}-${item.day}`;
-      if (!groups[key]) {
-        groups[key] = [];
-      }
-      groups[key].push(item);
-    });
-  return Object.values(groups);
 }
