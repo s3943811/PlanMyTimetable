@@ -1,4 +1,10 @@
-import { ColourPalette, CourseType, Days } from "./definitions";
+import {
+  ColourPalette,
+  CourseType,
+  Days,
+  Preference,
+  Time,
+} from "./definitions";
 
 export function getTimes(): Array<string> {
   let times = [];
@@ -146,4 +152,28 @@ export function getColourString(
     case ColourPalette.Red:
       return "Red";
   }
+}
+
+export function groupByStartAndDay(
+  items: Time[] | undefined | Preference[],
+): any {
+  const groups: any = {};
+
+  items?.forEach((item) => {
+    if ("start" in item && "day" in item) {
+      const key: string = `${item.start}-${item.day}`;
+      if (!groups[key]) {
+        groups[key] = [];
+      }
+      groups[key].push(item);
+    } else {
+      const key: string = `${item.time.start}-${item.time.day}`;
+      if (!groups[key]) {
+        groups[key] = [];
+      }
+      groups[key].push(item);
+    }
+  });
+
+  return Object.values(groups);
 }
