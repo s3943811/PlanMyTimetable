@@ -59,8 +59,11 @@ export function FriendEvent({
 }: {
   item: Omit<Preference, "colour"> & { friends: string[] };
 }) {
-  const endTime = addMinutesToTimeString(item.time.start, item.time.duration);
-  const rowSpan: number = item.time.duration / 30;
+  const endTime = addMinutesToTimeString(
+    item.time.start,
+    Number(item.time.duration),
+  );
+  const rowSpan: number = Number(item.time.duration) / 30;
   return (
     <div
       key={item.courseCode + item.type}
