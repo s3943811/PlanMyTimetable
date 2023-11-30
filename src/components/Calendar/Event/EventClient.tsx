@@ -9,11 +9,13 @@ import { useMemo } from "react";
 interface EventClientProps {
   children: React.ReactNode;
   preference: Preference;
+  clash?: number;
 }
 
 export default function EventClient({
   children,
   preference,
+  clash,
 }: EventClientProps) {
   const { courseData } = usePreview();
   const { friendData } = useFriend();
@@ -71,6 +73,32 @@ export default function EventClient({
     },
   });
   const rowSpan: number = preference.time.duration / 30;
+  if (clash) {
+    const height = (preference.time.duration / clash) * 100;
+    return (
+      <div
+        ref={setNodeRef}
+        {...listeners}
+        {...attributes}
+        tabIndex={0}
+        style={{ height: `${height}%` }}
+        className={`z-10 ${
+          isDragging && "opacity-50"
+        } m-0.5 flex flex-col overflow-hidden ${
+          colourVariants[preference.colour]
+        } rounded px-3 py-2 ${
+          over ? "hover:cursor-copy" : "hover:cursor-grab"
+        }`}
+      >
+        {children}
+        {friendsTaking && friendsTaking.length !== 0 && (
+          <p className=" mt-2 text-xs font-light">
+            This is also being taken at this time by: {friendsTaking.join(", ")}
+          </p>
+        )}
+      </div>
+    );
+  }
 
   return (
     <div

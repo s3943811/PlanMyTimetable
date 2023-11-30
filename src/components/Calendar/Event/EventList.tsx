@@ -144,6 +144,7 @@ export default function EventList() {
   }, [friendData, clashes, eventsNoClashes]);
 
   useEffect(() => {
+    console.log(clashes);
     const parsedPrefs = decode("pref");
     if (parsedPrefs) {
       // console.log(parsedPrefs);
@@ -171,7 +172,10 @@ export default function EventList() {
         </React.Fragment>
       ))}
       {clashes.map((group, index) => {
-        const rowSpan: number = group[index]!.time.duration / 30;
+        const largestDuration = group.reduce((max, item) => {
+          return item.time.duration > max ? item.time.duration : max;
+        }, 0);
+        const rowSpan: number = largestDuration / 30;
         return (
           <Clash
             key={index}
@@ -186,7 +190,7 @@ export default function EventList() {
                 }
               >
                 {item.originalType === "event" ? (
-                  <EventClient preference={item}>
+                  <EventClient preference={item} clash={largestDuration}>
                     <Event
                       title={item.title}
                       type={item.type}
