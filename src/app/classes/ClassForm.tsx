@@ -100,8 +100,8 @@ export default function ClassForm({
     name: "options",
   });
 
-  const { appendState, replaceState } = useUrlState();
-  const { courseData } = usePreview();
+  const { appendState, replaceMultiple } = useUrlState();
+  const { courseData, events } = usePreview();
 
   function onSubmit(values: z.infer<typeof formSchema>) {
     const course: Course = {
@@ -131,7 +131,29 @@ export default function ClassForm({
         }
         return item;
       });
-      replaceState(courses, "state", "/classes");
+      const newEvents = events.map((item) => {
+        if (
+          item.title === defaultValues!.title &&
+          item.courseCode === defaultValues!.code &&
+          getCourseTypeString(item.type) === defaultValues!.type
+        ) {
+          return {
+            title: values.title,
+            courseCode: values.code,
+            type: CourseType[values.type as keyof typeof CourseType],
+            colour: ColourPalette[values.colour as keyof typeof ColourPalette],
+            time: item.time,
+          };
+        }
+        return item;
+      });
+      replaceMultiple(
+        [
+          { element: courses, prefName: "state" },
+          { element: newEvents, prefName: "pref" },
+        ],
+        "/classes",
+      );
       return;
     }
     appendState(course, "state", "/classes");
