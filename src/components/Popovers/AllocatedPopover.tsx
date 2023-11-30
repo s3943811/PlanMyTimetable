@@ -20,7 +20,7 @@ export default function AllocatedPopover() {
   const [isOpen, setIsOpen] = useState(false);
   return (
     <div
-      className={`mt-auto flex max-w-full flex-col items-center gap-2 border-t border-t-neutral-50 p-2 pt-3.5`}
+      className={`sticky bottom-0 flex h-16 max-w-full flex-col items-center gap-2 border-t p-2 py-4`}
     >
       <Popover
         isOpen={isOpen}
