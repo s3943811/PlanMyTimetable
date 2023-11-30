@@ -1,7 +1,7 @@
 import "~/styles/globals.css";
 
 import { Inter } from "next/font/google";
-import Navbar from "./navbar";
+import Navbar from "./(Navbar)/navbar";
 import { Toaster } from "react-hot-toast";
 
 const inter = Inter({

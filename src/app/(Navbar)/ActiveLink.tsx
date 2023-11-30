@@ -11,7 +11,6 @@ export default function ActiveLink({
   const segement = usePathname();
   console.log(segement);
   const active = segement === pathname;
-  //   inline-flex h-8 w-fit items-center justify-center gap-1 whitespace-nowrap rounded-md px-4 py-2 text-sm hover:bg-neutral-50 active:bg-neutral-100
   return (
     <RetainLink
       href={pathname}
