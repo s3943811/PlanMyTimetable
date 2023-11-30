@@ -2,6 +2,7 @@ import "~/styles/globals.css";
 
 import { Inter } from "next/font/google";
 import Navbar from "./navbar";
+import { Toaster } from "react-hot-toast";
 
 const inter = Inter({
   subsets: ["latin"],
@@ -24,6 +25,7 @@ export default function RootLayout({
       <body className={`font-sans ${inter.variable} flex`}>
         <Navbar />
         <main className="flex w-screen flex-row">{children}</main>
+        <Toaster position="bottom-right" />
       </body>
     </html>
   );

@@ -19,6 +19,7 @@ import { useUrlState } from "~/hooks/useUrlState";
 import { ColourPalette, Course, CourseType } from "~/lib/definitions";
 import { usePreview } from "~/contexts/PreviewContext";
 import { getCourseTypeString } from "~/lib/functions";
+import toast from "react-hot-toast";
 
 const optionSchema = z.object({
   day: z.enum(["Mon", "Tue", "Wed", "Thu", "Fri"]),
@@ -154,9 +155,11 @@ export default function ClassForm({
         ],
         "/classes",
       );
+      toast.success("Class updated successfully");
       return;
     }
     appendState(course, "state", "/classes");
+    toast.success("Class created successfully");
   }
   return (
     <form className="contents space-y-7" onSubmit={handleSubmit(onSubmit)}>

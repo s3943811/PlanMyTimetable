@@ -7,6 +7,7 @@ import { useUrlState } from "~/hooks/useUrlState";
 import { usePreview } from "~/contexts/PreviewContext";
 import { getCourseTypeString } from "~/lib/functions";
 import { Preference } from "~/lib/definitions";
+import toast from "react-hot-toast";
 
 export default function UpdateForm() {
   const { active } = useClassForm();
@@ -37,6 +38,7 @@ export default function UpdateForm() {
       { element: classes, prefName: "state" },
       { element: newEvents, prefName: "pref" },
     ]);
+    toast.success("Class deleted successfully");
   };
   if (!courseData || courseData.length === 0) {
     return;
