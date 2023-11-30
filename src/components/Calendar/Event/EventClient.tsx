@@ -84,7 +84,7 @@ export default function EventClient({
         style={{ height: `${height}%` }}
         className={`z-10 ${
           isDragging && "opacity-50"
-        } m-0.5 flex flex-col overflow-hidden ${
+        } flex flex-col overflow-hidden ${
           colourVariants[preference.colour]
         } rounded px-3 py-2 ${
           over ? "hover:cursor-copy" : "hover:cursor-grab"
