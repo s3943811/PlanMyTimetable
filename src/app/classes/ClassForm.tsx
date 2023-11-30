@@ -148,12 +148,13 @@ export default function ClassForm({
         }
         return item;
       });
+      // setCourseData(courses);
       replaceMultiple(
         [
           { element: courses, prefName: "state" },
           { element: newEvents, prefName: "pref" },
         ],
-        "/classes",
+        `/classes/${course.courseCode}-${getCourseTypeString(course.type)}`,
       );
       toast.success("Class updated successfully");
       return;
@@ -198,9 +199,12 @@ export default function ClassForm({
           Code
         </label>
         <input
-          {...register("code")}
+          {...(register("code"),
+          {
+            disabled: defaultValues ? true : false,
+            placeholder: defaultValues ? defaultValues.code : "Code",
+          })}
           id="course_code"
-          placeholder="Code"
           className={`flex h-10 w-full rounded-md border ${
             errors.title && "border-red-300"
           } px-3 py-2 text-sm shadow-sm file:border-0 
@@ -248,7 +252,11 @@ export default function ClassForm({
         <select
           className=" flex h-10 w-full appearance-none rounded-md border bg-white px-3 py-2 text-sm shadow-sm
           disabled:cursor-not-allowed disabled:opacity-50"
-          {...register("type")}
+          {...(register("type"),
+          {
+            disabled: defaultValues ? true : false,
+            placeholder: defaultValues ? defaultValues.type : "Lecture",
+          })}
         >
           <option>Lecture</option>
           <option>Tutorial</option>
