@@ -43,7 +43,11 @@ export default function PreviewEventClient() {
               span={rowSpans[rowSpan]!}
             >
               {group.map((time) => (
-                <PreviewEvent time={time} course={activeCourse!} clash />
+                <React.Fragment
+                  key={time.day + time.start + time.duration + time.location}
+                >
+                  <PreviewEvent time={time} course={activeCourse!} clash />
+                </React.Fragment>
               ))}
             </Clash>
           );

@@ -33,6 +33,7 @@ export default function EventList() {
       const rowSpan: number = item.time.duration / 30;
       return (
         <div
+          key={item.courseCode + item.type}
           className={`z-10 ${colStart[getDayEnum(item.time.day)! + 2]} ${
             rowStart[getRowIndex(item.time.start)]
           } ${
