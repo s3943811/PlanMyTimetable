@@ -11,7 +11,7 @@ export default function ClassList() {
 
   if (!courseData || courseData.length === 0) {
     return (
-      <div className=" flex h-full flex-col items-center justify-center gap-3 pb-4 pt-1">
+      <div className=" flex h-full flex-col items-center justify-center gap-3 px-4 pb-4 pt-1">
         <HiOutlineAcademicCap size={96} />
         <p className="white">You haven't added any classes yet. </p>
         <RetainLink
