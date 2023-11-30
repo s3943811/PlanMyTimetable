@@ -23,9 +23,18 @@ const formSchema = z.object({
   link: z
     .string()
     .url({ message: "Invalid link" })
-    .refine((value) => new URL(value).searchParams.get("pref") !== null, {
-      message: 'The link must contain a "pref" query parameter',
-    }),
+    .refine(
+      (value) => {
+        try {
+          return new URL(value).searchParams.get("pref") !== null;
+        } catch {
+          return false;
+        }
+      },
+      {
+        message: 'The link must contain a "pref" query parameter',
+      },
+    ),
 });
 
 export default function AddFriend() {
@@ -47,7 +56,7 @@ export default function AddFriend() {
       state: JSON.parse(JSONCrush.uncrush(pref)),
       active: true,
     };
-    setFriendData([...friendData, friend]);
+    friendData && setFriendData([...friendData, friend]);
     setOpen(false);
   }
 
