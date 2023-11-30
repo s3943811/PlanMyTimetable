@@ -93,7 +93,6 @@ export default function EventList() {
           if (
             !flatClashes.some(
               (clash) =>
-                clash.originalType === "friend" &&
                 clash.title === stateItem.title &&
                 clash.courseCode === stateItem.courseCode &&
                 clash.type === stateItem.type &&
