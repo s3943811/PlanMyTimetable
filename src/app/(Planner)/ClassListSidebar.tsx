@@ -7,8 +7,8 @@ export default function ClassListSidebar({
   children: React.ReactNode;
 }) {
   return (
-    <aside className="sticky top-0 flex h-screen min-h-screen w-64 min-w-fit flex-col border-r p-3">
-      <div className=" inline-flex w-72 justify-between border-b border-b-neutral-50 py-1 pl-3 pr-1">
+    <aside className="sticky top-0 flex h-screen min-h-screen w-64 min-w-fit flex-col border-r ">
+      <div className=" inline-flex grow justify-between border-b px-3 py-4">
         <h2 className="inline-flex items-center gap-1 text-md font-medium">
           Classes
         </h2>

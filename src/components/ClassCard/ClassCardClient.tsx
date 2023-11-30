@@ -34,7 +34,7 @@ export default function ClassCardClient({
       {...attributes}
       className={`z-50 ${
         isDragging && "opacity-50"
-      } flex w-72 flex-row gap-1 rounded-md border border-r-[6.5px] px-2.5 py-2.5 hover:bg-neutral-100 ${
+      } flex w-72 flex-row gap-1 rounded-md border-r-[6.5px] px-2.5 py-2.5 hover:bg-neutral-100 ${
         isAllocated ? "bg-neutral-50" : "bg-white"
       } ${
         colourVariants[course.colour]

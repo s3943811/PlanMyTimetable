@@ -26,18 +26,20 @@ export default function ClassList() {
   return (
     <div className="flex flex-col gap-3 overflow-y-auto overflow-x-hidden pb-4 pt-1 scrollbar-hide">
       {courseData.map((item) => (
-        <ClassCardClient
+        <div
           key={item.courseCode + CourseType[item.type]}
-          course={item}
+          className="border-b border-b-neutral-100 px-3 pb-2 last:border-none"
         >
-          <RxDragHandleDots2 color="#737373" />
-          <div className="space-y-1 px-1.5">
-            <ClassCard
-              key={item.courseCode + CourseType[item.type]}
-              course={item}
-            />
-          </div>
-        </ClassCardClient>
+          <ClassCardClient course={item}>
+            <RxDragHandleDots2 color="#737373" />
+            <div className="space-y-1 px-1.5">
+              <ClassCard
+                key={item.courseCode + CourseType[item.type]}
+                course={item}
+              />
+            </div>
+          </ClassCardClient>
+        </div>
       ))}
       <DragOverlay />
     </div>
