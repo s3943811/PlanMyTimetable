@@ -1,16 +1,19 @@
-import { HiCalendar, HiQuestionMarkCircle } from "react-icons/hi";
+import { HiCalendar, HiQuestionMarkCircle, HiHome } from "react-icons/hi";
+import { HiBookOpen } from "react-icons/hi2";
 import { RetainLink, buttonVariants } from "~/components";
+import ActiveLink from "./ActiveLink";
 function Navbar() {
   return (
     <nav className="sticky top-0 flex h-screen flex-col items-center justify-between border-r bg-white p-3 pt-8">
-      <div>
-        <RetainLink
-          href="/"
-          className="flex flex-row items-center justify-center gap-2 rounded-lg px-4 py-1.5 font-medium hover:bg-neutral-100 active:bg-neutral-200"
-        >
-          <HiCalendar />
+      <div className="space-y-3">
+        <ActiveLink pathname="/">
+          <HiHome />
           Home
-        </RetainLink>
+        </ActiveLink>
+        <ActiveLink pathname="/classes">
+          <HiBookOpen />
+          Classes
+        </ActiveLink>
       </div>
       <div>
         <RetainLink className={buttonVariants["ghost"]} href="/help">
