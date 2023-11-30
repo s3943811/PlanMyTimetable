@@ -1,5 +1,5 @@
 "use client";
-import { usePathname } from "next/navigation";
+import { usePathname, useSelectedLayoutSegment } from "next/navigation";
 import { RetainLink } from "~/components";
 export default function ActiveLink({
   pathname,
@@ -9,8 +9,11 @@ export default function ActiveLink({
   children: React.ReactNode;
 }) {
   const segement = usePathname();
-  console.log(segement);
-  const active = segement === pathname;
+  const layoutSegement = useSelectedLayoutSegment();
+  // console.log(segement);
+  const active =
+    segement === pathname ||
+    (layoutSegement && pathname.includes(layoutSegement));
   return (
     <RetainLink
       href={pathname}
