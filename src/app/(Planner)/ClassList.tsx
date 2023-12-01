@@ -11,7 +11,7 @@ export default function ClassList() {
 
   if (!courseData || courseData.length === 0) {
     return (
-      <div className=" flex h-full flex-col items-center justify-center gap-3 pb-4 pt-1">
+      <div className=" flex h-full flex-col items-center justify-center gap-3 px-4 pb-4 pt-1">
         <HiOutlineAcademicCap size={96} />
         <p className="white">You haven't added any classes yet. </p>
         <RetainLink
@@ -26,18 +26,20 @@ export default function ClassList() {
   return (
     <div className="flex flex-col gap-3 overflow-y-auto overflow-x-hidden pb-4 pt-1 scrollbar-hide">
       {courseData.map((item) => (
-        <ClassCardClient
+        <div
           key={item.courseCode + CourseType[item.type]}
-          course={item}
+          className="border-b border-b-neutral-100 px-3 pb-2 last:border-none"
         >
-          <RxDragHandleDots2 color="#737373" />
-          <div className="space-y-1 px-1.5">
-            <ClassCard
-              key={item.courseCode + CourseType[item.type]}
-              course={item}
-            />
-          </div>
-        </ClassCardClient>
+          <ClassCardClient course={item}>
+            <div className="space-y-1 px-1.5">
+              <ClassCard
+                key={item.courseCode + CourseType[item.type]}
+                course={item}
+              />
+            </div>
+            <RxDragHandleDots2 color="#737373" />
+          </ClassCardClient>
+        </div>
       ))}
       <DragOverlay />
     </div>

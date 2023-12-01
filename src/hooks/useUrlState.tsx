@@ -1,5 +1,10 @@
 import { useCallback } from "react";
-import { useSearchParams, usePathname, useRouter } from "next/navigation";
+import {
+  useSearchParams,
+  usePathname,
+  useRouter,
+  redirect as nextRedirect,
+} from "next/navigation";
 import JSONCrush from "jsoncrush";
 
 export function useUrlState() {
@@ -77,5 +82,17 @@ export function useUrlState() {
     return encodedValue && JSON.parse(JSONCrush.uncrush(encodedValue));
   };
 
-  return { decode, replaceState, replaceMultiple, appendState, searchParams };
+  const redirect = (location: string) => {
+    const params = new URLSearchParams(searchParams);
+    nextRedirect(`${location}?${params}`);
+  };
+
+  return {
+    decode,
+    replaceState,
+    replaceMultiple,
+    appendState,
+    searchParams,
+    redirect,
+  };
 }

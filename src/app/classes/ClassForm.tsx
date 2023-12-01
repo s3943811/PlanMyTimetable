@@ -19,6 +19,7 @@ import { useUrlState } from "~/hooks/useUrlState";
 import { ColourPalette, Course, CourseType } from "~/lib/definitions";
 import { usePreview } from "~/contexts/PreviewContext";
 import { getCourseTypeString } from "~/lib/functions";
+import toast from "react-hot-toast";
 
 const optionSchema = z.object({
   day: z.enum(["Mon", "Tue", "Wed", "Thu", "Fri"]),
@@ -85,6 +86,7 @@ export default function ClassForm({
     watch,
     reset,
     control,
+    setError,
     formState: { errors },
   } = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
@@ -100,8 +102,8 @@ export default function ClassForm({
     name: "options",
   });
 
-  const { appendState, replaceState } = useUrlState();
-  const { courseData } = usePreview();
+  const { appendState, replaceMultiple } = useUrlState();
+  const { courseData, events } = usePreview();
 
   function onSubmit(values: z.infer<typeof formSchema>) {
     const course: Course = {
@@ -131,10 +133,48 @@ export default function ClassForm({
         }
         return item;
       });
-      replaceState(courses, "state", "/classes");
+      const newEvents = events.map((item) => {
+        if (
+          item.title === defaultValues!.title &&
+          item.courseCode === defaultValues!.code &&
+          getCourseTypeString(item.type) === defaultValues!.type
+        ) {
+          return {
+            title: values.title,
+            courseCode: values.code,
+            type: CourseType[values.type as keyof typeof CourseType],
+            colour: ColourPalette[values.colour as keyof typeof ColourPalette],
+            time: item.time,
+          };
+        }
+        return item;
+      });
+      // setCourseData(courses);
+      replaceMultiple(
+        [
+          { element: courses, prefName: "state" },
+          { element: newEvents, prefName: "pref" },
+        ],
+        `/classes/${course.courseCode}-${getCourseTypeString(course.type)}`,
+      );
+      toast.success("Class updated successfully");
+      return;
+    }
+    const already = courseData.find(
+      (item) =>
+        item.courseCode === course.courseCode && item.type === course.type,
+    );
+    if (already) {
+      setError("code", {
+        message: "Course with this code and type already exists",
+      });
+      setError("type", {
+        message: "Course with this code and type already exists",
+      });
       return;
     }
     appendState(course, "state", "/classes");
+    toast.success("Class created successfully");
   }
   return (
     <form className="contents space-y-7" onSubmit={handleSubmit(onSubmit)}>
@@ -168,28 +208,29 @@ export default function ClassForm({
       <div className=" space-y-2">
         <label
           className="ml-0.5 text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
-          htmlFor="type"
+          htmlFor="course_code"
         >
           Code
         </label>
         <input
           {...register("code")}
+          disabled={defaultValues ? true : false}
+          placeholder={defaultValues ? defaultValues.code : "Code"}
           id="course_code"
-          placeholder="Code"
           className={`flex h-10 w-full rounded-md border ${
-            errors.title && "border-red-300"
+            errors.code && "border-red-300"
           } px-3 py-2 text-sm shadow-sm file:border-0 
           file:bg-transparent file:font-medium placeholder:text-neutral-500/90 ${
-            errors.title
+            errors.code
               ? " focus:ring-red-400/60"
               : " focus:ring-neutral-400/60"
           } focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-1
-          disabled:cursor-not-allowed disabled:opacity-50`}
+           disabled:cursor-not-allowed disabled:opacity-50`}
         />
         {errors.code && <ErrorMessage>{errors.code.message}</ErrorMessage>}
         <p className="text-xs font-light text-neutral-500/90">
-          This is a code used to describe the course by the university
-          (optional). For example, COSC2758.
+          This is a code used to describe the course by the university. For
+          example, COSC2758.
         </p>
       </div>
       <div className=" space-y-2">
@@ -221,9 +262,17 @@ export default function ClassForm({
           Type
         </label>
         <select
-          className=" flex h-10 w-full appearance-none rounded-md border bg-white px-3 py-2 text-sm shadow-sm
-          disabled:cursor-not-allowed disabled:opacity-50"
+          className={`appearence-none flex h-10 w-full rounded-md border ${
+            errors.type && "border-red-300"
+          } bg-white px-3 py-2 text-sm shadow-sm ${
+            errors.type
+              ? " focus:ring-red-400/60"
+              : " focus:ring-neutral-400/60"
+          } focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-1
+           disabled:cursor-not-allowed disabled:opacity-50`}
           {...register("type")}
+          disabled={defaultValues ? true : false}
+          placeholder={defaultValues ? defaultValues.type : "Lecture"}
         >
           <option>Lecture</option>
           <option>Tutorial</option>
@@ -234,6 +283,7 @@ export default function ClassForm({
         <p className="text-xs font-light text-neutral-500/90">
           The type of class. For example, a Lecture or a Workshop.
         </p>
+        {errors.type && <ErrorMessage>{errors.type.message}</ErrorMessage>}
       </div>
       <div className="sticky top-0 z-10 inline-flex justify-between bg-white">
         <div className="space-y-1">

@@ -6,28 +6,33 @@ export default function ClassCard({ course }: { course: Course }) {
   var cardColour;
   switch (course.type) {
     case CourseType.Lecture:
-      cardColour = "bg-green-500/90 text-green-50";
+      cardColour = "bg-green-200 text-green-800";
       break;
     case CourseType.Tutorial:
-      cardColour = "bg-blue-500/90 text-blue-50";
+      cardColour = "bg-blue-200 text-blue-800";
       break;
     case CourseType.Practical:
-      cardColour = "bg-rose-500/90 text-rose-50";
+      cardColour = "bg-rose-200 text-rose-800";
       break;
     case CourseType.Workshop:
-      cardColour = "bg-amber-500/90 text-amber-50";
+      cardColour = "bg-amber-200 text-amber-800";
       break;
     default:
-      cardColour = "bg-neutral-500/90 text-neutral-50";
+      cardColour = "bg-neutral-200 text-neutral-800";
       break;
   }
   return (
     <>
-      <h1 className="line-clamp-1 text-base font-medium">{course.title}</h1>
-      <p className="text-xs font-light text-neutral-400">{course.courseCode}</p>
-      <Badge className={cardColour + " px-3.5 text-xs"}>
-        {CourseType[course.type]}
-      </Badge>
+      <h1 className="line-clamp-1 font-medium">{course.title}</h1>
+      <div className="flex flex-row gap-2 divide-x">
+        <p className="text-xs font-light text-neutral-400">
+          {course.courseCode}
+        </p>
+        <p className=" pl-2 text-xs font-light text-neutral-400">
+          {course.options.length} - Options
+        </p>
+      </div>
+      <Badge className={cardColour}>{CourseType[course.type]}</Badge>
     </>
   );
 }
