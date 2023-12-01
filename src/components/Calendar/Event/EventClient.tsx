@@ -73,6 +73,7 @@ export default function EventClient({
     },
   });
   const rowSpan: number = preference.time.duration / 30;
+
   if (clash) {
     const height = (preference.time.duration / clash) * 100;
     return (
