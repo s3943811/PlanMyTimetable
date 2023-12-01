@@ -9,24 +9,16 @@ import ClassForm, { formSchema } from "../ClassForm";
 import { z } from "zod";
 import { useUrlState } from "~/hooks/useUrlState";
 import toast from "react-hot-toast";
-import { useEffect, useState } from "react";
-import Loading from "./loading";
 
 export default function Page({ params }: { params: { class: string } }) {
   const { courseData } = usePreview();
   const [code, type] = params.class.split("-");
   const { replaceMultiple, decode } = useUrlState();
-  const [loading, setLoading] = useState(true);
 
   const course = courseData.find(
     (course) =>
       course.courseCode === code && getCourseTypeString(course.type) === type,
   );
-  useEffect(() => {
-    if (course) {
-      setLoading(false);
-    }
-  }, [course]);
 
   if (!course) {
     notFound();
@@ -101,7 +93,7 @@ export default function Page({ params }: { params: { class: string } }) {
         role="none"
         className=" my-3 h-[1px] w-full shrink-0 bg-neutral-200"
       ></div>
-      {loading ? <Loading /> : <ClassForm defaultValues={formValues} />}
+      <ClassForm defaultValues={formValues} />
     </div>
   );
 }
