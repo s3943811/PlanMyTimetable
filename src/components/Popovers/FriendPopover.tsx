@@ -1,7 +1,7 @@
 "use client";
 import { Popover } from "react-tiny-popover";
 import React, { useState } from "react";
-import { Button } from "~/components";
+import { Button, Tooltip } from "~/components";
 import { useFriend, Friend } from "~/contexts/FriendContext";
 import { HiOutlineX, HiOutlineSelector, HiMinus } from "react-icons/hi";
 
@@ -74,12 +74,14 @@ export default function FriendPopover() {
                       {item.name}
                     </label>
                   </div>
-                  <button
-                    className="inline-flex h-6 items-center justify-center gap-1 whitespace-nowrap rounded-md px-2 py-2 text-sm hover:bg-neutral-50 active:bg-neutral-100"
-                    onClick={() => removeFriend(index)}
-                  >
-                    <HiMinus />
-                  </button>
+                  <Tooltip message={`Remove ${item.name}`} position="top">
+                    <button
+                      className="inline-flex h-6 items-center justify-center gap-1 whitespace-nowrap rounded-md px-2 py-2 text-sm hover:bg-neutral-50 active:bg-neutral-100"
+                      onClick={() => removeFriend(index)}
+                    >
+                      <HiMinus />
+                    </button>
+                  </Tooltip>
                 </div>
               ))}
               <button
