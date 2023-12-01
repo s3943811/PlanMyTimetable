@@ -102,8 +102,8 @@ export const rowSpans: Record<number, string> = {
   6: "row-span-6",
 };
 export const colourVariants = {
-  0: "border-r-purple-400",
-  1: "border-r-yellow-400",
-  2: "border-r-orange-400",
-  3: "border-r-red-400",
+  0: "border-l-purple-400",
+  1: "border-l-yellow-400",
+  2: "border-l-orange-400",
+  3: "border-l-red-400",
 };
