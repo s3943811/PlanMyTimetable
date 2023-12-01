@@ -42,18 +42,19 @@ export default function Page({ params }: { params: { class: string } }) {
         item.courseCode === course.courseCode &&
         item.type === course.type,
     );
-    // console.log(eventIndex);
+    console.log(eventIndex);
     const classes = index !== -1 ? courseData.toSpliced(index, 1) : courseData;
-    const newEvents = eventIndex !== -1 ? events.toSpliced(index, 1) : events;
+    const newEvents =
+      eventIndex !== -1 ? events.toSpliced(eventIndex, 1) : events;
+    const newIndex = index >= courseData.length - 1 ? 0 : index + 1;
     replaceMultiple(
       [
         { element: classes, prefName: "state" },
         { element: newEvents, prefName: "pref" },
       ],
-      `/classes/${courseData[index + 1]?.courseCode}-${
-        courseData[index + 1]?.type &&
-        getCourseTypeString(courseData[index + 1]!.type)
-      }`,
+      `/classes/${courseData[newIndex]?.courseCode}-${getCourseTypeString(
+        courseData[newIndex]!.type,
+      )}`,
     );
     toast.success("Class deleted successfully");
   };

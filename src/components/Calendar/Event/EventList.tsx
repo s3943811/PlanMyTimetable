@@ -144,7 +144,6 @@ export default function EventList() {
   }, [friendData, clashes, eventsNoClashes]);
 
   useEffect(() => {
-    console.log(clashes);
     const parsedPrefs = decode("pref");
     if (parsedPrefs) {
       // console.log(parsedPrefs);
