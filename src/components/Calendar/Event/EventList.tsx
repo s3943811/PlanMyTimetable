@@ -167,7 +167,9 @@ export default function EventList() {
         </React.Fragment>
       ))}
       {friendsNoClashes.map((item) => (
-        <React.Fragment key={item.courseCode + item.type + item.title}>
+        <React.Fragment
+          key={item.courseCode + item.type + item.title + item.friends}
+        >
           <FriendEvent item={item} />
         </React.Fragment>
       ))}
