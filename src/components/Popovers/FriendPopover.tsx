@@ -3,7 +3,7 @@ import { Popover } from "react-tiny-popover";
 import React, { useState } from "react";
 import { Button } from "~/components";
 import { useFriend, Friend } from "~/contexts/FriendContext";
-import { HiOutlineX, HiOutlineSelector } from "react-icons/hi";
+import { HiOutlineX, HiOutlineSelector, HiMinus } from "react-icons/hi";
 
 export default function FriendPopover() {
   const [isOpen, setIsOpen] = useState(false);
@@ -30,6 +30,11 @@ export default function FriendPopover() {
     setFriendData(newData ?? null);
   }
 
+  function removeFriend(index: number) {
+    const newFriends = friendData?.toSpliced(index, 1);
+    newFriends && setFriendData(newFriends);
+  }
+
   return (
     <Popover
       containerClassName="z-50"
@@ -45,26 +50,36 @@ export default function FriendPopover() {
             <p className="text-sm">Add a friend to compare timetables.</p>
           ) : (
             <>
-              {friendData.map((item) => (
+              {friendData.map((item, index) => (
                 <div
-                  className="flex w-full flex-row gap-2 rounded-md px-2"
+                  className="flex w-full flex-row items-center justify-between gap-2 rounded-md px-1"
                   key={item.id}
                 >
-                  <input
-                    type="checkbox"
-                    className=""
-                    checked={item.active}
-                    onChange={() => setActive(item)}
-                  />
-                  <p
-                    className={` ${
-                      item.active
-                        ? "font-medium"
-                        : "font-light  text-neutral-500/90 line-through decoration-2"
-                    } `}
+                  <div className="space-x-2">
+                    <input
+                      id={item.name + "_selector"}
+                      type="checkbox"
+                      className=""
+                      checked={item.active}
+                      onChange={() => setActive(item)}
+                    />
+                    <label
+                      htmlFor={item.name + "_selector"}
+                      className={` ${
+                        item.active
+                          ? "font-medium"
+                          : "font-light  text-neutral-500/90 line-through decoration-2"
+                      } `}
+                    >
+                      {item.name}
+                    </label>
+                  </div>
+                  <button
+                    className="inline-flex h-6 items-center justify-center gap-1 whitespace-nowrap rounded-md px-2 py-2 text-sm hover:bg-neutral-50 active:bg-neutral-100"
+                    onClick={() => removeFriend(index)}
                   >
-                    {item.name}
-                  </p>
+                    <HiMinus />
+                  </button>
                 </div>
               ))}
               <button
@@ -74,13 +89,7 @@ export default function FriendPopover() {
                   setIsOpen(false);
                 }}
               >
-                <HiOutlineX size={15} /> Clear All
-              </button>
-              <button
-                className="absolute right-2 top-2 rounded-lg p-1 hover:bg-neutral-100"
-                onClick={() => setIsOpen(false)}
-              >
-                <HiOutlineX />
+                <HiOutlineX size={18} /> Clear All
               </button>
             </>
           )}
