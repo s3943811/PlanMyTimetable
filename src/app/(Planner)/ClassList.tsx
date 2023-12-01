@@ -1,7 +1,7 @@
 "use client";
 import { ClassCard, ClassCardClient, DragOverlay } from "~/components";
 import { CourseType } from "~/lib/definitions";
-import { HiOutlineAcademicCap } from "react-icons/hi";
+import { HiOutlineAcademicCap } from "react-icons/hi2";
 import { RetainLink } from "~/components";
 import { usePreview } from "~/contexts/PreviewContext";
 import { RxDragHandleDots2 } from "react-icons/rx";
@@ -15,7 +15,7 @@ export default function ClassList() {
         <HiOutlineAcademicCap size={96} />
         <p className="white">You haven't added any classes yet. </p>
         <RetainLink
-          className="under font-medium underline decoration-[1.5px] underline-offset-[7px]"
+          className="under font-medium underline decoration-[1.5px] underline-offset-[7px] transition-all hover:font-semibold"
           href={"/classes/add"}
         >
           Add a class now.

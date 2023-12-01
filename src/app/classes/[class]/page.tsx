@@ -1,6 +1,6 @@
 "use client";
 import { Button } from "~/components";
-import { HiTrash } from "react-icons/hi";
+import { HiTrash } from "react-icons/hi2";
 import { usePreview } from "~/contexts/PreviewContext";
 import { getColourString, getCourseTypeString } from "~/lib/functions";
 import { notFound } from "next/navigation";

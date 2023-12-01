@@ -1,5 +1,5 @@
-import { HiCalendar, HiQuestionMarkCircle, HiHome } from "react-icons/hi";
-import { HiBookOpen } from "react-icons/hi2";
+import { HiBookOpen, HiHome } from "react-icons/hi2";
+import { HiQuestionMarkCircle } from "react-icons/hi";
 import { RetainLink, buttonVariants } from "~/components";
 import ActiveLink from "./ActiveLink";
 function Navbar() {
