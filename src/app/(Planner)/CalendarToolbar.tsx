@@ -1,5 +1,4 @@
-import { Button, AddFriend, FriendPopover } from "~/components";
-import { IoIosShareAlt } from "react-icons/io";
+import { AddFriend, FriendPopover, Share } from "~/components";
 
 export default function CalendarToolbar() {
   return (
@@ -7,10 +6,7 @@ export default function CalendarToolbar() {
       <AddFriend />
       <FriendPopover />
       <div className="ml-auto gap-1">
-        <Button>
-          <IoIosShareAlt />
-          Share
-        </Button>
+        <Share />
       </div>
     </div>
   );

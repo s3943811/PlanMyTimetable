@@ -6,6 +6,7 @@ export { default as TimeSlot } from "./Calendar/TimeSlot";
 export { default as AddFriend } from "./Calendar/AddFriendButton";
 export { default as AllocatedPopover } from "./Popovers/AllocatedPopover";
 export { default as FriendPopover } from "./Popovers/FriendPopover";
+export { default as Share } from "./Button/ShareButton";
 export { default as Button } from "./Button/Button";
 export { buttonVariants } from "./Button/Button";
 export { default as Tooltip } from "./Tooltip/Tooltip";
