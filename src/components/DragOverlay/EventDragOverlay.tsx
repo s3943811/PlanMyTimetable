@@ -23,6 +23,11 @@ export default function EventDragOverlay() {
     1: "bg-yellow-400/40 text-yellow-800 shadow-yellow-100 border-l-[7px] border-l-yellow-500",
     2: "bg-orange-400/40 text-orange-800 shadow-orange-100 border-l-[7px] border-l-orange-500",
     3: "bg-red-400/40 text-red-800 shadow-red-100 border-l-[7px] border-l-red-500",
+    4: "bg-green-400/40 text-green-800 shadow-green-100 border-l-[7px] border-l-green-500",
+    5: "bg-teal-400/40 text-teal-800 shadow-teal-100 border-l-[7px] border-l-teal-500",
+    6: "bg-blue-400/40 text-blue-800 shadow-blue-100 border-l-[7px] border-l-blue-500",
+    7: "bg-fuchsia-400/40 text-fuchsia-800 shadow-fuchsia-100 border-l-[7px] border-l-fuchsia-500",
+    8: "bg-pink-400/40 text-pink-800 shadow-pink-100 border-l-[7px] border-l-pink-500",
   };
   return (
     <DragOverlay

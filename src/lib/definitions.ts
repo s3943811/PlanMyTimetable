@@ -42,6 +42,11 @@ export enum ColourPalette {
   Yellow,
   Orange,
   Red,
+  Green,
+  Teal,
+  Blue,
+  Fuchsia,
+  Pink,
 }
 
 export const colStart: Record<number, string> = {
@@ -106,4 +111,9 @@ export const colourVariants = {
   1: "border-l-yellow-400",
   2: "border-l-orange-400",
   3: "border-l-red-400",
+  4: "border-l-green-400",
+  5: "border-l-teal-400",
+  6: "border-l-blue-400",
+  7: "border-l-fuchsia-400",
+  8: "border-l-pink-400",
 };

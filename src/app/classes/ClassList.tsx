@@ -1,6 +1,6 @@
 "use client";
 import { ClassCard } from "~/components";
-import { CourseType } from "~/lib/definitions";
+import { CourseType, colourVariants } from "~/lib/definitions";
 import { RetainLink } from "~/components";
 import { usePreview } from "~/contexts/PreviewContext";
 import { HiChevronRight } from "react-icons/hi2";
@@ -9,12 +9,6 @@ import { usePathname } from "next/navigation";
 
 export default function ClassList() {
   const { courseData } = usePreview();
-  const colourVariants = {
-    0: "border-l-purple-400",
-    1: "border-l-yellow-400",
-    2: "border-l-orange-400",
-    3: "border-l-red-400",
-  };
   const segement = usePathname();
 
   return (

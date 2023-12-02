@@ -141,7 +141,16 @@ export function getCourseTypeString(
 
 export function getColourString(
   colour: ColourPalette,
-): "Purple" | "Yellow" | "Red" | "Orange" {
+):
+  | "Purple"
+  | "Yellow"
+  | "Red"
+  | "Orange"
+  | "Green"
+  | "Teal"
+  | "Blue"
+  | "Fuchsia"
+  | "Pink" {
   switch (colour) {
     case ColourPalette.Purple:
       return "Purple";
@@ -151,6 +160,16 @@ export function getColourString(
       return "Orange";
     case ColourPalette.Red:
       return "Red";
+    case ColourPalette.Green:
+      return "Green";
+    case ColourPalette.Teal:
+      return "Teal";
+    case ColourPalette.Blue:
+      return "Blue";
+    case ColourPalette.Fuchsia:
+      return "Fuchsia";
+    case ColourPalette.Pink:
+      return "Pink";
   }
 }
 

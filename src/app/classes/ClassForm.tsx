@@ -49,7 +49,17 @@ export const formSchema = z.object({
     .min(1, { message: "Code is required" })
     .max(120, { message: "Code must be less than 120 characters" }),
   type: z.enum(["Lecture", "Tutorial", "Workshop", "Practical", "Other"]),
-  colour: z.enum(["Purple", "Yellow", "Red", "Orange"]),
+  colour: z.enum([
+    "Purple",
+    "Yellow",
+    "Red",
+    "Orange",
+    "Green",
+    "Teal",
+    "Blue",
+    "Fuchsia",
+    "Pink",
+  ]),
   duration: z.coerce
     .number()
     .gte(1, { message: "Duration must be at least 1 minute." })
@@ -247,8 +257,13 @@ export default function ClassForm({
         >
           <option>Purple</option>
           <option>Yellow</option>
-          <option>Red</option>
           <option>Orange</option>
+          <option>Red</option>
+          <option>Green</option>
+          <option>Teal</option>
+          <option>Blue</option>
+          <option>Fuchsia</option>
+          <option>Pink</option>
         </select>
         <p className="text-xs font-light text-neutral-500/90">
           A colour for the class.
