@@ -9,11 +9,6 @@ import { HiOutlineX, HiOutlineSelector, HiMinus } from "react-icons/hi";
 export default function FriendPopover() {
   const [isOpen, setIsOpen] = useState(false);
   const { setFriendData, friendData } = useFriend();
-  if (!friendData) {
-    return (
-      <div className=" h-8 w-24 animate-pulse rounded-md bg-neutral-100 py-2"></div>
-    );
-  }
 
   function setActive(item: Friend) {
     const newData = friendData?.map((friend) => {

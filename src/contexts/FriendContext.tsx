@@ -16,8 +16,8 @@ interface FriendProviderProps {
 }
 
 interface FriendContext {
-  friendData: Friend[] | null;
-  setFriendData: React.Dispatch<React.SetStateAction<Friend[] | null>>;
+  friendData: Friend[];
+  setFriendData: React.Dispatch<React.SetStateAction<Friend[]>>;
 }
 
 const FriendContext = createContext({} as FriendContext);
@@ -26,7 +26,7 @@ export function useFriend() {
 }
 
 export function FriendProvider({ children }: FriendProviderProps) {
-  const [friendData, setFriendData] = useState<Friend[] | null>(null);
+  const [friendData, setFriendData] = useState<Friend[]>([]);
 
   useEffect(() => {
     if (typeof window !== "undefined") {
