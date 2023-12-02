@@ -15,12 +15,16 @@ import toast from "react-hot-toast";
 export default function Page({ params }: { params: { class: string } }) {
   const { courseData } = usePreview();
   const [code, type] = params.class.split("-");
-  const { replaceMultiple, decode } = useUrlState();
+  const { replaceMultiple, decode, redirect } = useUrlState();
 
   const course = courseData.find(
     (course) =>
       course.courseCode === code && getCourseTypeString(course.type) === type,
   );
+
+  if (courseData.length === 0) {
+    redirect("/classes");
+  }
 
   if (!course) {
     notFound();

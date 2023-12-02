@@ -8,7 +8,7 @@ import { getCourseTypeString } from "~/lib/functions";
 export default function Page() {
   const { courseData } = usePreview();
   const { redirect } = useUrlState();
-  if (courseData) {
+  if (courseData.length !== 0) {
     const redirectURL = `/classes/${courseData[0]
       ?.courseCode}-${getCourseTypeString(courseData[0]!.type)}`;
     console.log(redirectURL);
