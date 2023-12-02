@@ -24,7 +24,7 @@ export default function ClassList() {
     );
   }
   return (
-    <div className="flex flex-col gap-3 overflow-y-auto overflow-x-hidden pb-4 pt-1 scrollbar-hide">
+    <div className="flex grow flex-col gap-3 overflow-y-auto overflow-x-hidden pb-4 pt-1 scrollbar-hide">
       {courseData.map((item) => (
         <div
           key={item.courseCode + CourseType[item.type]}
