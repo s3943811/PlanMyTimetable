@@ -1,7 +1,7 @@
 "use client";
 import { useForm, useFieldArray } from "react-hook-form";
 import { Button, Tooltip } from "~/components";
-import { useEffect } from "react";
+import { useEffect, useRef } from "react";
 import {
   HiOutlineXCircle,
   HiOutlinePlusCircle,
@@ -14,7 +14,7 @@ import { ColourPalette, CourseType } from "~/lib/definitions";
 import { usePreview } from "~/contexts/PreviewContext";
 import { getCourseTypeString } from "~/lib/functions";
 import toast from "react-hot-toast";
-import type { Course } from "~/lib/definitions";
+import type { Course, Preference } from "~/lib/definitions";
 import type {
   UseFormRegister,
   UseFieldArrayRemove,
@@ -113,7 +113,13 @@ export default function ClassForm({
   });
 
   const { appendState, replaceMultiple } = useUrlState();
-  const { courseData, events } = usePreview();
+  const { courseData, events, setCourseData } = usePreview();
+
+  const update = useRef<{
+    course: Course;
+    courses?: Course[];
+    events?: Preference[];
+  } | null>(null);
 
   function onSubmit(values: z.infer<typeof formSchema>) {
     const course: Course = {
@@ -159,18 +165,19 @@ export default function ClassForm({
         }
         return item;
       });
-      // setCourseData(courses);
-      replaceMultiple(
-        [
-          { element: courses, prefName: "state" },
-          { element: newEvents, prefName: "pref" },
-        ],
-        `/classes/${course.courseCode}-${getCourseTypeString(course.type)}`,
-      );
-      toast.success("Class updated successfully");
+      setCourseData(courses);
+      // replaceMultiple(
+      //   [
+      //     { element: courses, prefName: "state" },
+      //     { element: newEvents, prefName: "pref" },
+      //   ],
+      //   `/classes/${course.courseCode}-${getCourseTypeString(course.type)}`,
+      // );
+      // toast.success("Class updated successfully");
+      update.current = { course: course, courses: courses, events: newEvents };
       return;
     }
-    const already = courseData.find(
+    const already = courseData?.find(
       (item) =>
         item.courseCode === course.courseCode && item.type === course.type,
     );
@@ -183,9 +190,36 @@ export default function ClassForm({
       });
       return;
     }
-    appendState(course, "state", "/classes");
-    toast.success("Class created successfully");
+    setCourseData([course]);
+    update.current = { course: course };
+    // appendState(course, "state", "/classes");
+    // toast.success("Class created successfully");
   }
+  useEffect(() => {
+    if (update.current) {
+      if (update.current.events) {
+        replaceMultiple(
+          [
+            { element: update.current.courses, prefName: "state" },
+            { element: update.current.events, prefName: "pref" },
+          ],
+          `/classes/${update.current.course.courseCode}-${getCourseTypeString(
+            update.current.course.type,
+          )}`,
+        );
+      } else {
+        appendState(
+          update.current.course,
+          "state",
+          `/classes/${update.current.course.courseCode}-${getCourseTypeString(
+            update.current.course.type,
+          )}`,
+        );
+      }
+
+      toast.success("Class updated successfully");
+    }
+  }, [courseData]);
   return (
     <form className="contents space-y-7" onSubmit={handleSubmit(onSubmit)}>
       <div className=" space-y-2">
