@@ -2,7 +2,8 @@
 import { Popover } from "react-tiny-popover";
 import React, { useState } from "react";
 import { Button, Tooltip } from "~/components";
-import { useFriend, Friend } from "~/contexts/FriendContext";
+import { useFriend } from "~/contexts/FriendContext";
+import type { Friend } from "~/contexts/FriendContext";
 import { HiOutlineX, HiOutlineSelector, HiMinus } from "react-icons/hi";
 
 export default function FriendPopover() {

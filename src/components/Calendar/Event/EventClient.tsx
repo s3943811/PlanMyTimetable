@@ -1,5 +1,5 @@
 import { useDraggable } from "@dnd-kit/core";
-import { Preference } from "~/lib/definitions";
+import type { Preference } from "~/lib/definitions";
 import { colStart, rowStart, rowSpans } from "~/lib/definitions";
 import { getDayEnum, getRowIndex } from "~/lib/functions";
 import { usePreview } from "~/contexts/PreviewContext";
@@ -21,9 +21,8 @@ export default function EventClient({
   const { friendData } = useFriend();
   const friendsTaking = useMemo(
     () =>
-      friendData &&
       friendData
-        .filter((friend) => {
+        ?.filter((friend) => {
           return (
             friend.active &&
             friend.state.some((item) => {

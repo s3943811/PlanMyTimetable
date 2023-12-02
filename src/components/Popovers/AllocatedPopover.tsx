@@ -1,9 +1,10 @@
 "use client";
 import { usePreview } from "~/contexts/PreviewContext";
 import Badge from "../Badge/Badge";
-import { ColourPalette, CourseType } from "~/lib/definitions";
+import { CourseType } from "~/lib/definitions";
+import type { ColourPalette } from "~/lib/definitions";
 import { HiOutlineX, HiChevronUp, HiChevronDown } from "react-icons/hi";
-import { SetStateAction } from "react";
+import type { SetStateAction } from "react";
 import { Popover } from "react-tiny-popover";
 import { useState } from "react";
 import { Button, ClearPreferences } from "..";
@@ -63,7 +64,7 @@ export default function AllocatedPopover() {
         }
       >
         <Button variant="outline" onClick={() => setIsOpen(!isOpen)}>
-          {events.length}/{(courseData && courseData.length) ?? 0} Allocated{" "}
+          {events.length}/{courseData?.length ?? 0} Allocated{" "}
           {isOpen ? <HiChevronDown /> : <HiChevronUp />}
         </Button>
       </Popover>

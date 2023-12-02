@@ -1,18 +1,20 @@
 "use client";
 import {
   DndContext,
-  DragEndEvent,
-  DragStartEvent,
   MouseSensor,
   TouchSensor,
   KeyboardSensor,
   useSensor,
   useSensors,
+} from "@dnd-kit/core";
+import type {
+  DragEndEvent,
+  DragStartEvent,
   DragOverEvent,
 } from "@dnd-kit/core";
 import { usePreview, DragType } from "./PreviewContext";
 import { restrictToWindowEdges } from "@dnd-kit/modifiers";
-import { Preference } from "~/lib/definitions";
+import type { Course, Preference, Time } from "~/lib/definitions";
 import { useUrlState } from "~/hooks/useUrlState";
 
 export function DndProvider({ children }: { children: React.ReactNode }) {
@@ -23,29 +25,30 @@ export function DndProvider({ children }: { children: React.ReactNode }) {
     useSensor(TouchSensor),
     useSensor(KeyboardSensor),
   );
-  const { searchParams, decode, replaceState, appendState } = useUrlState();
+  const { decode, replaceState, appendState } = useUrlState();
 
   function handleDragEnd(event: DragEndEvent) {
     const { active, over } = event;
     if (over && over.data.current?.accepts === active.data.current?.course) {
+      const activeCourse = active.data.current?.course as Course;
+      const activeTime = over.data.current?.time as Time;
       const preference: Preference = {
-        title: active.data.current?.course.title,
-        courseCode: active.data.current?.course.courseCode,
-        type: active.data.current?.course.type,
-        colour: active.data.current?.course.colour,
-        time: over.data.current?.time,
+        title: activeCourse.title,
+        courseCode: activeCourse.courseCode,
+        type: activeCourse.type,
+        colour: activeCourse.colour,
+        time: activeTime,
       };
-      const currentPref = searchParams.get("pref");
       /**
        * Search the events array and determine wherther the element being dragged matches an event
        * This was done so that elements can be dragged within the calendar and not be duplicated but rather moved
        */
       const isAlreadyEvent = events.find(
         (course) =>
-          course.title === active.data.current?.course.title &&
-          course.courseCode === active.data.current?.course.courseCode &&
-          course.type === active.data.current?.course.type &&
-          course.colour === active.data.current?.course.colour,
+          course.title === activeCourse.title &&
+          course.courseCode === activeCourse.courseCode &&
+          course.type === activeCourse.type &&
+          course.colour === activeCourse.colour,
       );
       if (isAlreadyEvent) {
         /**
@@ -56,7 +59,7 @@ export function DndProvider({ children }: { children: React.ReactNode }) {
          * changes, which dosen't occur here since its already been dropped
          * this was done to keep the other preferences
          */
-        let parsedPrefs = decode("pref");
+        let parsedPrefs = decode("pref") as Preference[];
         parsedPrefs = parsedPrefs.map((item: Preference) => {
           if (
             item.title === preference.title &&
@@ -86,7 +89,7 @@ export function DndProvider({ children }: { children: React.ReactNode }) {
         ? DragType.event
         : DragType.course,
     );
-    setActiveCourse(event.active.data.current?.course);
+    setActiveCourse(event.active.data.current?.course as Course);
   }
 
   function handleDragCancel() {

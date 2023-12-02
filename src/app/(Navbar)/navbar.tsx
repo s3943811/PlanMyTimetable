@@ -16,7 +16,7 @@ function Navbar() {
         </ActiveLink>
       </div>
       <div>
-        <RetainLink className={buttonVariants["ghost"]} href="/help">
+        <RetainLink className={buttonVariants.ghost} href="/help">
           <HiQuestionMarkCircle size={25} />
         </RetainLink>
       </div>

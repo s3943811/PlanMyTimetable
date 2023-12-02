@@ -18,7 +18,7 @@ export default function Page() {
       <aside className="flex grow flex-col border-r p-3 py-1">
         <div className=" flex h-full w-full flex-col items-center justify-center gap-3 pb-4 pt-1">
           <HiOutlineAcademicCap size={96} />
-          <p className="white">You haven't added any classes yet. </p>
+          <p className="white">{`You haven't added any classes yet.`} </p>
           <RetainLink
             className="under font-medium underline decoration-[1.5px] underline-offset-[7px] transition-all hover:font-semibold"
             href={"/classes/add"}

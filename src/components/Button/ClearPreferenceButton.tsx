@@ -1,5 +1,5 @@
 "use client";
-import { SetStateAction } from "react";
+import type { SetStateAction } from "react";
 import { HiXMark } from "react-icons/hi2";
 import { useUrlState } from "~/hooks/useUrlState";
 

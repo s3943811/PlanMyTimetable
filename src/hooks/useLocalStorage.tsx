@@ -10,7 +10,7 @@ export function useLocalStorage<T>(key: string, initialValue: T | (() => T)) {
 
     const storedValue = window.localStorage.getItem(key);
     return storedValue !== null
-      ? JSON.parse(storedValue)
+      ? (JSON.parse(storedValue) as T)
       : typeof initialValue === "function"
       ? (initialValue as () => T)()
       : initialValue;

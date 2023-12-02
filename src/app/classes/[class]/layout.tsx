@@ -16,7 +16,7 @@ export default function ClassLayout({
         <div className="inline-flex gap-1">
           <Tooltip message={"Add"} position="bottom">
             <RetainLink
-              className={buttonVariants["outlineIcon"]}
+              className={buttonVariants.outlineIcon}
               href="/classes/add"
             >
               <HiOutlinePlusCircle />

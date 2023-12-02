@@ -13,7 +13,7 @@ export default function ClassList() {
     return (
       <div className=" flex h-full flex-col items-center justify-center gap-3 px-4 pb-4 pt-1">
         <HiOutlineAcademicCap size={96} />
-        <p className="white">You haven't added any classes yet. </p>
+        <p>{`You haven't added any classes yet.`}</p>
         <RetainLink
           className="under font-medium underline decoration-[1.5px] underline-offset-[7px] transition-all hover:font-semibold"
           href={"/classes/add"}

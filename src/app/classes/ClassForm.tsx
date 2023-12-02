@@ -1,11 +1,5 @@
 "use client";
-import {
-  useForm,
-  useFieldArray,
-  UseFormRegister,
-  UseFieldArrayRemove,
-  FieldErrors,
-} from "react-hook-form";
+import { useForm, useFieldArray } from "react-hook-form";
 import { Button, Tooltip } from "~/components";
 import { useEffect } from "react";
 import {
@@ -16,10 +10,16 @@ import {
 import { zodResolver } from "@hookform/resolvers/zod";
 import * as z from "zod";
 import { useUrlState } from "~/hooks/useUrlState";
-import { ColourPalette, Course, CourseType } from "~/lib/definitions";
+import { ColourPalette, CourseType } from "~/lib/definitions";
 import { usePreview } from "~/contexts/PreviewContext";
 import { getCourseTypeString } from "~/lib/functions";
 import toast from "react-hot-toast";
+import type { Course } from "~/lib/definitions";
+import type {
+  UseFormRegister,
+  UseFieldArrayRemove,
+  FieldErrors,
+} from "react-hook-form";
 
 const optionSchema = z.object({
   day: z.enum(["Mon", "Tue", "Wed", "Thu", "Fri"]),
@@ -100,7 +100,7 @@ export default function ClassForm({
     formState: { errors },
   } = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
-    defaultValues: defaultValues || val,
+    defaultValues: defaultValues ?? val,
   });
 
   useEffect(() => {
@@ -119,8 +119,8 @@ export default function ClassForm({
     const course: Course = {
       title: values.title,
       courseCode: values.code,
-      type: CourseType[values.type as keyof typeof CourseType],
-      colour: ColourPalette[values.colour as keyof typeof ColourPalette],
+      type: CourseType[values.type],
+      colour: ColourPalette[values.colour],
       options: values.options.map((item) => {
         return {
           day: item.day,
@@ -131,13 +131,13 @@ export default function ClassForm({
         };
       }),
     };
-    console.log(course);
+    // console.log(course);
     if (defaultValues) {
       const courses = courseData.map((item) => {
         if (
-          item.title === defaultValues!.title &&
-          item.courseCode === defaultValues!.code &&
-          getCourseTypeString(item.type) === defaultValues!.type
+          item.title === defaultValues.title &&
+          item.courseCode === defaultValues.code &&
+          getCourseTypeString(item.type) === defaultValues.type
         ) {
           return course;
         }
@@ -145,9 +145,9 @@ export default function ClassForm({
       });
       const newEvents = events.map((item) => {
         if (
-          item.title === defaultValues!.title &&
-          item.courseCode === defaultValues!.code &&
-          getCourseTypeString(item.type) === defaultValues!.type
+          item.title === defaultValues.title &&
+          item.courseCode === defaultValues.code &&
+          getCourseTypeString(item.type) === defaultValues.type
         ) {
           return {
             title: values.title,
@@ -435,9 +435,11 @@ function OptionForm({
               <option value="Thu">Thursday</option>
               <option value="Fri">Friday</option>
             </select>
-            {errors.options && (
-              <ErrorMessage>{errors.options[index]?.day?.message}</ErrorMessage>
-            )}
+            {
+              <ErrorMessage>
+                {errors.options?.[index]?.day?.message}
+              </ErrorMessage>
+            }
             <p className="text-xs font-light text-neutral-500/90">
               The day of the week.
             </p>
@@ -455,22 +457,20 @@ function OptionForm({
               placeholder="Start time"
               type="time"
               className={`flex h-10 w-full rounded-md border ${
-                errors.options &&
-                errors.options[index]?.start_time &&
-                "border-red-300"
+                errors.options?.[index]?.start_time && "border-red-300"
               } px-3 py-2 text-sm shadow-sm file:border-0 
           file:bg-transparent file:font-medium placeholder:text-neutral-500/90 ${
-            errors.options && errors.options[index]?.start_time
+            errors.options?.[index]?.start_time
               ? " focus:ring-red-400/60"
               : " focus:ring-neutral-400/60"
           } focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-1
           disabled:cursor-not-allowed disabled:opacity-50`}
             />
-            {errors.options && (
+            {
               <ErrorMessage>
-                {errors.options[index]?.start_time?.message}
+                {errors.options?.[index]?.start_time?.message}
               </ErrorMessage>
-            )}
+            }
             <p className="text-xs font-light text-neutral-500/90">
               The time the {type} starts.
             </p>
@@ -490,24 +490,22 @@ function OptionForm({
               id="room"
               placeholder="Room"
               className={`flex h-10 w-full rounded-md border ${
-                errors.options &&
-                errors.options[index]?.room &&
-                "border-red-300"
+                errors.options?.[index]?.room && "border-red-300"
               } px-3 py-2 text-sm shadow-sm file:border-0 
           file:bg-transparent file:font-medium placeholder:text-neutral-500/90 ${
-            errors.options && errors.options[index]?.room
+            errors.options?.[index]?.room
               ? " focus:ring-red-400/60"
               : " focus:ring-neutral-400/60"
           } focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-1
           disabled:cursor-not-allowed disabled:opacity-50`}
             />
-            {errors.options && (
+            {
               <ErrorMessage>
-                {errors.options[index]?.room?.message}
+                {errors.options?.[index]?.room?.message}
               </ErrorMessage>
-            )}
+            }
             <p className="text-xs font-light text-neutral-500/90">
-              What room the {type} will be in (if online write "-").
+              {`What room the ${type} will be in (if online write "-").`}
             </p>
           </div>
           <div className=" w-full space-y-2">
@@ -522,25 +520,23 @@ function OptionForm({
               id="campus"
               placeholder="Campus"
               className={`flex h-10 w-full rounded-md border ${
-                errors.options &&
-                errors.options[index]?.campus &&
-                "border-red-300"
+                errors.options?.[index]?.campus && "border-red-300"
               } px-3 py-2 text-sm shadow-sm file:border-0 
           file:bg-transparent file:font-medium placeholder:text-neutral-500/90 ${
-            errors.options && errors.options[index]?.campus
+            errors.options?.[index]?.campus
               ? " focus:ring-red-400/60"
               : " focus:ring-neutral-400/60"
           } focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-1
           disabled:cursor-not-allowed disabled:opacity-50`}
             />
-            {errors.options && (
+            {
               <ErrorMessage>
-                {errors.options[index]?.campus?.message}
+                {errors.options?.[index]?.campus?.message}
               </ErrorMessage>
-            )}
+            }
             <p className="text-xs font-light text-neutral-500/90">
-              What campus the {type} will be on. For example, RMIT students may
-              write "Melbourne City" or "Canvas".
+              {`What campus the ${type} will be on. For example, RMIT students may
+              write "Melbourne City" or "Canvas".`}
             </p>
           </div>
         </div>

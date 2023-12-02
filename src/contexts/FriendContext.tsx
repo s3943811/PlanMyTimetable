@@ -1,7 +1,7 @@
 "use client";
 
 import { createContext, useContext, useState, useEffect } from "react";
-import { Preference } from "~/lib/definitions";
+import type { Preference } from "~/lib/definitions";
 
 export type Friend = {
   id: string;
@@ -32,7 +32,7 @@ export function FriendProvider({ children }: FriendProviderProps) {
     if (typeof window !== "undefined") {
       const storedValue = window.localStorage.getItem("friends");
       if (storedValue !== null) {
-        setFriendData(JSON.parse(storedValue));
+        setFriendData(JSON.parse(storedValue) as Friend[]);
       }
     }
   }, []);

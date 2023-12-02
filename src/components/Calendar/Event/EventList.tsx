@@ -6,21 +6,15 @@ import React from "react";
 import { usePreview } from "~/contexts/PreviewContext";
 import { useUrlState } from "~/hooks/useUrlState";
 import { useFriend } from "~/contexts/FriendContext";
-import { getDayEnum, getRowIndex, groupByStartAndDay } from "~/lib/functions";
 import {
-  ActiveCourseFriendPreview,
-  FriendEvent,
-  FriendClashEvent,
-} from "./FriendEventList";
+  getDayEnum,
+  getRowIndex,
+  groupPreferencesByStartAndDay,
+} from "~/lib/functions";
+import { FriendEvent, FriendClashEvent } from "./FriendEventList";
 import Clash from "./Clash";
-
-import {
-  CourseType,
-  Preference,
-  colStart,
-  rowSpans,
-  rowStart,
-} from "~/lib/definitions";
+import type { CourseType, Preference, Time } from "~/lib/definitions";
+import { colStart, rowSpans, rowStart } from "~/lib/definitions";
 
 export default function EventList() {
   const { searchParams, decode } = useUrlState();
@@ -28,33 +22,17 @@ export default function EventList() {
   const { events, setEvents } = usePreview();
   const { friendData } = useFriend();
 
-  if (!friendData) {
-    return events.map((item) => {
-      const rowSpan: number = item.time.duration / 30;
-      return (
-        <div
-          key={item.courseCode + item.type}
-          className={`z-10 ${colStart[getDayEnum(item.time.day)! + 2]} ${
-            rowStart[getRowIndex(item.time.start)]
-          } ${
-            rowSpans[rowSpan]
-          } animate-pulse rounded-md bg-neutral-200/50 py-2`}
-        ></div>
-      );
-    });
-  }
-
-  const clashes: (Preference & { originalType: string })[][] = useMemo(() => {
+  const clashes = useMemo<(Preference & { originalType: string })[][]>(() => {
     const combined = [
       ...events.map((event) => ({ ...event, originalType: "event" })),
-      ...friendData
-        .filter((friend) => friend.active)
+      ...(friendData
+        ?.filter((friend) => friend.active)
         .flatMap((friend) =>
           friend.state.map((item) => ({ ...item, originalType: "friend" })),
-        ),
+        ) ?? []),
     ];
 
-    return groupByStartAndDay(
+    return groupPreferencesByStartAndDay(
       combined.filter((obj, index, self) => {
         return (
           self.findIndex(
@@ -68,7 +46,7 @@ export default function EventList() {
           ) === index
         );
       }),
-    ).filter((item: Preference[]) => item.length > 1);
+    ).filter((item: (Time | Preference)[]) => item.length > 1);
   }, [events, friendData]);
 
   const eventsNoClashes = useMemo(
@@ -85,10 +63,10 @@ export default function EventList() {
       eventsNoClashes.map((event) => `${event.time.start}-${event.time.day}`),
     );
 
-    const preferenceMap: { [key: string]: string[] } = {};
+    const preferenceMap: Record<string, string[]> = {};
 
     friendData
-      .filter((friend) => friend.active)
+      ?.filter((friend) => friend.active)
       .forEach((friend) => {
         friend.state.forEach((stateItem) => {
           if (
@@ -144,30 +122,43 @@ export default function EventList() {
   }, [friendData, clashes, eventsNoClashes]);
 
   useEffect(() => {
-    const parsedPrefs = decode("pref");
+    const parsedPrefs = decode("pref") as Preference[];
     if (parsedPrefs) {
       // console.log(parsedPrefs);
       setEvents(parsedPrefs);
     }
-  }, [pref]);
+  }, [pref, decode, setEvents]);
+
+  if (!friendData) {
+    return events.map((item) => {
+      const rowSpan: number = item.time.duration / 30;
+      return (
+        <div
+          key={item.courseCode + item.type}
+          className={`z-10 ${colStart[getDayEnum(item.time.day)! + 2]} ${
+            rowStart[getRowIndex(item.time.start)]
+          } ${
+            rowSpans[rowSpan]
+          } animate-pulse rounded-md bg-neutral-200/50 py-2`}
+        ></div>
+      );
+    });
+  }
 
   return (
     <>
       {eventsNoClashes.map((item) => (
         <React.Fragment key={item.courseCode + item.type}>
           <EventClient preference={item}>
-            <Event
-              title={item.title}
-              type={item.type}
-              colour={item.colour}
-              time={item.time}
-            />
+            <Event title={item.title} type={item.type} time={item.time} />
           </EventClient>
         </React.Fragment>
       ))}
       {friendsNoClashes.map((item) => (
         <React.Fragment
-          key={item.courseCode + item.type + item.title + item.friends}
+          key={
+            item.courseCode + item.type + item.title + item.friends.join(",")
+          }
         >
           <FriendEvent item={item} />
         </React.Fragment>
@@ -177,10 +168,11 @@ export default function EventList() {
           return item.time.duration > max ? item.time.duration : max;
         }, 0);
         const rowSpan: number = largestDuration / 30;
+        const col = getDayEnum(group[index]!.time.day)! + 2;
         return (
           <Clash
             key={index}
-            col={colStart[getDayEnum(group[index]!.time.day)! + 2]!}
+            col={colStart[col]!}
             row={rowStart[getRowIndex(group[index]!.time.start)]!}
             span={rowSpans[rowSpan]!}
           >
@@ -195,7 +187,6 @@ export default function EventList() {
                     <Event
                       title={item.title}
                       type={item.type}
-                      colour={item.colour}
                       time={item.time}
                     />
                   </EventClient>

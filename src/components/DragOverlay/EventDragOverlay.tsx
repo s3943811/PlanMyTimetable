@@ -2,7 +2,8 @@
 import { DragOverlay } from "@dnd-kit/core";
 import { usePreview } from "~/contexts/PreviewContext";
 import Event from "../Calendar/Event/Event";
-import { colStart, rowStart, rowSpans, Preference } from "~/lib/definitions";
+import { colStart, rowStart, rowSpans } from "~/lib/definitions";
+import type { Preference } from "~/lib/definitions";
 import { getDayEnum, getRowIndex } from "~/lib/functions";
 
 export default function EventDragOverlay() {
@@ -40,12 +41,7 @@ export default function EventDragOverlay() {
       }`}
     >
       {activeCourse && (
-        <Event
-          title={event.title}
-          type={event.type}
-          colour={event.colour}
-          time={event.time}
-        />
+        <Event title={event.title} type={event.type} time={event.time} />
       )}
     </DragOverlay>
   );
