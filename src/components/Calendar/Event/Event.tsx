@@ -1,12 +1,12 @@
-import { CourseType, Time, ColourPalette } from "~/lib/definitions";
+import { CourseType } from "~/lib/definitions";
+import type { Time } from "~/lib/definitions";
 import { addMinutesToTimeString } from "~/lib/functions";
 interface EventProps {
   title: string;
   type: CourseType;
-  colour: ColourPalette;
   time: Time;
 }
-export default function Event({ title, type, colour, time }: EventProps) {
+export default function Event({ title, type, time }: EventProps) {
   const endTime = addMinutesToTimeString(time.start, time.duration);
 
   return (

@@ -1,6 +1,6 @@
 "use client";
-import { SetStateAction } from "react";
-import { HiOutlineX } from "react-icons/hi";
+import type { SetStateAction } from "react";
+import { HiXMark } from "react-icons/hi2";
 import { useUrlState } from "~/hooks/useUrlState";
 
 export default function ClearPreferencesButton({
@@ -18,7 +18,7 @@ export default function ClearPreferencesButton({
         setIsOpen(false);
       }}
     >
-      <HiOutlineX size={15} /> Clear All
+      <HiXMark size={15} /> Clear All
     </button>
   );
 }

@@ -1,7 +1,7 @@
 "use client";
 import React, { createContext, useContext, useState, useEffect } from "react";
 import { useUrlState } from "~/hooks/useUrlState";
-import { Course, Preference } from "~/lib/definitions";
+import type { Course, Preference } from "~/lib/definitions";
 
 interface PreviewProviderProps {
   children: React.ReactNode;
@@ -32,12 +32,17 @@ export function PreviewProvider({ children }: PreviewProviderProps) {
   const [over, setOver] = useState<boolean>(false);
 
   const { decode, searchParams } = useUrlState();
-  const [events, setEvents] = useState<Array<Preference>>(decode("pref") ?? []);
-  const [courseData, setCourseData] = useState<Course[]>(decode("state"));
+  const [events, setEvents] = useState<Array<Preference>>(
+    (decode("pref") as Preference[]) ?? [],
+  );
+  const [courseData, setCourseData] = useState<Course[]>(
+    decode("state") as Course[],
+  );
+  const state = searchParams.get("state");
   useEffect(() => {
-    const data = decode("state");
+    const data = decode("state") as Course[];
     setCourseData(data);
-  }, [searchParams.get("state")]);
+  }, [state, decode]);
   return (
     <PreviewContext.Provider
       value={{

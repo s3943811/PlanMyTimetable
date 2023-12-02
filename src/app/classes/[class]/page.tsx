@@ -1,12 +1,14 @@
 "use client";
 import { Button } from "~/components";
-import { HiTrash } from "react-icons/hi";
+import { HiTrash } from "react-icons/hi2";
 import { usePreview } from "~/contexts/PreviewContext";
 import { getColourString, getCourseTypeString } from "~/lib/functions";
 import { notFound } from "next/navigation";
-import { CourseType, Preference } from "~/lib/definitions";
-import ClassForm, { formSchema } from "../ClassForm";
-import { z } from "zod";
+import { CourseType } from "~/lib/definitions";
+import type { Preference } from "~/lib/definitions";
+import ClassForm from "../ClassForm";
+import type { formSchema } from "../ClassForm";
+import type { z } from "zod";
 import { useUrlState } from "~/hooks/useUrlState";
 import toast from "react-hot-toast";
 
@@ -32,7 +34,7 @@ export default function Page({ params }: { params: { class: string } }) {
         item.type === course.type,
     );
     let events: Preference[] = [];
-    const parsedPrefs = decode("pref");
+    const parsedPrefs: Preference[] = decode("pref") as Preference[];
     if (parsedPrefs) {
       events = parsedPrefs;
     }

@@ -1,13 +1,7 @@
 import Event from "./Event";
-import { Friend } from "~/contexts/FriendContext";
-import {
-  colStart,
-  rowStart,
-  rowSpans,
-  Course,
-  Preference,
-  CourseType,
-} from "~/lib/definitions";
+import type { Friend } from "~/contexts/FriendContext";
+import { colStart, rowStart, rowSpans, CourseType } from "~/lib/definitions";
+import type { Course, Preference } from "~/lib/definitions";
 import {
   addMinutesToTimeString,
   getDayEnum,
@@ -41,12 +35,7 @@ export function ActiveCourseFriendPreview({
                 rowSpans[rowSpan]
               } m-0.5 flex flex-col overflow-hidden rounded border-l-[7px] px-3 py-2 text-neutral-800 opacity-50 `}
             >
-              <Event
-                title={item.title}
-                type={item.type}
-                colour={item.colour}
-                time={item.time}
-              />
+              <Event title={item.title} type={item.type} time={item.time} />
             </div>
           );
         }
@@ -82,7 +71,7 @@ export function FriendEvent({
       <div className="space-y-1">
         {item.friends.length !== 0 && (
           <p className=" text-xs font-light">
-            Friend's taking: {item.friends.join(", ")}
+            {`Friend's taking: ${item.friends.join(", ")}`}
           </p>
         )}
         <p className=" text-xs font-light">{`${CourseType[item.type]}, ${
@@ -101,9 +90,8 @@ export function FriendClashEvent({
   const { friendData } = useFriend();
   const friendsTaking = useMemo(
     () =>
-      friendData &&
       friendData
-        .filter((friend) => {
+        ?.filter((friend) => {
           return (
             friend.active &&
             friend.state.some((preference) => {
@@ -144,7 +132,7 @@ export function FriendClashEvent({
       <div className="space-y-1">
         {friendsTaking && friendsTaking.length !== 0 && (
           <p className=" text-xs font-light">
-            Friend's taking: {friendsTaking.join(", ")}
+            {`Friend's taking: ${friendsTaking.join(", ")}`}
           </p>
         )}
         <p className=" text-xs font-light">{`${CourseType[item.type]}, ${

@@ -1,5 +1,6 @@
 "use client";
-import { Course, colourVariants } from "~/lib/definitions";
+import { colourVariants } from "~/lib/definitions";
+import type { Course } from "~/lib/definitions";
 import { useDraggable } from "@dnd-kit/core";
 import { usePreview } from "~/contexts/PreviewContext";
 import { useMemo } from "react";

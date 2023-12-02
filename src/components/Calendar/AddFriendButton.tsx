@@ -16,7 +16,9 @@ import {
   DialogDescription,
 } from "@radix-ui/react-dialog";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { useFriend, Friend } from "~/contexts/FriendContext";
+import { useFriend } from "~/contexts/FriendContext";
+import type { Friend } from "~/contexts/FriendContext";
+import type { Preference } from "~/lib/definitions";
 
 const formSchema = z.object({
   name: z.string().trim().min(1, { message: "Name is required" }),
@@ -53,7 +55,7 @@ export default function AddFriend() {
       id: crypto.randomUUID(),
       name: values.name,
       link: values.link,
-      state: JSON.parse(JSONCrush.uncrush(pref)),
+      state: JSON.parse(JSONCrush.uncrush(pref)) as Preference[],
       active: true,
     };
     friendData && setFriendData([...friendData, friend]);
@@ -65,7 +67,7 @@ export default function AddFriend() {
     <Dialog modal open={open} onOpenChange={setOpen}>
       <DialogTrigger>
         <Tooltip message="Friend Comparison" position="top">
-          <span className={buttonVariants["outlineIcon"]}>
+          <span className={buttonVariants.outlineIcon}>
             <HiOutlineUserAdd />
           </span>
         </Tooltip>
@@ -78,8 +80,8 @@ export default function AddFriend() {
               Add a friend
             </DialogTitle>
             <DialogDescription className="text-sm font-light text-neutral-500/90">
-              Compare a friends timetable, if they've used "PlanYourSemester" to
-              create their preferences.
+              {`Compare a friends timetable, if they've used "PlanYourSemester" to
+              create their preferences.`}
             </DialogDescription>
           </div>
           <form onSubmit={handleSubmit(onSubmit)} className="contents">

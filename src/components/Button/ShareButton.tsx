@@ -1,6 +1,6 @@
 "use client";
 
-import { Button, Tooltip } from "~/components";
+import { Button } from "~/components";
 import { IoIosShareAlt } from "react-icons/io";
 import { usePathname, useSearchParams } from "next/navigation";
 import { useCallback } from "react";
@@ -8,13 +8,12 @@ import { useCallback } from "react";
 export default function ShareButton() {
   const pathname = usePathname();
   const p = useSearchParams();
-  const params = new URLSearchParams(p);
-  const copyLink = useCallback(() => {
+  const copyLink = useCallback(async () => {
     console.log(pathname);
     // TODO: Update this based on location
-    const link = `localhost:3000/?${params}`;
-    navigator.clipboard.writeText(link);
-  }, [pathname, p, params]);
+    const link = `localhost:3000/?${p.toString()}`;
+    await navigator.clipboard.writeText(link);
+  }, [pathname, p]);
 
   return (
     <div className="group relative flex">

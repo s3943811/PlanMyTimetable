@@ -1,9 +1,10 @@
 import { Badge } from "~/components";
-import { Course, CourseType } from "~/lib/definitions";
+import { CourseType } from "~/lib/definitions";
+import type { Course } from "~/lib/definitions";
 
 // https://tailwindcss.com/docs/content-configuration#dynamic-class-names
 export default function ClassCard({ course }: { course: Course }) {
-  var cardColour;
+  let cardColour;
   switch (course.type) {
     case CourseType.Lecture:
       cardColour = "bg-green-200 text-green-800";
@@ -29,7 +30,8 @@ export default function ClassCard({ course }: { course: Course }) {
           {course.courseCode}
         </p>
         <p className=" pl-2 text-xs font-light text-neutral-400">
-          {course.options.length} - Options
+          {course.options.length} -{" "}
+          {course.options.length === 1 ? "Option" : "Options"}
         </p>
       </div>
       <Badge className={cardColour}>{CourseType[course.type]}</Badge>

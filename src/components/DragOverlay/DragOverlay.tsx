@@ -1,5 +1,5 @@
 "use client";
-import { Preference } from "~/lib/definitions";
+import type { Preference } from "~/lib/definitions";
 import { usePreview, DragType } from "~/contexts/PreviewContext";
 import ClassCardDragOverlay from "./ClassCardDragOverlay";
 import EventDragOverlay from "./EventDragOverlay";

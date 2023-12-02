@@ -1,7 +1,12 @@
 "use client";
 import { usePreview } from "~/contexts/PreviewContext";
-import { colStart, rowStart, rowSpans, Time, Course } from "~/lib/definitions";
-import { getDayEnum, getRowIndex, groupByStartAndDay } from "~/lib/functions";
+import { colStart, rowStart, rowSpans } from "~/lib/definitions";
+import type { Time, Course } from "~/lib/definitions";
+import {
+  getDayEnum,
+  getRowIndex,
+  groupTimesByStartAndDay,
+} from "~/lib/functions";
 import React, { useMemo } from "react";
 import Clash from "./Clash";
 import { useDroppable } from "@dnd-kit/core";
@@ -9,9 +14,9 @@ import { useDroppable } from "@dnd-kit/core";
 export default function PreviewEventClient() {
   const { activeCourse } = usePreview();
 
-  const clashes: Time[][] = useMemo(
+  const clashes: Time[][] = useMemo<Time[][]>(
     () =>
-      groupByStartAndDay(
+      groupTimesByStartAndDay(
         activeCourse?.options.filter((obj, index, self) => {
           return (
             self.filter((t) => t.start === obj.start && t.day === obj.day)
@@ -46,7 +51,7 @@ export default function PreviewEventClient() {
                 <React.Fragment
                   key={time.day + time.start + time.duration + time.location}
                 >
-                  <PreviewEvent time={time} course={activeCourse!} clash />
+                  <PreviewEvent time={time} course={activeCourse} clash />
                 </React.Fragment>
               ))}
             </Clash>

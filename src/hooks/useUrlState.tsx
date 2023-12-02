@@ -25,13 +25,13 @@ export function useUrlState() {
   // re-encode and push to url
   // if that item exists
   const appendState = (
-    element: any,
+    element: unknown,
     prefName: string,
     location: string = pathname,
   ) => {
-    const state: Array<any> = decode(prefName);
+    const state = decode(prefName) as Array<unknown>;
     let encoded;
-    let params = new URLSearchParams(searchParams);
+    const params = new URLSearchParams(searchParams);
     if (state) {
       state.push(element);
       encoded = JSONCrush.crush(JSON.stringify(state));
@@ -48,7 +48,7 @@ export function useUrlState() {
 
   // This method will replace the state in the url with the new element
   const replaceState = (
-    element: any,
+    element: unknown,
     prefName: string,
     location: string = pathname,
   ): void => {
@@ -62,10 +62,10 @@ export function useUrlState() {
 
   // This will replace all the states that are passed similar to replaceState
   const replaceMultiple = (
-    elements: { element: any; prefName: string }[],
+    elements: { element: unknown; prefName: string }[],
     location: string = pathname,
   ) => {
-    let currParams = new URLSearchParams(searchParams);
+    const currParams = new URLSearchParams(searchParams);
     const encoded = elements.map((item) => {
       return {
         element: JSONCrush.crush(JSON.stringify(item.element)),
@@ -73,18 +73,18 @@ export function useUrlState() {
       };
     });
     encoded.map((item) => currParams.set(item.prefName, item.element));
-    router.push(`${location}?${currParams}`, { scroll: false });
+    router.push(`${location}?${currParams.toString()}`, { scroll: false });
   };
 
   // decode url states
-  const decode = (pref: string) => {
+  const decode = (pref: string): unknown => {
     const encodedValue = searchParams.get(pref);
     return encodedValue && JSON.parse(JSONCrush.uncrush(encodedValue));
   };
 
   const redirect = (location: string) => {
     const params = new URLSearchParams(searchParams);
-    nextRedirect(`${location}?${params}`);
+    nextRedirect(`${location}?${params.toString()}`);
   };
 
   return {

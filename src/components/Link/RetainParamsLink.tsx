@@ -1,6 +1,7 @@
 "use client";
 import { useSearchParams } from "next/navigation";
-import Link, { LinkProps } from "next/link";
+import Link from "next/link";
+import type { LinkProps } from "next/link";
 interface RetainParamsLink extends LinkProps {
   children?: React.ReactNode;
   href: string;

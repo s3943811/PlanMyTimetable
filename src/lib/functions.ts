@@ -1,14 +1,9 @@
-import {
-  ColourPalette,
-  CourseType,
-  Days,
-  Preference,
-  Time,
-} from "./definitions";
+import { ColourPalette, CourseType, Days } from "./definitions";
+import type { Preference, Time } from "./definitions";
 
 export function getTimes(): Array<string> {
-  let times = [];
-  let time = new Date();
+  const times = [];
+  const time = new Date();
   time.setHours(0, 0, 0, 0);
   while (time.getDate() === new Date().getDate()) {
     times.push(
@@ -31,11 +26,10 @@ export function convertTimeToIndex(
   const delimiterIndex = time.indexOf(":");
   let hour = Number(time.substring(0, delimiterIndex));
   const minute = Number(time.substring(delimiterIndex + 1)) / 60;
-  let startIndex;
   if (minute !== 0) {
     hour += minute;
   }
-  startIndex = Math.ceil(hour * 2);
+  const startIndex = Math.ceil(hour * 2);
   indexes.push(startIndex);
   duration /= 30;
   if (duration !== 0) {
@@ -141,7 +135,16 @@ export function getCourseTypeString(
 
 export function getColourString(
   colour: ColourPalette,
-): "Purple" | "Yellow" | "Red" | "Orange" {
+):
+  | "Purple"
+  | "Yellow"
+  | "Red"
+  | "Orange"
+  | "Green"
+  | "Teal"
+  | "Blue"
+  | "Fuchsia"
+  | "Pink" {
   switch (colour) {
     case ColourPalette.Purple:
       return "Purple";
@@ -151,28 +154,43 @@ export function getColourString(
       return "Orange";
     case ColourPalette.Red:
       return "Red";
+    case ColourPalette.Green:
+      return "Green";
+    case ColourPalette.Teal:
+      return "Teal";
+    case ColourPalette.Blue:
+      return "Blue";
+    case ColourPalette.Fuchsia:
+      return "Fuchsia";
+    case ColourPalette.Pink:
+      return "Pink";
   }
 }
 
-export function groupByStartAndDay(
-  items: Time[] | undefined | Preference[],
-): any {
-  const groups: any = {};
+export function groupPreferencesByStartAndDay(
+  items: undefined | (Preference & { originalType: string })[],
+): (Preference & { originalType: string })[][] {
+  const groups: Record<string, (Preference & { originalType: string })[]> = {};
 
   items?.forEach((item) => {
-    if ("start" in item && "day" in item) {
-      const key: string = `${item.start}-${item.day}`;
-      if (!groups[key]) {
-        groups[key] = [];
-      }
-      groups[key].push(item);
-    } else {
-      const key: string = `${item.time.start}-${item.time.day}`;
-      if (!groups[key]) {
-        groups[key] = [];
-      }
-      groups[key].push(item);
+    const key = `${item.time.start}-${item.time.day}`;
+    if (!groups[key]) {
+      groups[key] = [];
     }
+    groups[key]?.push(item);
+  });
+
+  return Object.values(groups);
+}
+export function groupTimesByStartAndDay(items: Time[] | undefined): Time[][] {
+  const groups: Record<string, Time[]> = {};
+
+  items?.forEach((item) => {
+    const key = `${item.start}-${item.day}`;
+    if (!groups[key]) {
+      groups[key] = [];
+    }
+    groups[key]?.push(item);
   });
 
   return Object.values(groups);

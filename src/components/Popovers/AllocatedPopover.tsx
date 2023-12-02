@@ -1,9 +1,10 @@
 "use client";
 import { usePreview } from "~/contexts/PreviewContext";
 import Badge from "../Badge/Badge";
-import { ColourPalette, CourseType } from "~/lib/definitions";
+import { CourseType } from "~/lib/definitions";
+import type { ColourPalette } from "~/lib/definitions";
 import { HiOutlineX, HiChevronUp, HiChevronDown } from "react-icons/hi";
-import { SetStateAction } from "react";
+import type { SetStateAction } from "react";
 import { Popover } from "react-tiny-popover";
 import { useState } from "react";
 import { Button, ClearPreferences } from "..";
@@ -15,6 +16,11 @@ export default function AllocatedPopover() {
     1: "bg-yellow-200 text-yellow-900 text-xs",
     2: "bg-orange-200 text-orange-900 text-xs",
     3: "bg-red-200 text-red-900 text-xs",
+    4: "bg-green-200 text-green-900 text-xs",
+    5: "bg-teal-200 text-teal-900 text-xs",
+    6: "bg-blue-200 text-blue-900 text-xs",
+    7: "bg-fuchsia-200 text-fuchsia-900 text-xs",
+    8: "bg-pink-200 text-pink-900 text-xs",
   };
   const { events, courseData } = usePreview();
   const [isOpen, setIsOpen] = useState(false);
@@ -58,7 +64,7 @@ export default function AllocatedPopover() {
         }
       >
         <Button variant="outline" onClick={() => setIsOpen(!isOpen)}>
-          {events.length}/{(courseData && courseData.length) ?? 0} Allocated{" "}
+          {events.length}/{courseData?.length ?? 0} Allocated{" "}
           {isOpen ? <HiChevronDown /> : <HiChevronUp />}
         </Button>
       </Popover>
@@ -80,6 +86,11 @@ function Remove({
     1: "hover:bg-yellow-50/60",
     2: "hover:bg-orange-50/60",
     3: "hover:bg-red-50/60",
+    4: "hover:bg-green-50/60",
+    5: "hover:bg-teal-50/60",
+    6: "hover:bg-blue-50/60",
+    7: "hover:bg-fuchsia-50/60",
+    8: "hover:bg-pink-50/60",
   };
 
   const { events } = usePreview();
