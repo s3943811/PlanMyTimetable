@@ -54,9 +54,7 @@ export default function Page({ params }: { params: { class: string } }) {
         { element: classes, prefName: "state" },
         { element: newEvents, prefName: "pref" },
       ],
-      `/classes/${courseData[newIndex]?.courseCode}-${getCourseTypeString(
-        courseData[newIndex]!.type,
-      )}`,
+      `/classes/${courseData[newIndex]?.id}`,
     );
     toast.success("Class deleted successfully");
   };
