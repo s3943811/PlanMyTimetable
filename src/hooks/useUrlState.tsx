@@ -63,6 +63,7 @@ export function useUrlState() {
     (
       elements: { element: unknown; prefName: string }[],
       location: string = pathname,
+      type: "Replace" | "Push" = "Push",
     ) => {
       const currParams = new URLSearchParams(searchParams);
       const encoded = elements.map((item) => {
@@ -72,7 +73,13 @@ export function useUrlState() {
         };
       });
       encoded.map((item) => currParams.set(item.prefName, item.element));
-      router.push(`${location}?${currParams.toString()}`, { scroll: false });
+      if (type === "Push") {
+        router.push(`${location}?${currParams.toString()}`, { scroll: false });
+      } else {
+        router.replace(`${location}?${currParams.toString()}`, {
+          scroll: false,
+        });
+      }
     },
     [searchParams, router, pathname],
   );
