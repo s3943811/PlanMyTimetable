@@ -1,7 +1,7 @@
 "use client";
 import { usePreview } from "~/contexts/PreviewContext";
 import { colStart, rowStart, rowSpans } from "~/lib/definitions";
-import type { Time, Course } from "~/lib/definitions";
+import type { Time, Course, Days } from "~/lib/definitions";
 import {
   getDayEnum,
   getRowIndex,
@@ -78,7 +78,10 @@ function PreviewEvent({
   course: Course;
   clash: boolean;
 }) {
-  const rowSpan: number = time.duration / 30;
+  const col = useMemo<Days>(() => getDayEnum(time.day), [time]);
+  const row = useMemo<number>(() => getRowIndex(time.start), [time]);
+  const rowSpan = useMemo<number>(() => time.duration / 30, [time]);
+
   const { setNodeRef, isOver } = useDroppable({
     id: time.day + time.start + time.duration + time.location,
     data: {
@@ -101,9 +104,7 @@ function PreviewEvent({
   ) : (
     <div
       ref={setNodeRef}
-      className={`${colStart[getDayEnum(time.day)! + 2]} ${
-        rowStart[getRowIndex(time.start)]
-      } ${rowSpans[rowSpan]}
+      className={`${colStart[col + 2]} ${rowStart[row]} ${rowSpans[rowSpan]}
       ${
         isOver
           ? "border-[0.19rem] border-dashed border-green-500 bg-green-500/40"

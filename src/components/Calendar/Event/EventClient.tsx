@@ -1,5 +1,5 @@
 import { useDraggable } from "@dnd-kit/core";
-import type { Preference } from "~/lib/definitions";
+import type { Preference, Days } from "~/lib/definitions";
 import { colStart, rowStart, rowSpans } from "~/lib/definitions";
 import { getDayEnum, getRowIndex } from "~/lib/functions";
 import { usePreview } from "~/contexts/PreviewContext";
@@ -76,7 +76,20 @@ export default function EventClient({
       tabIndex: 0,
     },
   });
-  const rowSpan: number = preference.time.duration / 30;
+  // const rowSpan: number = preference.time.duration / 30;
+
+  const col = useMemo<Days>(
+    () => getDayEnum(preference.time.day),
+    [preference],
+  );
+  const row = useMemo<number>(
+    () => getRowIndex(preference.time.start),
+    [preference],
+  );
+  const rowSpan = useMemo<number>(
+    () => preference.time.duration / 30,
+    [preference],
+  );
 
   if (clash) {
     const height = (preference.time.duration / clash) * 100;
