@@ -44,7 +44,7 @@ export default function Page({ params }: { params: { class: string } }) {
         item.courseCode === course.courseCode &&
         item.type === course.type,
     );
-    console.log(eventIndex);
+    // console.log(eventIndex);
     const classes = index !== -1 ? courseData.toSpliced(index, 1) : courseData;
     const newEvents =
       eventIndex !== -1 ? events.toSpliced(eventIndex, 1) : events;

@@ -126,8 +126,6 @@ export default function ClassForm({
   } | null>(null);
 
   function onSubmit(values: z.infer<typeof formSchema>) {
-    console.log(defaultValues?.id);
-    console.log(values.id);
     const course: Course = {
       id: defaultValues?.id ?? values.id,
       title: values.title,

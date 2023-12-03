@@ -9,9 +9,9 @@ export default function ShareButton() {
   const pathname = usePathname();
   const p = useSearchParams();
   const copyLink = useCallback(async () => {
-    console.log(pathname);
+    // console.log(pathname);
     // TODO: Update this based on location
-    const link = `localhost:3000/?${p.toString()}`;
+    const link = `https://planmytimetable.vercel.app//?${p.toString()}`;
     await navigator.clipboard.writeText(link);
   }, [pathname, p]);
 

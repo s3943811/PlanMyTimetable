@@ -90,7 +90,7 @@ export default function EventClient({
     [preference],
   );
 
-  console.log(rowSpan);
+  // console.log(rowSpan);
 
   if (clash) {
     const height = (preference.time.duration / clash) * 100;
