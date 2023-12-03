@@ -1,6 +1,5 @@
 "use client";
 import { usePreview } from "~/contexts/PreviewContext";
-import { colStart, rowStart, rowSpans } from "~/lib/definitions";
 import type { Time, Course, Days } from "~/lib/definitions";
 import {
   getDayEnum,
@@ -43,9 +42,9 @@ export default function PreviewEventClient() {
           return (
             <Clash
               key={index}
-              col={colStart[getDayEnum(group[index]!.day)! + 2]!}
-              row={rowStart[getRowIndex(group[index]!.start)]!}
-              span={rowSpans[rowSpan]!}
+              col={getDayEnum(group[index]!.day)! + 2}
+              row={getRowIndex(group[index]!.start)}
+              span={rowSpan}
             >
               {group.map((time) => (
                 <React.Fragment
@@ -104,7 +103,12 @@ function PreviewEvent({
   ) : (
     <div
       ref={setNodeRef}
-      className={`${colStart[col + 2]} ${rowStart[row]} ${rowSpans[rowSpan]}
+      style={{
+        gridRowEnd: `span ${rowSpan}`,
+        gridColumnStart: `${col + 2}`,
+        gridRowStart: `${row}`,
+      }}
+      className={`
       ${
         isOver
           ? "border-[0.19rem] border-dashed border-green-500 bg-green-500/40"

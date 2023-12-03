@@ -1,6 +1,5 @@
 import { useDraggable } from "@dnd-kit/core";
 import type { Preference, Days } from "~/lib/definitions";
-import { colStart, rowStart, rowSpans } from "~/lib/definitions";
 import { getDayEnum, getRowIndex } from "~/lib/functions";
 import { usePreview } from "~/contexts/PreviewContext";
 import { useFriend } from "~/contexts/FriendContext";
@@ -91,6 +90,8 @@ export default function EventClient({
     [preference],
   );
 
+  console.log(rowSpan);
+
   if (clash) {
     const height = (preference.time.duration / clash) * 100;
     return (
@@ -124,7 +125,12 @@ export default function EventClient({
       {...listeners}
       {...attributes}
       tabIndex={0}
-      className={`z-10 ${colStart[col]} ${rowStart[row]} ${rowSpans[rowSpan]} ${
+      style={{
+        gridRowEnd: `span ${rowSpan}`,
+        gridColumnStart: `${col}`,
+        gridRowStart: `${row}`,
+      }}
+      className={`z-10 ${
         isDragging && "opacity-50"
       } m-0.5 flex flex-col overflow-hidden ${
         colourVariants[preference.colour]

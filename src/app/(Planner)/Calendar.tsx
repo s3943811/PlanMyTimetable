@@ -7,7 +7,6 @@ import {
 } from "~/components";
 import CalendarToolbar from "./CalendarToolbar";
 import { FriendProvider } from "~/contexts/FriendContext";
-import { rowStart } from "~/lib/definitions";
 
 export default function Calendar() {
   return (
@@ -17,11 +16,11 @@ export default function Calendar() {
           <CalendarHeader />
           {Array.from({ length: 38 }, (_, index) => {
             const num = 2 + index;
-            const row = rowStart[num];
             return (
               <React.Fragment key={index}>
                 <div
-                  className={`col-start-[1] ${row} border-r border-slate-100 bg-white p-1.5 text-right text-xs font-medium uppercase text-slate-400`}
+                  style={{ gridRowStart: `${num}` }}
+                  className={`col-start-[1] border-r border-slate-100 bg-white p-1.5 text-right text-xs font-medium uppercase text-slate-400`}
                 >
                   {index % 2 !== 1 && `${index / 2 + 5}:00`}
                 </div>
