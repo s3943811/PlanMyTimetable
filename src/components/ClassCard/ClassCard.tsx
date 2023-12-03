@@ -7,19 +7,24 @@ export default function ClassCard({ course }: { course: Course }) {
   let cardColour;
   switch (course.type) {
     case CourseType.Lecture:
-      cardColour = "bg-green-200 text-green-800";
+      cardColour =
+        "bg-green-200 text-green-800 dark:bg-green-800 dark:text-green-200";
       break;
     case CourseType.Tutorial:
-      cardColour = "bg-blue-200 text-blue-800";
+      cardColour =
+        "bg-blue-200 text-blue-800 dark:bg-blue-800 dark:text-blue-200";
       break;
     case CourseType.Practical:
-      cardColour = "bg-rose-200 text-rose-800";
+      cardColour =
+        "bg-rose-200 text-rose-800 dark:bg-rose-800 dark:text-rose-200";
       break;
     case CourseType.Workshop:
-      cardColour = "bg-amber-200 text-amber-800";
+      cardColour =
+        "bg-amber-200 text-amber-800 dark:bg-amber-800 dark:text-amber-200";
       break;
     default:
-      cardColour = "bg-neutral-200 text-neutral-800";
+      cardColour =
+        "bg-neutral-200 text-neutral-800 dark:bg-neutral-600 dark:text-neutral-200";
       break;
   }
   return (
