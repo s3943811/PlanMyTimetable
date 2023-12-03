@@ -10,7 +10,6 @@ export default function ShareButton() {
   const p = useSearchParams();
   const copyLink = useCallback(async () => {
     // console.log(pathname);
-    // TODO: Update this based on location
     const link = `https://planmytimetable.vercel.app/?${p.toString()}`;
     await navigator.clipboard.writeText(link);
   }, [pathname, p]);
@@ -22,7 +21,7 @@ export default function ShareButton() {
         Share
       </Button>
       <span
-        className={`absolute -left-5 bottom-10 z-[999] scale-0 whitespace-nowrap rounded bg-gray-800 p-2 text-xs text-white group-hover:scale-100`}
+        className={`absolute -left-5 bottom-10 z-[999] scale-0 whitespace-nowrap rounded bg-gray-800 p-2 text-xs text-white group-hover:scale-100 dark:bg-neutral-200 dark:text-neutral-950`}
       >
         Copy to clipboard
       </span>
