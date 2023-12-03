@@ -112,11 +112,12 @@ export default function ClassForm({
     name: "options",
   });
 
-  const { appendState, replaceMultiple } = useUrlState();
+  const { appendState, replaceMultiple, redirect } = useUrlState();
   const { courseData, events, setCourseData } = usePreview();
 
   const update = useRef<{
     course: Course;
+    toastMsg: string;
     courses?: Course[];
     events?: Preference[];
   } | null>(null);
@@ -137,7 +138,19 @@ export default function ClassForm({
         };
       }),
     };
-    // console.log(course);
+    const already = courseData?.find(
+      (item) =>
+        item.courseCode === course.courseCode && item.type === course.type,
+    );
+    if (already) {
+      setError("code", {
+        message: "Course with this code and type already exists",
+      });
+      setError("type", {
+        message: "Course with this code and type already exists",
+      });
+      return;
+    }
     if (defaultValues) {
       const courses = courseData.map((item) => {
         if (
@@ -174,30 +187,31 @@ export default function ClassForm({
       //   `/classes/${course.courseCode}-${getCourseTypeString(course.type)}`,
       // );
       // toast.success("Class updated successfully");
-      update.current = { course: course, courses: courses, events: newEvents };
-      return;
-    }
-    const already = courseData?.find(
-      (item) =>
-        item.courseCode === course.courseCode && item.type === course.type,
-    );
-    if (already) {
-      setError("code", {
-        message: "Course with this code and type already exists",
-      });
-      setError("type", {
-        message: "Course with this code and type already exists",
-      });
+      update.current = {
+        course: course,
+        toastMsg: `${course.title} (${CourseType[course.type]}) updated`,
+        courses: courses,
+        events: newEvents,
+      };
       return;
     }
     setCourseData([course]);
-    update.current = { course: course };
+    update.current = {
+      course: course,
+      toastMsg: `${course.title} (${CourseType[course.type]}) created`,
+    };
     // appendState(course, "state", "/classes");
     // toast.success("Class created successfully");
   }
+
   useEffect(() => {
     if (update.current) {
       if (update.current.events) {
+        console.log(
+          `/classes/${update.current.course.courseCode}-${getCourseTypeString(
+            update.current.course.type,
+          )}`,
+        );
         replaceMultiple(
           [
             { element: update.current.courses, prefName: "state" },
@@ -206,6 +220,7 @@ export default function ClassForm({
           `/classes/${update.current.course.courseCode}-${getCourseTypeString(
             update.current.course.type,
           )}`,
+          "Replace",
         );
       } else {
         appendState(
@@ -217,9 +232,11 @@ export default function ClassForm({
         );
       }
 
-      toast.success("Class updated successfully");
+      toast.success(update.current.toastMsg);
+      update.current = null;
     }
   }, [courseData]);
+
   return (
     <form className="contents space-y-7" onSubmit={handleSubmit(onSubmit)}>
       <div className=" space-y-2">
@@ -258,8 +275,8 @@ export default function ClassForm({
         </label>
         <input
           {...register("code")}
-          disabled={defaultValues ? true : false}
-          placeholder={defaultValues ? defaultValues.code : "Code"}
+          // disabled={defaultValues ? true : false}
+          placeholder="Code"
           id="course_code"
           className={`flex h-10 w-full rounded-md border ${
             errors.code && "border-red-300"
@@ -320,8 +337,7 @@ export default function ClassForm({
           } focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-1
            disabled:cursor-not-allowed disabled:opacity-50`}
           {...register("type")}
-          disabled={defaultValues ? true : false}
-          placeholder={defaultValues ? defaultValues.type : "Lecture"}
+          placeholder="Lecture"
         >
           <option>Lecture</option>
           <option>Tutorial</option>
