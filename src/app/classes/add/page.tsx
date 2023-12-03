@@ -37,7 +37,7 @@ export default function Page() {
             <a
               href={`javascript:(() => {
     let script = document.createElement("script");
-    script.src = "https://planyoursemester.vercel.app/bookmarklet.js";
+    script.src = "https://planmytimetable.vercel.app/bookmarklet.js";
     document.body.append(script);
 })();`}
             >

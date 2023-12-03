@@ -80,7 +80,7 @@ export default function AddFriend() {
               Add a friend
             </DialogTitle>
             <DialogDescription className="text-sm font-light text-neutral-500/90">
-              {`Compare a friends timetable, if they've used "PlanYourSemester" to
+              {`Compare a friends timetable, if they've used "PlanMyTimetable" to
               create their preferences.`}
             </DialogDescription>
           </div>

@@ -140,7 +140,7 @@
       );
       classes = classes.flat();
       const encoded = encodeURIComponent(crush(JSON.stringify(classes)));
-      window.open(`localhost:3000/?state=${encoded}`).focus();
+      window.open(`https://planmytimetable:3000/?state=${encoded}`).focus();
       close();
     } catch (e) {
       update(e);
