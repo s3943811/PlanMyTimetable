@@ -9,7 +9,7 @@ export default function ClassLayout({
 }) {
   return (
     <section className="flex w-full grow flex-col">
-      <div className="sticky top-0 z-20 inline-flex w-full justify-between border-b bg-white pb-2 pl-5 pr-3 pt-4">
+      <div className="sticky top-0 z-20 inline-flex w-full justify-between border-b bg-white pb-2 pl-5 pr-3 pt-4 dark:border-b-neutral-700 dark:bg-neutral-900 dark:text-white">
         <h2 className="inline-flex items-center gap-1 pl-1 text-md font-medium">
           Classes
         </h2>

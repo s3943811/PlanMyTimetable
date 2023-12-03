@@ -139,7 +139,7 @@ export default function EventList() {
             gridColumnStart: `${getDayEnum(item.time.day)! + 2}`,
             gridRowStart: `${getRowIndex(item.time.start)}`,
           }}
-          className={`z-10 animate-pulse rounded-md bg-neutral-200/50 py-2`}
+          className={`z-10 animate-pulse rounded-md bg-neutral-200/50 py-2 dark:bg-neutral-50`}
         ></div>
       );
     });

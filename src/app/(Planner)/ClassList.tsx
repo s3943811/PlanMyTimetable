@@ -28,7 +28,7 @@ export default function ClassList() {
       {courseData.map((item) => (
         <div
           key={item.id}
-          className="border-b border-b-neutral-100 px-3 pb-2 last:border-none"
+          className="border-b border-b-neutral-100 px-3 pb-2 last:border-none dark:border-b-neutral-700"
         >
           <ClassCardClient course={item}>
             <div className="space-y-1 px-1.5">
@@ -37,7 +37,7 @@ export default function ClassList() {
                 course={item}
               />
             </div>
-            <RxDragHandleDots2 color="#737373" />
+            <RxDragHandleDots2 className=" fill-[#737373] dark:fill-neutral-800" />
           </ClassCardClient>
         </div>
       ))}

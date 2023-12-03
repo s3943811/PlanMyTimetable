@@ -77,7 +77,7 @@ export default function Page({ params }: { params: { class: string } }) {
   };
 
   return (
-    <div className="flex grow flex-col px-8 py-2">
+    <div className="flex grow flex-col px-8 py-2 dark:bg-neutral-900 dark:text-white">
       <div className="absolute right-9 top-[4.25rem]">
         <Button onClick={handleDelete}>
           <HiTrash />
@@ -87,13 +87,13 @@ export default function Page({ params }: { params: { class: string } }) {
       <h3 className="text-base font-medium">
         {course.title} - {CourseType[course.type]}
       </h3>
-      <p className="text-sm font-light text-neutral-500/90">
+      <p className="text-sm font-light text-neutral-500/90 dark:text-neutral-400">
         Update class details. Remove unneeded classes.
       </p>
       <div
         data-orientation="horizontal"
         role="none"
-        className=" my-3 h-[1px] w-full shrink-0 bg-neutral-200"
+        className=" my-3 h-[1px] w-full shrink-0 bg-neutral-200 dark:bg-neutral-600"
       ></div>
       <ClassForm defaultValues={formValues} />
     </div>

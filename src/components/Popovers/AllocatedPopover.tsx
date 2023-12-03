@@ -26,7 +26,7 @@ export default function AllocatedPopover() {
   const [isOpen, setIsOpen] = useState(false);
   return (
     <div
-      className={`sticky bottom-0 flex h-16 max-w-full flex-col items-center gap-2 border-t p-2 py-4`}
+      className={`sticky bottom-0 flex h-16 max-w-full flex-col items-center gap-2 border-t p-2 py-4 dark:border-t-neutral-700`}
     >
       <Popover
         isOpen={isOpen}
@@ -34,9 +34,9 @@ export default function AllocatedPopover() {
         padding={10}
         onClickOutside={() => setIsOpen(false)}
         content={
-          <div className="flex w-[17rem] flex-col items-center gap-1 rounded-lg border bg-white p-3 shadow-lg">
+          <div className="flex w-[17rem] flex-col items-center gap-1 rounded-lg border bg-white p-3 shadow-lg dark:border-neutral-700 dark:bg-neutral-800">
             {events.length === 0 ? (
-              <p className="text-sm">
+              <p className="text-sm dark:text-white">
                 Nothing allocated. To allocate a course drag it onto a event in
                 the calendar.
               </p>

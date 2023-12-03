@@ -13,7 +13,7 @@ export default function Page() {
         <span>/</span>
         <RetainLink
           href="/classes/add/manual"
-          className={`inline-flex w-full items-center justify-center rounded-md py-1.5 pr-3 font-light text-neutral-500/90 transition-all`}
+          className={`inline-flex w-full items-center justify-center rounded-md py-1.5 pr-3 font-light text-neutral-500/90 transition-all dark:text-neutral-400`}
         >
           <p>Manual</p>
         </RetainLink>
@@ -21,7 +21,7 @@ export default function Page() {
       <div
         data-orientation="horizontal"
         role="none"
-        className=" my-3 h-[1px] w-full shrink-0 bg-neutral-200"
+        className=" my-3 h-[1px] w-full shrink-0 bg-neutral-200 dark:bg-neutral-600"
       ></div>
       <div className="space-y-4">
         <h3 className="text-md font-medium">Automatic data gathering</h3>
@@ -33,7 +33,7 @@ export default function Page() {
           <li>
             Bookmark the following code ( drag this into the bookmarks bar ) :
           </li>
-          <div className="w-full rounded-md border p-2 text-sm">
+          <div className="w-full rounded-md border p-2 text-sm dark:border-neutral-600">
             <a
               href={`javascript:(() => {
     let script = document.createElement("script");

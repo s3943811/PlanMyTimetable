@@ -41,10 +41,12 @@ export default function ClassCardClient({
       className={`z-50 ${
         isDragging && "opacity-50"
       } flex w-72 flex-row justify-between gap-1 rounded-md border-l-[6.5px] px-2.5 py-2.5 hover:bg-neutral-100 ${
-        isAllocated ? "bg-neutral-50" : "bg-white"
+        isAllocated
+          ? "bg-neutral-50 dark:bg-neutral-800"
+          : "bg-white dark:bg-neutral-900"
       } ${
         colourVariants[course.colour]
-      } items-center hover:cursor-grab focus:ring-1 focus:ring-neutral-200 active:cursor-grab active:bg-neutral-100`}
+      } items-center hover:cursor-grab focus:ring-1 focus:ring-neutral-200 active:cursor-grab active:bg-neutral-100 dark:hover:bg-neutral-700 dark:focus:ring-neutral-700 dark:active:bg-neutral-600`}
       tabIndex={0}
     >
       {children}
