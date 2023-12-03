@@ -74,12 +74,12 @@ export default function AddFriend() {
       </DialogTrigger>
       <DialogPortal>
         <DialogOverlay className="fixed inset-0 z-50 backdrop-brightness-[.65]" />
-        <DialogContent className="fixed left-[50%] top-[50%] z-[999] grid w-full max-w-md translate-x-[-40%] translate-y-[-50%] gap-4 rounded-lg border bg-white p-6 shadow-lg">
+        <DialogContent className="fixed left-[50%] top-[50%] z-[999] grid w-full max-w-md translate-x-[-40%] translate-y-[-50%] gap-4 rounded-lg border bg-white p-6 shadow-lg dark:border-neutral-600 dark:bg-neutral-800">
           <div className="flex flex-col space-y-1.5">
             <DialogTitle className="text-lg font-medium leading-none tracking-tight">
               Add a friend
             </DialogTitle>
-            <DialogDescription className="text-sm font-light text-neutral-500/90">
+            <DialogDescription className="text-sm font-light text-neutral-500/90 dark:text-neutral-400">
               {`Compare a friends timetable, if they've used "PlanMyTimetable" to
               create their preferences.`}
             </DialogDescription>
@@ -104,7 +104,7 @@ export default function AddFriend() {
               ? " focus:ring-red-400/60"
               : " focus:ring-neutral-400/60"
           } focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-1
-          disabled:cursor-not-allowed disabled:opacity-50`}
+          disabled:cursor-not-allowed disabled:opacity-50 dark:border-neutral-600 dark:bg-neutral-800 dark:placeholder:text-neutral-400`}
               />
             </fieldset>
             {errors.name && (
@@ -131,7 +131,7 @@ export default function AddFriend() {
               ? " focus:ring-red-400/60"
               : " focus:ring-neutral-400/60"
           } focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-1
-          disabled:cursor-not-allowed disabled:opacity-50`}
+          disabled:cursor-not-allowed disabled:opacity-50 dark:border-neutral-600 dark:bg-neutral-800 dark:placeholder:text-neutral-400`}
               />
             </fieldset>
             {errors.link && (
@@ -144,7 +144,7 @@ export default function AddFriend() {
             </div>
           </form>
           <DialogClose asChild>
-            <button className="absolute right-2 top-2 rounded-lg p-2 hover:bg-neutral-100">
+            <button className="absolute right-2 top-2 rounded-lg p-2 hover:bg-neutral-100 dark:hover:bg-neutral-700">
               <HiOutlineX />
             </button>
           </DialogClose>
