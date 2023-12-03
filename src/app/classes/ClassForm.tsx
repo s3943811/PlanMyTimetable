@@ -115,7 +115,7 @@ export default function ClassForm({
     name: "options",
   });
 
-  const { appendState, replaceMultiple, redirect } = useUrlState();
+  const { appendState, replaceMultiple } = useUrlState();
   const { courseData, events, setCourseData } = usePreview();
 
   const update = useRef<{
@@ -222,7 +222,7 @@ export default function ClassForm({
       toast.success(update.current.toastMsg);
       update.current = null;
     }
-  }, [courseData]);
+  }, [courseData, replaceMultiple, appendState]);
 
   return (
     <form className="contents space-y-7" onSubmit={handleSubmit(onSubmit)}>

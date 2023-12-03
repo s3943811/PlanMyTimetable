@@ -21,6 +21,16 @@ export function useUrlState() {
     },
     [searchParams],
   );
+
+  // decode url states
+  const decode = useCallback(
+    (pref: string): unknown => {
+      const encodedValue = searchParams.get(pref);
+      return encodedValue && JSON.parse(JSONCrush.uncrush(encodedValue));
+    },
+    [searchParams],
+  );
+
   // This method will take an state array encoding in the url and add the new item to that array
   // re-encode and push to url
   // if that item exists
@@ -42,7 +52,7 @@ export function useUrlState() {
       const query = createQueryString(prefName, encoded);
       router.push(`${location}?${query}`, { scroll: false });
     },
-    [searchParams, router, pathname],
+    [searchParams, router, pathname, createQueryString, decode],
   );
 
   // This method will replace the state in the url with the new element
@@ -55,7 +65,7 @@ export function useUrlState() {
 
       router.push(`${location}?${newPref}`, { scroll: false });
     },
-    [searchParams, router, pathname],
+    [router, pathname, createQueryString],
   );
 
   // This will replace all the states that are passed similar to replaceState
@@ -84,21 +94,12 @@ export function useUrlState() {
     [searchParams, router, pathname],
   );
 
-  // decode url states
-  const decode = useCallback(
-    (pref: string): unknown => {
-      const encodedValue = searchParams.get(pref);
-      return encodedValue && JSON.parse(JSONCrush.uncrush(encodedValue));
-    },
-    [searchParams],
-  );
-
   const redirect = useCallback(
     (location: string) => {
       const params = new URLSearchParams(searchParams);
       nextRedirect(`${location}?${params.toString()}`);
     },
-    [searchParams, nextRedirect, pathname],
+    [searchParams],
   );
 
   return {

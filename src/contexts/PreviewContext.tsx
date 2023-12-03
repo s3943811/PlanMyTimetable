@@ -38,12 +38,13 @@ export function PreviewProvider({ children }: PreviewProviderProps) {
   const [courseData, setCourseData] = useState<Course[]>(
     (decode("state") as Course[]) ?? [],
   );
+  const state = searchParams.get("state");
   useEffect(() => {
     const data = decode("state") as Course[];
     if (data) {
       setCourseData(data);
     }
-  }, [searchParams.get("state"), decode]);
+  }, [state, decode]);
   return (
     <PreviewContext.Provider
       value={{
