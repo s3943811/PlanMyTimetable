@@ -1,6 +1,6 @@
 import JSONCrush from "jsoncrush";
 
-javascript: (() => {
+(() => {
   let semester;
   const semesters = Object.keys(window.data.student.student_enrolment_sem);
   let classes = [];
