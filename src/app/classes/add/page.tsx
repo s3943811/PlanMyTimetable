@@ -34,7 +34,13 @@ export default function Page() {
             Bookmark the following code ( drag this into the bookmarks bar ) :
           </li>
           <div className="w-full rounded-md border p-2 text-sm">
-            <a href="">
+            <a
+              href={`javascript:(() => {
+    let script = document.createElement("script");
+    script.src = "https://planyoursemester.vercel.app/bookmarklet.js";
+    document.body.append(script);
+})();`}
+            >
               <code className="prose-code: my-2 p-2">{`function Test() {
             do stuff }`}</code>
             </a>
