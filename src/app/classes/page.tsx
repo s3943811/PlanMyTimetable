@@ -3,14 +3,12 @@ import { HiOutlineAcademicCap } from "react-icons/hi2";
 import { RetainLink } from "~/components";
 import { usePreview } from "~/contexts/PreviewContext";
 import { useUrlState } from "~/hooks/useUrlState";
-import { getCourseTypeString } from "~/lib/functions";
 
 export default function Page() {
   const { courseData } = usePreview();
   const { redirect } = useUrlState();
   if (courseData.length !== 0) {
-    const redirectURL = `/classes/${courseData[0]
-      ?.courseCode}-${getCourseTypeString(courseData[0]!.type)}`;
+    const redirectURL = `/classes/${courseData[0]?.id}`;
     console.log(redirectURL);
     redirect(redirectURL);
   } else {

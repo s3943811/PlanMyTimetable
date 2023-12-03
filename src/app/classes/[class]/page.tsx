@@ -11,21 +11,12 @@ import type { formSchema } from "../ClassForm";
 import type { z } from "zod";
 import { useUrlState } from "~/hooks/useUrlState";
 import toast from "react-hot-toast";
-import { useMemo } from "react";
 
 export default function Page({ params }: { params: { class: string } }) {
   const { courseData } = usePreview();
-  const [code, type] = params.class.split("-");
   const { replaceMultiple, decode, redirect } = useUrlState();
-  const course = useMemo(
-    () =>
-      courseData.find(
-        (course) =>
-          course.courseCode === code &&
-          getCourseTypeString(course.type) === type,
-      ),
-    [],
-  );
+
+  const course = courseData.find((course) => course.id === params.class);
 
   if (courseData.length === 0) {
     redirect("/classes");
@@ -71,6 +62,7 @@ export default function Page({ params }: { params: { class: string } }) {
   };
 
   const formValues: z.infer<typeof formSchema> = {
+    id: course.id,
     title: course.title,
     code: course.courseCode,
     type: getCourseTypeString(course.type),

@@ -20,6 +20,7 @@ import type {
   UseFieldArrayRemove,
   FieldErrors,
 } from "react-hook-form";
+import { nanoid } from "nanoid";
 
 const optionSchema = z.object({
   day: z.enum(["Mon", "Tue", "Wed", "Thu", "Fri"]),
@@ -38,6 +39,7 @@ const optionSchema = z.object({
   campus: z.string().trim().min(1, { message: "Campus is required" }),
 });
 export const formSchema = z.object({
+  id: z.string(),
   title: z
     .string()
     .trim()
@@ -70,6 +72,7 @@ export const formSchema = z.object({
 });
 
 const val: z.infer<typeof formSchema> = {
+  id: nanoid(),
   title: "",
   code: "",
   type: "Lecture",
@@ -96,7 +99,6 @@ export default function ClassForm({
     watch,
     reset,
     control,
-    setError,
     formState: { errors },
   } = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
@@ -106,6 +108,7 @@ export default function ClassForm({
   useEffect(() => {
     reset(defaultValues);
   }, [defaultValues, reset]);
+
   const watchType = watch("type");
   const { fields, append, remove } = useFieldArray({
     control,
@@ -123,7 +126,10 @@ export default function ClassForm({
   } | null>(null);
 
   function onSubmit(values: z.infer<typeof formSchema>) {
+    console.log(defaultValues?.id);
+    console.log(values.id);
     const course: Course = {
+      id: defaultValues?.id ?? values.id,
       title: values.title,
       courseCode: values.code,
       type: CourseType[values.type],
@@ -138,19 +144,8 @@ export default function ClassForm({
         };
       }),
     };
-    const already = courseData?.find(
-      (item) =>
-        item.courseCode === course.courseCode && item.type === course.type,
-    );
-    if (already) {
-      setError("code", {
-        message: "Course with this code and type already exists",
-      });
-      setError("type", {
-        message: "Course with this code and type already exists",
-      });
-      return;
-    }
+    // console.log(course);
+
     if (defaultValues) {
       const courses = courseData.map((item) => {
         if (
@@ -195,6 +190,7 @@ export default function ClassForm({
       };
       return;
     }
+
     setCourseData([course]);
     update.current = {
       course: course,
@@ -207,28 +203,19 @@ export default function ClassForm({
   useEffect(() => {
     if (update.current) {
       if (update.current.events) {
-        console.log(
-          `/classes/${update.current.course.courseCode}-${getCourseTypeString(
-            update.current.course.type,
-          )}`,
-        );
         replaceMultiple(
           [
             { element: update.current.courses, prefName: "state" },
             { element: update.current.events, prefName: "pref" },
           ],
-          `/classes/${update.current.course.courseCode}-${getCourseTypeString(
-            update.current.course.type,
-          )}`,
+          `/classes/${update.current.course.id}`,
           "Replace",
         );
       } else {
         appendState(
           update.current.course,
           "state",
-          `/classes/${update.current.course.courseCode}-${getCourseTypeString(
-            update.current.course.type,
-          )}`,
+          `/classes/${update.current.course.id}`,
         );
       }
 

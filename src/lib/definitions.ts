@@ -1,4 +1,5 @@
 export type Course = {
+  id: string;
   title: string;
   courseCode: string;
   type: CourseType;

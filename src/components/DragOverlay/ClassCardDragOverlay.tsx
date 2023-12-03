@@ -2,7 +2,7 @@
 import { DragOverlay } from "@dnd-kit/core";
 import { usePreview } from "~/contexts/PreviewContext";
 import ClassCard from "../ClassCard/ClassCard";
-import { colourVariants, CourseType } from "~/lib/definitions";
+import { colourVariants } from "~/lib/definitions";
 import { RxDragHandleDots2 } from "react-icons/rx";
 
 export default function ClassCardDragOverlay() {
@@ -18,10 +18,7 @@ export default function ClassCardDragOverlay() {
       {activeCourse && (
         <>
           <div className="space-y-1 px-1.5">
-            <ClassCard
-              key={activeCourse.courseCode + CourseType[activeCourse.type]}
-              course={activeCourse}
-            />
+            <ClassCard key={activeCourse.id} course={activeCourse} />
           </div>
           <RxDragHandleDots2 color="#737373" />
         </>

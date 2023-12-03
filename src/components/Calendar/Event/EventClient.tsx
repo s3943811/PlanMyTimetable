@@ -79,7 +79,7 @@ export default function EventClient({
   // const rowSpan: number = preference.time.duration / 30;
 
   const col = useMemo<Days>(
-    () => getDayEnum(preference.time.day),
+    () => getDayEnum(preference.time.day) + 2,
     [preference],
   );
   const row = useMemo<number>(
@@ -124,9 +124,7 @@ export default function EventClient({
       {...listeners}
       {...attributes}
       tabIndex={0}
-      className={`z-10 ${colStart[getDayEnum(preference.time.day)! + 2]} ${
-        rowStart[getRowIndex(preference.time.start)]
-      } ${rowSpans[rowSpan]} ${
+      className={`z-10 ${colStart[col]} ${rowStart[row]} ${rowSpans[rowSpan]} ${
         isDragging && "opacity-50"
       } m-0.5 flex flex-col overflow-hidden ${
         colourVariants[preference.colour]
