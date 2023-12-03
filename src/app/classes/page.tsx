@@ -9,7 +9,7 @@ export default function Page() {
   const { redirect } = useUrlState();
   if (courseData.length !== 0) {
     const redirectURL = `/classes/${courseData[0]?.id}`;
-    console.log(redirectURL);
+    // console.log(redirectURL);
     redirect(redirectURL);
   } else {
     return (

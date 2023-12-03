@@ -28,9 +28,6 @@
     form.style.background = "white";
     form.style.fontFamily = "sans-serif";
 
-    // console.log(window.data.student);
-    // console.log(Object.keys(window.data.student.student_enrolment_sem));
-
     for (const [index, value] of semesters.entries()) {
       let radio = document.createElement("input");
       radio.type = "radio";
@@ -55,7 +52,6 @@
       semester = document.querySelector('input[name="semester"]:checked').value;
 
       // Log the selected value
-      // console.log(semester);
       form.remove();
       loader.textContent = "Loading your timetable data...";
       run(
