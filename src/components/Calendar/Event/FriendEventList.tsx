@@ -1,6 +1,6 @@
 import Event from "./Event";
 import type { Friend } from "~/contexts/FriendContext";
-import { colStart, rowStart, rowSpans, CourseType } from "~/lib/definitions";
+import { CourseType } from "~/lib/definitions";
 import type { Course, Preference } from "~/lib/definitions";
 import {
   addMinutesToTimeString,
@@ -29,11 +29,12 @@ export function ActiveCourseFriendPreview({
           return (
             <div
               key={item.courseCode + item.type}
-              className={`${colStart[getDayEnum(item.time.day)! + 2]} ${
-                rowStart[getRowIndex(item.time.start)]
-              } ${
-                rowSpans[rowSpan]
-              } m-0.5 flex flex-col overflow-hidden rounded border-l-[7px] px-3 py-2 text-neutral-800 opacity-50 `}
+              style={{
+                gridRowEnd: `span ${rowSpan}`,
+                gridColumnStart: `${getDayEnum(item.time.day)! + 2}`,
+                gridRowStart: `${getRowIndex(item.time.start)}`,
+              }}
+              className={`m-0.5 flex flex-col overflow-hidden rounded border-l-[7px] px-3 py-2 text-neutral-800 opacity-50 `}
             >
               <Event title={item.title} type={item.type} time={item.time} />
             </div>
@@ -56,11 +57,12 @@ export function FriendEvent({
   return (
     <div
       key={item.courseCode + item.type}
-      className={`${colStart[getDayEnum(item.time.day)! + 2]} ${
-        rowStart[getRowIndex(item.time.start)]
-      } ${
-        rowSpans[rowSpan]
-      } m-0.5 flex flex-col overflow-hidden rounded bg-neutral-300/40 py-2 pl-[1.19rem] pr-3 text-neutral-800 opacity-50 `}
+      style={{
+        gridRowEnd: `span ${rowSpan}`,
+        gridColumnStart: `${getDayEnum(item.time.day)! + 2}`,
+        gridRowStart: `${getRowIndex(item.time.start)}`,
+      }}
+      className={`m-0.5 flex flex-col overflow-hidden rounded bg-neutral-300/40 py-2 pl-[1.19rem] pr-3 text-neutral-800 opacity-50 `}
     >
       <h1 className="line-clamp-1 text-sm font-medium lg:line-clamp-none lg:text-base">
         {item.title}
@@ -117,11 +119,12 @@ export function FriendClashEvent({
   return (
     <div
       key={item.courseCode + item.type}
-      className={`${colStart[getDayEnum(item.time.day)! + 2]} ${
-        rowStart[getRowIndex(item.time.start)]
-      } ${
-        rowSpans[rowSpan]
-      } m-0.5 flex flex-col overflow-hidden rounded bg-neutral-300/40 py-2 pl-[1.19rem] pr-3 text-neutral-800 opacity-50 `}
+      style={{
+        gridRowEnd: `span ${rowSpan}`,
+        gridColumnStart: `${getDayEnum(item.time.day)! + 2}`,
+        gridRowStart: `${getRowIndex(item.time.start)}`,
+      }}
+      className={`m-0.5 flex flex-col overflow-hidden rounded bg-neutral-300/40 py-2 pl-[1.19rem] pr-3 text-neutral-800 opacity-50 `}
     >
       <h1 className="line-clamp-1 text-sm font-medium lg:line-clamp-none lg:text-base">
         {item.title}

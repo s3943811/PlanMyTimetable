@@ -2,7 +2,6 @@
 import { DragOverlay } from "@dnd-kit/core";
 import { usePreview } from "~/contexts/PreviewContext";
 import Event from "../Calendar/Event/Event";
-import { colStart, rowStart, rowSpans } from "~/lib/definitions";
 import type { Preference } from "~/lib/definitions";
 import { getDayEnum, getRowIndex } from "~/lib/functions";
 
@@ -32,9 +31,12 @@ export default function EventDragOverlay() {
   };
   return (
     <DragOverlay
-      className={`${colStart[getDayEnum(event.time.day)! + 2]} ${
-        rowStart[getRowIndex(event.time.start)]
-      } ${rowSpans[rowSpan]} m-0.5 flex flex-col overflow-hidden ${
+      style={{
+        gridRowEnd: `span ${rowSpan}`,
+        gridColumnStart: `${getDayEnum(event.time.day)! + 2}`,
+        gridRowStart: `${getRowIndex(event.time.start)}`,
+      }}
+      className={`m-0.5 flex flex-col overflow-hidden ${
         colourVariants[event.colour]
       } rounded px-3 py-2 ${
         over ? "hover:cursor-copy" : "hover:cursor-grabbing"

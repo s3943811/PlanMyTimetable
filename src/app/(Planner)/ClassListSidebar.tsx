@@ -8,7 +8,7 @@ export default function ClassListSidebar({
 }) {
   return (
     <aside className="sticky top-0 flex h-screen min-h-screen w-64 min-w-fit flex-col border-r ">
-      <div className=" inline-flex grow justify-between border-b px-3 py-4">
+      <div className=" inline-flex justify-between border-b px-3 py-4">
         <h2 className="inline-flex items-center gap-1 text-md font-medium">
           Classes
         </h2>

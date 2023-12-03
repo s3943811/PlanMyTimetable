@@ -54,7 +54,7 @@ export function compareDays(day1: string, day2: Days) {
       return day1 === "Fri";
   }
 }
-export function getDayEnum(day: string) {
+export function getDayEnum(day: string): Days {
   switch (day) {
     case "Mon":
       return Days.Monday;
@@ -66,6 +66,8 @@ export function getDayEnum(day: string) {
       return Days.Thursday;
     case "Fri":
       return Days.Friday;
+    default:
+      return Days.Monday;
   }
 }
 export function getRowIndex(time: string) {

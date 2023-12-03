@@ -24,10 +24,10 @@ export default function ClassList() {
     );
   }
   return (
-    <div className="flex flex-col gap-3 overflow-y-auto overflow-x-hidden pb-4 pt-1 scrollbar-hide">
+    <div className="flex grow flex-col gap-3 overflow-y-auto overflow-x-hidden pb-4 pt-1 scrollbar-hide">
       {courseData.map((item) => (
         <div
-          key={item.courseCode + CourseType[item.type]}
+          key={item.id}
           className="border-b border-b-neutral-100 px-3 pb-2 last:border-none"
         >
           <ClassCardClient course={item}>

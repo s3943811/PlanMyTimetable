@@ -1,6 +1,5 @@
 import { useDraggable } from "@dnd-kit/core";
-import type { Preference } from "~/lib/definitions";
-import { colStart, rowStart, rowSpans } from "~/lib/definitions";
+import type { Preference, Days } from "~/lib/definitions";
 import { getDayEnum, getRowIndex } from "~/lib/functions";
 import { usePreview } from "~/contexts/PreviewContext";
 import { useFriend } from "~/contexts/FriendContext";
@@ -76,7 +75,22 @@ export default function EventClient({
       tabIndex: 0,
     },
   });
-  const rowSpan: number = preference.time.duration / 30;
+  // const rowSpan: number = preference.time.duration / 30;
+
+  const col = useMemo<Days>(
+    () => getDayEnum(preference.time.day) + 2,
+    [preference],
+  );
+  const row = useMemo<number>(
+    () => getRowIndex(preference.time.start),
+    [preference],
+  );
+  const rowSpan = useMemo<number>(
+    () => preference.time.duration / 30,
+    [preference],
+  );
+
+  console.log(rowSpan);
 
   if (clash) {
     const height = (preference.time.duration / clash) * 100;
@@ -111,9 +125,12 @@ export default function EventClient({
       {...listeners}
       {...attributes}
       tabIndex={0}
-      className={`z-10 ${colStart[getDayEnum(preference.time.day)! + 2]} ${
-        rowStart[getRowIndex(preference.time.start)]
-      } ${rowSpans[rowSpan]} ${
+      style={{
+        gridRowEnd: `span ${rowSpan}`,
+        gridColumnStart: `${col}`,
+        gridRowStart: `${row}`,
+      }}
+      className={`z-10 ${
         isDragging && "opacity-50"
       } m-0.5 flex flex-col overflow-hidden ${
         colourVariants[preference.colour]

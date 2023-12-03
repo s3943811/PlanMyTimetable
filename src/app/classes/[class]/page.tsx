@@ -14,13 +14,13 @@ import toast from "react-hot-toast";
 
 export default function Page({ params }: { params: { class: string } }) {
   const { courseData } = usePreview();
-  const [code, type] = params.class.split("-");
-  const { replaceMultiple, decode } = useUrlState();
+  const { replaceMultiple, decode, redirect } = useUrlState();
 
-  const course = courseData.find(
-    (course) =>
-      course.courseCode === code && getCourseTypeString(course.type) === type,
-  );
+  const course = courseData.find((course) => course.id === params.class);
+
+  if (courseData.length === 0) {
+    redirect("/classes");
+  }
 
   if (!course) {
     notFound();
@@ -54,14 +54,13 @@ export default function Page({ params }: { params: { class: string } }) {
         { element: classes, prefName: "state" },
         { element: newEvents, prefName: "pref" },
       ],
-      `/classes/${courseData[newIndex]?.courseCode}-${getCourseTypeString(
-        courseData[newIndex]!.type,
-      )}`,
+      `/classes/${courseData[newIndex]?.id}`,
     );
     toast.success("Class deleted successfully");
   };
 
   const formValues: z.infer<typeof formSchema> = {
+    id: course.id,
     title: course.title,
     code: course.courseCode,
     type: getCourseTypeString(course.type),

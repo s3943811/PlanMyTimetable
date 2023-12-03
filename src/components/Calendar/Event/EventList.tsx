@@ -14,7 +14,6 @@ import {
 import { FriendEvent, FriendClashEvent } from "./FriendEventList";
 import Clash from "./Clash";
 import type { CourseType, Preference, Time } from "~/lib/definitions";
-import { colStart, rowSpans, rowStart } from "~/lib/definitions";
 
 export default function EventList() {
   const { searchParams, decode } = useUrlState();
@@ -135,11 +134,12 @@ export default function EventList() {
       return (
         <div
           key={item.courseCode + item.type}
-          className={`z-10 ${colStart[getDayEnum(item.time.day)! + 2]} ${
-            rowStart[getRowIndex(item.time.start)]
-          } ${
-            rowSpans[rowSpan]
-          } animate-pulse rounded-md bg-neutral-200/50 py-2`}
+          style={{
+            gridRowEnd: `span ${rowSpan}`,
+            gridColumnStart: `${getDayEnum(item.time.day)! + 2}`,
+            gridRowStart: `${getRowIndex(item.time.start)}`,
+          }}
+          className={`z-10 animate-pulse rounded-md bg-neutral-200/50 py-2`}
         ></div>
       );
     });
@@ -172,9 +172,9 @@ export default function EventList() {
         return (
           <Clash
             key={index}
-            col={colStart[col]!}
-            row={rowStart[getRowIndex(group[index]!.time.start)]!}
-            span={rowSpans[rowSpan]!}
+            col={col}
+            row={getRowIndex(group[index]!.time.start)}
+            span={rowSpan}
           >
             {group.map((item) => (
               <React.Fragment

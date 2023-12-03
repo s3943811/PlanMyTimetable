@@ -1,7 +1,7 @@
 "use client";
 import { useForm, useFieldArray } from "react-hook-form";
 import { Button, Tooltip } from "~/components";
-import { useEffect } from "react";
+import { useEffect, useRef } from "react";
 import {
   HiOutlineXCircle,
   HiOutlinePlusCircle,
@@ -14,12 +14,13 @@ import { ColourPalette, CourseType } from "~/lib/definitions";
 import { usePreview } from "~/contexts/PreviewContext";
 import { getCourseTypeString } from "~/lib/functions";
 import toast from "react-hot-toast";
-import type { Course } from "~/lib/definitions";
+import type { Course, Preference } from "~/lib/definitions";
 import type {
   UseFormRegister,
   UseFieldArrayRemove,
   FieldErrors,
 } from "react-hook-form";
+import { nanoid } from "nanoid";
 
 const optionSchema = z.object({
   day: z.enum(["Mon", "Tue", "Wed", "Thu", "Fri"]),
@@ -38,6 +39,7 @@ const optionSchema = z.object({
   campus: z.string().trim().min(1, { message: "Campus is required" }),
 });
 export const formSchema = z.object({
+  id: z.string(),
   title: z
     .string()
     .trim()
@@ -70,6 +72,7 @@ export const formSchema = z.object({
 });
 
 const val: z.infer<typeof formSchema> = {
+  id: nanoid(),
   title: "",
   code: "",
   type: "Lecture",
@@ -96,7 +99,6 @@ export default function ClassForm({
     watch,
     reset,
     control,
-    setError,
     formState: { errors },
   } = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
@@ -106,6 +108,7 @@ export default function ClassForm({
   useEffect(() => {
     reset(defaultValues);
   }, [defaultValues, reset]);
+
   const watchType = watch("type");
   const { fields, append, remove } = useFieldArray({
     control,
@@ -113,10 +116,20 @@ export default function ClassForm({
   });
 
   const { appendState, replaceMultiple } = useUrlState();
-  const { courseData, events } = usePreview();
+  const { courseData, events, setCourseData } = usePreview();
+
+  const update = useRef<{
+    course: Course;
+    toastMsg: string;
+    courses?: Course[];
+    events?: Preference[];
+  } | null>(null);
 
   function onSubmit(values: z.infer<typeof formSchema>) {
+    console.log(defaultValues?.id);
+    console.log(values.id);
     const course: Course = {
+      id: defaultValues?.id ?? values.id,
       title: values.title,
       courseCode: values.code,
       type: CourseType[values.type],
@@ -132,6 +145,7 @@ export default function ClassForm({
       }),
     };
     // console.log(course);
+
     if (defaultValues) {
       const courses = courseData.map((item) => {
         if (
@@ -159,33 +173,57 @@ export default function ClassForm({
         }
         return item;
       });
-      // setCourseData(courses);
-      replaceMultiple(
-        [
-          { element: courses, prefName: "state" },
-          { element: newEvents, prefName: "pref" },
-        ],
-        `/classes/${course.courseCode}-${getCourseTypeString(course.type)}`,
-      );
-      toast.success("Class updated successfully");
+      setCourseData(courses);
+      // replaceMultiple(
+      //   [
+      //     { element: courses, prefName: "state" },
+      //     { element: newEvents, prefName: "pref" },
+      //   ],
+      //   `/classes/${course.courseCode}-${getCourseTypeString(course.type)}`,
+      // );
+      // toast.success("Class updated successfully");
+      update.current = {
+        course: course,
+        toastMsg: `${course.title} (${CourseType[course.type]}) updated`,
+        courses: courses,
+        events: newEvents,
+      };
       return;
     }
-    const already = courseData.find(
-      (item) =>
-        item.courseCode === course.courseCode && item.type === course.type,
-    );
-    if (already) {
-      setError("code", {
-        message: "Course with this code and type already exists",
-      });
-      setError("type", {
-        message: "Course with this code and type already exists",
-      });
-      return;
-    }
-    appendState(course, "state", "/classes");
-    toast.success("Class created successfully");
+
+    setCourseData([course]);
+    update.current = {
+      course: course,
+      toastMsg: `${course.title} (${CourseType[course.type]}) created`,
+    };
+    // appendState(course, "state", "/classes");
+    // toast.success("Class created successfully");
   }
+
+  useEffect(() => {
+    if (update.current) {
+      if (update.current.events) {
+        replaceMultiple(
+          [
+            { element: update.current.courses, prefName: "state" },
+            { element: update.current.events, prefName: "pref" },
+          ],
+          `/classes/${update.current.course.id}`,
+          "Replace",
+        );
+      } else {
+        appendState(
+          update.current.course,
+          "state",
+          `/classes/${update.current.course.id}`,
+        );
+      }
+
+      toast.success(update.current.toastMsg);
+      update.current = null;
+    }
+  }, [courseData, replaceMultiple, appendState]);
+
   return (
     <form className="contents space-y-7" onSubmit={handleSubmit(onSubmit)}>
       <div className=" space-y-2">
@@ -224,8 +262,8 @@ export default function ClassForm({
         </label>
         <input
           {...register("code")}
-          disabled={defaultValues ? true : false}
-          placeholder={defaultValues ? defaultValues.code : "Code"}
+          // disabled={defaultValues ? true : false}
+          placeholder="Code"
           id="course_code"
           className={`flex h-10 w-full rounded-md border ${
             errors.code && "border-red-300"
@@ -286,8 +324,7 @@ export default function ClassForm({
           } focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-1
            disabled:cursor-not-allowed disabled:opacity-50`}
           {...register("type")}
-          disabled={defaultValues ? true : false}
-          placeholder={defaultValues ? defaultValues.type : "Lecture"}
+          placeholder="Lecture"
         >
           <option>Lecture</option>
           <option>Tutorial</option>
