@@ -3,6 +3,7 @@ import "~/styles/globals.css";
 import { Inter } from "next/font/google";
 import Navbar from "./(Navbar)/navbar";
 import { Toaster } from "react-hot-toast";
+import { ThemeProvider } from "~/contexts/themeProvider";
 
 const inter = Inter({
   subsets: ["latin"],
@@ -25,12 +26,19 @@ export default function RootLayout({
       <body
         className={`font-sans ${inter.variable} flex dark:bg-neutral-900 dark:text-white`}
       >
-        <Navbar />
-        <main className="flex w-screen flex-row">{children}</main>
-        <Toaster
-          toastOptions={{ className: "dark:font-white dark:bg-neutral-800" }}
-          position="bottom-right"
-        />
+        <ThemeProvider
+          attribute="class"
+          defaultTheme="system"
+          enableSystem
+          disableTransitionOnChange
+        >
+          <Navbar />
+          <main className="flex w-screen flex-row">{children}</main>
+          <Toaster
+            toastOptions={{ className: "dark:font-white dark:bg-neutral-800" }}
+            position="bottom-right"
+          />
+        </ThemeProvider>
       </body>
     </html>
   );
