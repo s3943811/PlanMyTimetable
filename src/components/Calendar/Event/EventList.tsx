@@ -165,7 +165,9 @@ export default function EventList() {
       ))}
       {clashes.map((group, index) => {
         const largestDuration = group.reduce((max, item) => {
-          return item.time.duration > max ? item.time.duration : max;
+          return Number(item.time.duration) > max
+            ? Number(item.time.duration)
+            : max;
         }, 0);
         const rowSpan: number = largestDuration / 30;
         const col = getDayEnum(group[index]!.time.day)! + 2;
