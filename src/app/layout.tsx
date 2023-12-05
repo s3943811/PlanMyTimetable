@@ -4,6 +4,7 @@ import { Inter } from "next/font/google";
 import Navbar from "./(Navbar)/navbar";
 import { Toaster } from "react-hot-toast";
 import { ThemeProvider } from "~/contexts/themeProvider";
+import Footer from "./footer";
 
 const inter = Inter({
   subsets: ["latin"],
@@ -24,7 +25,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`font-sans ${inter.variable} flex dark:bg-neutral-900 dark:text-white`}
+        className={`font-sans ${inter.variable} dark:bg-neutral-900 dark:text-white`}
       >
         <ThemeProvider
           attribute="class"
@@ -32,8 +33,11 @@ export default function RootLayout({
           enableSystem
           disableTransitionOnChange
         >
-          <Navbar />
-          <main className="flex w-screen flex-row">{children}</main>
+          <div className="flex">
+            <Navbar />
+            <main className="flex w-screen flex-row">{children}</main>
+          </div>
+          <Footer />
           <Toaster
             toastOptions={{ className: "dark:font-white dark:bg-neutral-800" }}
             position="bottom-right"
