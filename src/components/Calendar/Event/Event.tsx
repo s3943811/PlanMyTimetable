@@ -1,13 +1,19 @@
 import { CourseType } from "~/lib/definitions";
 import type { Time } from "~/lib/definitions";
-import { addMinutesToTimeString } from "~/lib/functions";
+import { Duration, DateTime } from "luxon";
+import { useMemo } from "react";
+
 interface EventProps {
   title: string;
   type: CourseType;
   time: Time;
 }
 export default function Event({ title, type, time }: EventProps) {
-  const endTime = addMinutesToTimeString(time.start, time.duration);
+  const endTime = useMemo(() => {
+    let endTime = DateTime.fromFormat(time.start, "HH:mm");
+    const duration = Duration.fromObject({ minutes: time.duration });
+    return endTime.plus(duration);
+  }, [time]);
 
   return (
     <>
@@ -15,7 +21,7 @@ export default function Event({ title, type, time }: EventProps) {
         {title}
       </h1>
       <p className="text-xs font-normal lg:text-sm">
-        {time.start} - {endTime}
+        {time.start} - {endTime.toFormat("HH:mm")}
       </p>
       <p className=" text-xs font-light">{`${CourseType[type]}, ${time.campus_description} (${time.location})`}</p>
     </>
