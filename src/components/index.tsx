@@ -16,3 +16,5 @@ export { default as EventList } from "./Calendar/Event/EventList";
 export { default as PreviewEventClient } from "./Calendar/Event/PreviewEventClient";
 export { default as DragOverlay } from "./DragOverlay/DragOverlay";
 export { default as RetainLink } from "./Link/RetainParamsLink";
+export { default as ThemeButton } from "./ThemeSelectors/ThemeButton";
+export { default as ThemeOptions } from "./ThemeSelectors/ThemeOptions";

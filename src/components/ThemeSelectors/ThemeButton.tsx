@@ -3,7 +3,7 @@ import { useTheme } from "next-themes";
 import { HiSun, HiMoon } from "react-icons/hi2";
 import { Button } from "~/components";
 
-export default function ThemeSelector() {
+export default function ThemeButton() {
   const { setTheme, theme } = useTheme();
   return (
     <Button
