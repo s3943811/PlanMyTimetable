@@ -1,6 +1,6 @@
 import { HiBookOpen, HiHome } from "react-icons/hi2";
 import { HiQuestionMarkCircle } from "react-icons/hi";
-import { RetainLink, buttonVariants, ThemeSelector } from "~/components";
+import { ThemeSelector } from "~/components";
 import ActiveLink from "./ActiveLink";
 function Navbar() {
   return (
@@ -15,11 +15,26 @@ function Navbar() {
           Classes
         </ActiveLink>
       </div>
-      <div className="flex flex-col items-center gap-2">
+      <div className="flex flex-col gap-2 border-t py-2 text-xs dark:border-t-neutral-700">
+        <ActiveLink pathname="/help">
+          <HiQuestionMarkCircle size={16} />
+          Help
+        </ActiveLink>
         <ThemeSelector />
-        <RetainLink className={buttonVariants.outlineIcon} href="/help">
-          <HiQuestionMarkCircle className="h-[1.2rem] w-[1.2rem]" />
-        </RetainLink>
+        <div className="space-y-1">
+          <p className="text-xs font-medium dark:font-semibold">
+            PlanMyTimetable.
+          </p>
+          <p className=" w-[6.5rem] whitespace-break-spaces break-all text-xs">
+            Built by Maximus Dionyssopoulos.
+          </p>
+          <a
+            href="https://github.com/s3943811"
+            className="font-medium underline underline-offset-4"
+          >
+            Github
+          </a>
+        </div>
       </div>
     </nav>
   );
