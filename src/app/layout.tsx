@@ -4,7 +4,6 @@ import { Inter } from "next/font/google";
 import Navbar from "./(Navbar)/navbar";
 import { Toaster } from "react-hot-toast";
 import { ThemeProvider } from "~/contexts/themeProvider";
-import Footer from "./footer";
 
 const inter = Inter({
   subsets: ["latin"],
