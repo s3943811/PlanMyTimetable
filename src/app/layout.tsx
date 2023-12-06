@@ -37,7 +37,6 @@ export default function RootLayout({
             <Navbar />
             <main className="flex w-screen flex-row">{children}</main>
           </div>
-          <Footer />
           <Toaster
             toastOptions={{ className: "dark:font-white dark:bg-neutral-800" }}
             position="bottom-right"
