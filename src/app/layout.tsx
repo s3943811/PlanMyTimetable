@@ -38,7 +38,9 @@ export default function RootLayout({
             <main className="flex w-screen flex-row">{children}</main>
           </div>
           <Toaster
-            toastOptions={{ className: "dark:font-white dark:bg-neutral-800" }}
+            toastOptions={{
+              className: " dark:text-white dark:bg-neutral-700",
+            }}
             position="bottom-right"
           />
         </ThemeProvider>
