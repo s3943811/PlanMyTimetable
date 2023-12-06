@@ -25,14 +25,9 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`font-sans ${inter.variable} dark:bg-neutral-900 dark:text-white`}
+        className={`font-sans ${inter.variable} antialiased dark:bg-neutral-900 dark:text-white`}
       >
-        <ThemeProvider
-          attribute="class"
-          defaultTheme="system"
-          enableSystem
-          disableTransitionOnChange
-        >
+        <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
           <div className="flex">
             <Navbar />
             <main className="flex w-screen flex-row">{children}</main>
