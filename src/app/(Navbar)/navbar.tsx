@@ -1,6 +1,6 @@
 import { HiBookOpen, HiHome } from "react-icons/hi2";
 import { HiQuestionMarkCircle } from "react-icons/hi";
-import { RetainLink, buttonVariants, ThemeButton } from "~/components";
+import { RetainLink, buttonVariants, ThemeSelector } from "~/components";
 import ActiveLink from "./ActiveLink";
 function Navbar() {
   return (
@@ -16,7 +16,7 @@ function Navbar() {
         </ActiveLink>
       </div>
       <div className="flex flex-col items-center gap-2">
-        <ThemeButton />
+        <ThemeSelector />
         <RetainLink className={buttonVariants.outlineIcon} href="/help">
           <HiQuestionMarkCircle className="h-[1.2rem] w-[1.2rem]" />
         </RetainLink>

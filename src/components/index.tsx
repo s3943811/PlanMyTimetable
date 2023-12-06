@@ -18,3 +18,4 @@ export { default as DragOverlay } from "./DragOverlay/DragOverlay";
 export { default as RetainLink } from "./Link/RetainParamsLink";
 export { default as ThemeButton } from "./ThemeSelectors/ThemeButton";
 export { default as ThemeOptions } from "./ThemeSelectors/ThemeOptions";
+export { default as ThemeSelector } from "./ThemeSelectors/ThemeSelector";
