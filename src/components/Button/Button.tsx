@@ -1,4 +1,5 @@
 import { forwardRef } from "react";
+import { cn } from "~/lib/utils";
 interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   variant?:
     | "normal"
@@ -34,14 +35,11 @@ export const buttonVariants = {
 };
 
 const Button = forwardRef<HTMLButtonElement, ButtonProps>(
-  ({ children, variant, ...props }, ref) => {
-    {
-      /* focus:ring-2 focus:ring-neutral-400/50 focus:ring-offset-2 focus:ring-offset-neutral-50 */
-    }
+  ({ children, variant, className, ...props }, ref) => {
     return (
       <button
         ref={ref}
-        className={buttonVariants[variant ?? "normal"]}
+        className={cn(buttonVariants[variant ?? "normal"], className)}
         {...props}
       >
         {children}

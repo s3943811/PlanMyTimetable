@@ -14,6 +14,7 @@
     "@hookform/resolvers": "^3.3.2",
     "@radix-ui/react-dialog": "^1.0.5",
     "@t3-oss/env-nextjs": "^0.7.0",
+    "clsx": "^2.0.0",
     "jsoncrush": "^1.1.8",
     "luxon": "^3.4.4",
     "nanoid": "^5.0.4",
@@ -25,6 +26,7 @@
     "react-hot-toast": "^2.4.1",
     "react-icons": "^4.11.0",
     "react-tiny-popover": "^8.0.4",
+    "tailwind-merge": "^2.1.0",
     "zod": "^3.22.4"
   },
   "devDependencies": {
