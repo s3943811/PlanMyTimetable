@@ -35,7 +35,7 @@ export default function Page() {
             Bookmark the following code ( drag this into the bookmarks bar or
             right click and bookmark link ) :
           </li>
-          <div className="w-full rounded-md border p-2 text-sm dark:border-neutral-600">
+          <div className="overflow-auto rounded-md border p-2 text-sm dark:border-neutral-600">
             <a
               id="Bookmarklet"
               href={`javascript:(() => {
@@ -44,10 +44,7 @@ export default function Page() {
     document.body.append(script);
 })();`}
             >
-              <code
-                id="Bookmarklet"
-                className="prose-code: my-2 whitespace-pre p-2"
-              >
+              <code id="Bookmarklet" className="my-2 whitespace-pre p-2">
                 Bookmark me:
                 <br />
                 &nbsp;
