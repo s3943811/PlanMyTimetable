@@ -78,18 +78,21 @@ export default function Page({ params }: { params: { class: string } }) {
 
   return (
     <div className="flex grow flex-col px-8 py-2 dark:bg-neutral-900 dark:text-white">
-      <div className="absolute right-9 top-[4.25rem]">
+      <div className="flex flex-col space-y-2 sm:flex-row sm:justify-between sm:space-y-0">
+        <div>
+          <h3 className="text-base font-medium">
+            {course.title} - {CourseType[course.type]}
+          </h3>
+          <p className="text-sm text-neutral-500 dark:text-neutral-400">
+            Update class details. Remove unneeded classes.
+          </p>
+        </div>
+
         <Button onClick={handleDelete}>
           <HiTrash />
           Delete
         </Button>
       </div>
-      <h3 className="text-base font-medium">
-        {course.title} - {CourseType[course.type]}
-      </h3>
-      <p className="text-sm text-neutral-500 dark:text-neutral-400">
-        Update class details. Remove unneeded classes.
-      </p>
       <div
         data-orientation="horizontal"
         role="none"
