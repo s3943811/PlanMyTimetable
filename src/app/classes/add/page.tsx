@@ -32,7 +32,8 @@ export default function Page() {
         </p>
         <ol className="list-inside list-decimal space-y-3 text-sm marker:font-medium">
           <li>
-            Bookmark the following code ( drag this into the bookmarks bar ) :
+            Bookmark the following code ( drag this into the bookmarks bar or
+            right click and bookmark link ) :
           </li>
           <div className="w-full rounded-md border p-2 text-sm dark:border-neutral-600">
             <a
@@ -47,7 +48,9 @@ export default function Page() {
                 id="Bookmarklet"
                 className="prose-code: my-2 whitespace-pre p-2"
               >
-                Drag me to your bookmarks:
+                Bookmark me:
+                <br />
+                &nbsp;
                 {`javascript:(() => {
     let script = document.createElement("script");
     script.src = "https://planmytimetable.vercel.app/bookmarklet.js";
@@ -68,6 +71,7 @@ export default function Page() {
           </p>
           <li>Navigate to your Allocate+ system and login.</li>
           <li>Click and run the bookmarklet on this page.</li>
+          <li>Select the semester you wish to plan for.</li>
           <li>You will then be redirected to a new page with your data.</li>
         </ol>
       </div>
