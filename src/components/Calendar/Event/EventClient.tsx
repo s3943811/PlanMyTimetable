@@ -111,7 +111,7 @@ export default function EventClient({
       >
         {children}
         {friendsTaking && friendsTaking.length !== 0 && (
-          <p className=" mt-2 text-xs font-light">
+          <p className=" mt-2 text-xs">
             This is also being taken at this time by: {friendsTaking.join(", ")}
           </p>
         )}
@@ -138,7 +138,7 @@ export default function EventClient({
     >
       {children}
       {friendsTaking && friendsTaking.length !== 0 && (
-        <p className=" mt-2 text-xs font-light">
+        <p className=" mt-2 text-xs">
           This is also being taken at this time by: {friendsTaking.join(", ")}
         </p>
       )}

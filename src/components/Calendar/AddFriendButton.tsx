@@ -79,7 +79,7 @@ export default function AddFriend() {
             <DialogTitle className="text-lg font-medium leading-none tracking-tight">
               Add a friend
             </DialogTitle>
-            <DialogDescription className="text-sm font-light text-neutral-500/90 dark:text-neutral-400">
+            <DialogDescription className="text-sm text-neutral-500 dark:text-neutral-400">
               {`Compare a friends timetable, if they've used "PlanMyTimetable" to
               create their preferences.`}
             </DialogDescription>

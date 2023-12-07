@@ -87,7 +87,7 @@ export default function Page({ params }: { params: { class: string } }) {
       <h3 className="text-base font-medium">
         {course.title} - {CourseType[course.type]}
       </h3>
-      <p className="text-sm font-light text-neutral-500/90 dark:text-neutral-400">
+      <p className="text-sm text-neutral-500 dark:text-neutral-400">
         Update class details. Remove unneeded classes.
       </p>
       <div

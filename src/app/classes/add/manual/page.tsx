@@ -7,7 +7,7 @@ export default function Page() {
       <div className="mt-1 inline-flex h-10 w-fit items-center justify-center gap-3 rounded-lg dark:bg-neutral-900 dark:text-white">
         <RetainLink
           href="/classes/add"
-          className={`inline-flex w-full items-center justify-center rounded-md py-1.5 font-light text-neutral-500/90 transition-all dark:text-neutral-400`}
+          className={`inline-flex w-full items-center justify-center rounded-md py-1.5 text-neutral-500/90 transition-all dark:text-neutral-400`}
         >
           Automatic
         </RetainLink>

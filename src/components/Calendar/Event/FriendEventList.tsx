@@ -72,11 +72,11 @@ export function FriendEvent({
       </p>
       <div className="space-y-1">
         {item.friends.length !== 0 && (
-          <p className=" text-xs font-light">
+          <p className=" text-xs">
             {`Friend's taking: ${item.friends.join(", ")}`}
           </p>
         )}
-        <p className=" text-xs font-light">{`${CourseType[item.type]}, ${
+        <p className=" text-xs">{`${CourseType[item.type]}, ${
           item.time.campus_description
         } (${item.time.location})`}</p>
       </div>
@@ -134,11 +134,11 @@ export function FriendClashEvent({
       </p>
       <div className="space-y-1">
         {friendsTaking && friendsTaking.length !== 0 && (
-          <p className=" text-xs font-light">
+          <p className=" text-xs">
             {`Friend's taking: ${friendsTaking.join(", ")}`}
           </p>
         )}
-        <p className=" text-xs font-light">{`${CourseType[item.type]}, ${
+        <p className=" text-xs">{`${CourseType[item.type]}, ${
           item.time.campus_description
         } (${item.time.location})`}</p>
       </div>

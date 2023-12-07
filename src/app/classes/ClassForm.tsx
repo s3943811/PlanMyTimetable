@@ -246,7 +246,7 @@ export default function ClassForm({
           disabled:cursor-not-allowed disabled:opacity-50 dark:border-neutral-600 dark:bg-neutral-900 dark:placeholder:text-neutral-400`}
         />
         {errors.title && <ErrorMessage>{errors.title.message}</ErrorMessage>}
-        <p className="text-xs font-light text-neutral-500/90 dark:text-neutral-400">
+        <p className="text-xs text-neutral-500 dark:text-neutral-400">
           This is the name of the class in plain text. For example, Full Stack
           Development.
         </p>
@@ -274,7 +274,7 @@ export default function ClassForm({
            disabled:cursor-not-allowed disabled:opacity-50 dark:border-neutral-600 dark:bg-neutral-900 dark:placeholder:text-neutral-400`}
         />
         {errors.code && <ErrorMessage>{errors.code.message}</ErrorMessage>}
-        <p className="text-xs font-light text-neutral-500/90 dark:text-neutral-400">
+        <p className="text-xs text-neutral-500 dark:text-neutral-400">
           This is a code used to describe the course by the university. For
           example, COSC2758.
         </p>
@@ -301,7 +301,7 @@ export default function ClassForm({
           <option>Fuchsia</option>
           <option>Pink</option>
         </select>
-        <p className="text-xs font-light text-neutral-500/90 dark:text-neutral-400">
+        <p className="text-xs text-neutral-500 dark:text-neutral-400">
           A colour for the class.
         </p>
       </div>
@@ -330,7 +330,7 @@ export default function ClassForm({
           <option>Practical</option>
           <option>Other</option>
         </select>
-        <p className="text-xs font-light text-neutral-500/90 dark:text-neutral-400">
+        <p className="text-xs text-neutral-500 dark:text-neutral-400">
           The type of class. For example, a Lecture or a Workshop.
         </p>
         {errors.type && <ErrorMessage>{errors.type.message}</ErrorMessage>}
@@ -338,7 +338,7 @@ export default function ClassForm({
       <div className="sticky top-0 z-10 inline-flex justify-between bg-white dark:bg-neutral-900">
         <div className="space-y-1">
           <h3 className="text-lg font-medium">Options</h3>
-          <p className="text-xs font-light text-neutral-500/90 dark:text-neutral-400">
+          <p className="text-xs text-neutral-500 dark:text-neutral-400">
             This is the times and rooms on offer for this class this semester.
           </p>
         </div>
@@ -392,7 +392,7 @@ export default function ClassForm({
           {errors.duration && (
             <ErrorMessage>{errors.duration.message}</ErrorMessage>
           )}
-          <p className="text-xs font-light text-neutral-500/90 dark:text-neutral-400">
+          <p className="text-xs text-neutral-500 dark:text-neutral-400">
             How long the {watchType} goes for in minutes.
           </p>
         </div>
@@ -475,7 +475,7 @@ function OptionForm({
                 {errors.options?.[index]?.day?.message}
               </ErrorMessage>
             }
-            <p className="text-xs font-light text-neutral-500/90 dark:text-neutral-400">
+            <p className="text-xs text-neutral-500 dark:text-neutral-400">
               The day of the week.
             </p>
           </div>
@@ -506,7 +506,7 @@ function OptionForm({
                 {errors.options?.[index]?.start_time?.message}
               </ErrorMessage>
             }
-            <p className="text-xs font-light text-neutral-500/90 dark:text-neutral-400">
+            <p className="text-xs text-neutral-500 dark:text-neutral-400">
               The time the {type} starts.
             </p>
           </div>
@@ -539,7 +539,7 @@ function OptionForm({
                 {errors.options?.[index]?.room?.message}
               </ErrorMessage>
             }
-            <p className="text-xs font-light text-neutral-500/90 dark:text-neutral-400">
+            <p className="text-xs text-neutral-500 dark:text-neutral-400">
               {`What room the ${type} will be in (if online write "-").`}
             </p>
           </div>
@@ -569,7 +569,7 @@ function OptionForm({
                 {errors.options?.[index]?.campus?.message}
               </ErrorMessage>
             }
-            <p className="text-xs font-light text-neutral-500/90 dark:text-neutral-400">
+            <p className="text-xs text-neutral-500 dark:text-neutral-400">
               {`What campus the ${type} will be on. For example, RMIT students may
               write "Melbourne City" or "Canvas".`}
             </p>

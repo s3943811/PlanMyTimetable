@@ -23,7 +23,7 @@ export default function Event({ title, type, time }: EventProps) {
       <p className="text-xs font-normal lg:text-sm">
         {time.start} - {endTime.toFormat("HH:mm")}
       </p>
-      <p className=" text-xs font-light">{`${CourseType[type]}, ${time.campus_description} (${time.location})`}</p>
+      <p className=" text-xs">{`${CourseType[type]}, ${time.campus_description} (${time.location})`}</p>
     </>
   );
 }
