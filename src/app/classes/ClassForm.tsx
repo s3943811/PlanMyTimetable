@@ -335,7 +335,7 @@ export default function ClassForm({
         </p>
         {errors.type && <ErrorMessage>{errors.type.message}</ErrorMessage>}
       </div>
-      <div className="sticky top-0 z-10 inline-flex justify-between bg-white dark:bg-neutral-900">
+      <div className="sticky top-0 z-10 block justify-between space-y-1 bg-white py-1 dark:bg-neutral-900 md:flex md:space-y-0">
         <div className="space-y-1">
           <h3 className="text-lg font-medium">Options</h3>
           <p className="text-xs text-neutral-500 dark:text-neutral-400">
