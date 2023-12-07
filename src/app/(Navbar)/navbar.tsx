@@ -15,7 +15,7 @@ function Navbar() {
           Classes
         </ActiveLink>
       </div>
-      <div className="flex flex-col gap-2 border-t border-t-neutral-50 pt-1 text-xs dark:border-t-neutral-700">
+      <div className="flex flex-col gap-2 pt-1 text-xs ">
         <ActiveLink pathname="/help">
           <HiQuestionMarkCircle size={16} />
           Help
