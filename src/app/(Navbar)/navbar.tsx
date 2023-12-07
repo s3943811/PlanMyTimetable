@@ -15,22 +15,22 @@ function Navbar() {
           Classes
         </ActiveLink>
       </div>
-      <div className="flex flex-col gap-2 border-t py-2 text-xs dark:border-t-neutral-700">
+      <div className="flex flex-col gap-2 border-t border-t-neutral-50 pt-1 text-xs dark:border-t-neutral-700">
         <ActiveLink pathname="/help">
           <HiQuestionMarkCircle size={16} />
           Help
         </ActiveLink>
         <ThemeSelector />
-        <div className="space-y-1">
-          <p className="text-xs font-medium dark:font-semibold">
-            PlanMyTimetable.
+        <div className="w-[6.2rem] space-y-1 border-t border-t-neutral-50 pt-2 dark:border-t-neutral-700">
+          <p className="whitespace-break-spaces break-words text-xs font-medium">
+            PlanMyTimetable
           </p>
-          <p className=" w-[6.5rem] whitespace-break-spaces break-all text-xs">
+          <p className=" whitespace-break-spaces break-all text-xs font-light">
             Built by Maximus Dionyssopoulos.
           </p>
           <a
             href="https://github.com/s3943811"
-            className="font-medium underline underline-offset-4"
+            className="font-medium underline underline-offset-4 hover:font-semibold"
           >
             Github
           </a>
