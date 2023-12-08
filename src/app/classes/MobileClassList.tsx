@@ -22,14 +22,14 @@ export default function MobileClassList() {
       <DialogTrigger asChild>
         <Button
           variant="ghostIcon"
-          className=" p-2 text-lg font-medium sm:hidden"
+          className=" p-2 text-lg font-medium md:hidden"
         >
           <HiBars3 />
         </Button>
       </DialogTrigger>
       <DialogPortal>
         <DialogOverlay className="fixed inset-0 z-50 backdrop-brightness-[.50]" />
-        <DialogContent className=" fixed inset-y-0 left-0 z-50 h-full w-3/4 gap-4 overflow-auto border-r bg-white p-2 shadow-lg dark:border-r-neutral-700 dark:bg-neutral-900 sm:max-w-sm">
+        <DialogContent className=" fixed inset-y-0 left-0 z-50 h-full w-3/4 gap-4 overflow-auto border-r bg-white p-2 shadow-lg dark:border-r-neutral-700 dark:bg-neutral-900">
           <DialogTitle className="inline-flex items-center gap-1 pl-1 text-md font-medium">
             Classes
           </DialogTitle>

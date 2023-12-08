@@ -31,7 +31,7 @@ export default function ClassLayout({
         </div>
       </div>
       <div className="flex grow flex-col-reverse sm:flex-row">
-        <div className="hidden sm:block">
+        <div className="hidden md:block">
           <ClassList />
         </div>
         {children}

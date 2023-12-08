@@ -11,7 +11,7 @@ export default function ClassList() {
   const segement = usePathname();
 
   return (
-    <aside className="w-full flex-col py-1 dark:border-neutral-700 dark:bg-neutral-900 dark:text-white sm:flex sm:w-fit">
+    <aside className="flex flex-col py-1 dark:border-neutral-700 dark:bg-neutral-900 dark:text-white">
       {courseData.map((item) => {
         const active = segement.includes(item.id);
         return (
@@ -21,7 +21,7 @@ export default function ClassList() {
           >
             <RetainLink
               href={`/classes/${item.id}`}
-              className={`flex items-center justify-between rounded-md border-l-[6.5px] sm:w-72 ${
+              className={`flex items-center justify-between rounded-md border-l-[6.5px] md:w-72 ${
                 colourVariants[item.colour]
               } px-3 py-3 ${active ? "bg-neutral-50 dark:bg-neutral-800" : ""}
             hover:bg-neutral-100 active:bg-neutral-100 dark:hover:bg-neutral-700 dark:focus:ring-neutral-700 dark:active:bg-neutral-600`}
