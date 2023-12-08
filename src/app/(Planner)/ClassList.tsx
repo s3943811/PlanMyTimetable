@@ -1,30 +1,14 @@
 "use client";
 import { ClassCard, ClassCardClient, DragOverlay } from "~/components";
 import { CourseType } from "~/lib/definitions";
-import { HiOutlineAcademicCap } from "react-icons/hi2";
-import { RetainLink } from "~/components";
 import { usePreview } from "~/contexts/PreviewContext";
 import { RxDragHandleDots2 } from "react-icons/rx";
 
 export default function ClassList() {
   const { courseData } = usePreview();
 
-  if (!courseData || courseData.length === 0) {
-    return (
-      <div className=" flex h-full flex-col items-center justify-center gap-3 px-4 pb-4 pt-1">
-        <HiOutlineAcademicCap size={96} />
-        <p>{`You haven't added any classes yet.`}</p>
-        <RetainLink
-          className="under font-medium underline decoration-[1.5px] underline-offset-[7px] transition-all hover:font-semibold"
-          href={"/classes/add"}
-        >
-          Add a class now.
-        </RetainLink>
-      </div>
-    );
-  }
   return (
-    <div className="flex grow flex-col gap-3 overflow-y-auto overflow-x-hidden pb-4 pt-1 scrollbar-hide">
+    <div className="hidden flex-col gap-3 overflow-y-auto overflow-x-hidden pb-4 pt-1 scrollbar-hide md:flex">
       {courseData.map((item) => (
         <div
           key={item.id}

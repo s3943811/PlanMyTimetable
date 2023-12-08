@@ -13,18 +13,16 @@ export default function Page() {
     redirect(redirectURL);
   } else {
     return (
-      <aside className="flex min-h-screen min-w-fit grow flex-col p-3 py-1 dark:bg-neutral-900">
-        <div className=" flex h-full w-full flex-col items-center justify-center gap-3 pb-4 pt-1">
-          <HiOutlineAcademicCap size={96} />
-          <p>{`You haven't added any classes yet.`} </p>
-          <RetainLink
-            className="under font-medium underline decoration-[1.5px] underline-offset-[7px] transition-all hover:font-semibold"
-            href={"/classes/add"}
-          >
-            Add a class now.
-          </RetainLink>
-        </div>
-      </aside>
+      <div className=" flex h-[100dvh] grow flex-col items-center justify-center gap-3 dark:bg-neutral-900">
+        <HiOutlineAcademicCap size={96} />
+        <p>{`You haven't added any classes yet.`} </p>
+        <RetainLink
+          className="under font-medium underline decoration-[1.5px] underline-offset-[7px] transition-all hover:font-semibold"
+          href={"/classes/add"}
+        >
+          Add a class now.
+        </RetainLink>
+      </div>
     );
   }
 }

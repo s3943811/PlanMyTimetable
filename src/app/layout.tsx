@@ -28,7 +28,7 @@ export default function RootLayout({
       >
         <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
           <Navbar />
-          <main className="flex w-screen flex-row">{children}</main>
+          <main className="flex flex-row sm:w-screen">{children}</main>
           <Toaster
             toastOptions={{
               className: " dark:text-white dark:bg-neutral-700",
