@@ -6,7 +6,7 @@ import type { Preference } from "~/lib/definitions";
 import { getDayEnum, getRowIndex } from "~/lib/functions";
 
 export default function EventDragOverlay() {
-  const { events, activeCourse, over } = usePreview();
+  const { events, activeCourse } = usePreview();
   const event: Preference = events.find(
     (course) =>
       course.title === activeCourse?.title &&
@@ -38,9 +38,7 @@ export default function EventDragOverlay() {
       }}
       className={`m-0.5 flex flex-col overflow-hidden ${
         colourVariants[event.colour]
-      } rounded px-3 py-2 ${
-        over ? "hover:cursor-copy" : "hover:cursor-grabbing"
-      }`}
+      } rounded px-3 py-2 `}
     >
       {activeCourse && (
         <Event title={event.title} type={event.type} time={event.time} />

@@ -6,7 +6,7 @@ import { colourVariants } from "~/lib/definitions";
 import { RxDragHandleDots2 } from "react-icons/rx";
 
 export default function ClassCardDragOverlay() {
-  const { activeCourse, over } = usePreview();
+  const { activeCourse } = usePreview();
   return (
     <DragOverlay
       className={`z-50 flex w-72 flex-row items-center justify-between gap-1 rounded-md border-l-[6.5px] bg-neutral-100 px-2.5 py-2.5 shadow-sm dark:bg-neutral-700 ${
