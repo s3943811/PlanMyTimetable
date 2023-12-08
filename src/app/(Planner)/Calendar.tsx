@@ -6,37 +6,35 @@ import {
   EventList,
 } from "~/components";
 import CalendarToolbar from "./CalendarToolbar";
-import { FriendProvider } from "~/contexts/FriendContext";
+import CalendarLayout from "./CalendarLayout";
 
 export default function Calendar() {
   return (
-    <section className="flex w-full grow flex-col">
-      <FriendProvider>
-        <div className="grid grid-cols-[auto,repeat(5,minmax(0,1fr))] grid-rows-[2.5rem,repeat(38,2.35rem)]">
-          <CalendarHeader />
-          {Array.from({ length: 38 }, (_, index) => {
-            const num = 2 + index;
-            return (
-              <React.Fragment key={index}>
-                <div
-                  style={{ gridRowStart: `${num}` }}
-                  className={`col-start-[1] border-r border-neutral-100 bg-white p-1.5 text-right text-xs font-medium uppercase text-neutral-400 dark:border-neutral-700 dark:bg-neutral-900`}
-                >
-                  {index % 2 !== 1 && `${index / 2 + 5}:00`}
-                </div>
-                <TimeSlot col={2} row={2 + index} />
-                <TimeSlot col={3} row={2 + index} />
-                <TimeSlot col={4} row={2 + index} />
-                <TimeSlot col={5} row={2 + index} />
-                <TimeSlot col={6} row={2 + index} />
-              </React.Fragment>
-            );
-          })}
-          <EventList />
-          <PreviewEventClient />
-        </div>
-        <CalendarToolbar />
-      </FriendProvider>
-    </section>
+    <CalendarLayout>
+      <div className="grid grid-cols-[auto,repeat(5,minmax(0,1fr))] grid-rows-[2.5rem,repeat(38,2.35rem)]">
+        <CalendarHeader />
+        {Array.from({ length: 38 }, (_, index) => {
+          const num = 2 + index;
+          return (
+            <React.Fragment key={index}>
+              <div
+                style={{ gridRowStart: `${num}` }}
+                className={`col-start-[1] border-r border-neutral-100 bg-white p-1.5 text-right text-xs font-medium uppercase text-neutral-400 dark:border-neutral-700 dark:bg-neutral-900`}
+              >
+                {index % 2 !== 1 && `${index / 2 + 5}:00`}
+              </div>
+              <TimeSlot col={2} row={2 + index} />
+              <TimeSlot col={3} row={2 + index} />
+              <TimeSlot col={4} row={2 + index} />
+              <TimeSlot col={5} row={2 + index} />
+              <TimeSlot col={6} row={2 + index} />
+            </React.Fragment>
+          );
+        })}
+        <EventList />
+        <PreviewEventClient />
+      </div>
+      <CalendarToolbar />
+    </CalendarLayout>
   );
 }

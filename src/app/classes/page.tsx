@@ -13,7 +13,7 @@ export default function Page() {
     redirect(redirectURL);
   } else {
     return (
-      <aside className="flex grow flex-col border-r p-3 py-1 dark:bg-neutral-900">
+      <aside className="flex min-h-screen min-w-fit grow flex-col p-3 py-1 dark:bg-neutral-900">
         <div className=" flex h-full w-full flex-col items-center justify-center gap-3 pb-4 pt-1">
           <HiOutlineAcademicCap size={96} />
           <p>{`You haven't added any classes yet.`} </p>
