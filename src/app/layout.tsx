@@ -24,11 +24,11 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`font-sans ${inter.variable} antialiased dark:bg-neutral-900 dark:text-white sm:flex`}
+        className={`font-sans ${inter.variable} antialiased dark:bg-neutral-900 dark:text-white md:flex`}
       >
         <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
           <Navbar />
-          <main className="flex flex-col sm:w-screen sm:flex-row">
+          <main className="flex flex-col md:w-screen md:flex-row">
             {children}
           </main>
           <Toaster
