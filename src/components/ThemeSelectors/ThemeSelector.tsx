@@ -5,6 +5,7 @@ import type { Dispatch, SetStateAction } from "react";
 import { HiSun, HiMoon, HiComputerDesktop } from "react-icons/hi2";
 import { Popover } from "react-tiny-popover";
 import { Button } from "~/components";
+import { cn } from "~/lib/utils";
 
 export default function ThemeSelector() {
   const [mounted, setMounted] = useState(false);
@@ -15,26 +16,33 @@ export default function ThemeSelector() {
   }, []);
   if (!mounted) {
     return (
-      <div className=" h-8 animate-pulse rounded-md bg-neutral-100 dark:bg-neutral-700"></div>
+      <div className=" h-8 w-8 animate-pulse rounded-md bg-neutral-100 dark:bg-neutral-700 sm:w-auto"></div>
     );
   }
+  const themeText = {
+    dark: "sm:after:content-['dark']",
+    light: "sm:after:content-['light']",
+    system: `sm:after:content-['system']`,
+  };
 
   return (
     <Popover
       containerClassName="z-[999]"
       isOpen={isOpen}
-      positions={["right"]}
+      positions={["right", "bottom"]}
       padding={10}
       onClickOutside={() => setIsOpen(false)}
       content={<ThemePopover setIsOpen={setIsOpen} />}
     >
       <button
-        className="flex h-8 w-24 flex-row items-center gap-1 whitespace-nowrap rounded-lg px-2.5 py-1.5 text-sm capitalize hover:bg-neutral-100 active:bg-neutral-200 dark:hover:bg-neutral-700 dark:active:bg-neutral-600"
+        className={cn(
+          `flex h-8 w-fit flex-row items-center gap-1 whitespace-nowrap rounded-lg px-2.5 py-1.5 text-sm capitalize hover:bg-neutral-100 active:bg-neutral-200 dark:hover:bg-neutral-700 dark:active:bg-neutral-600 sm:w-24`,
+          themeText[(theme as "dark" | "light" | "system") ?? "system"],
+        )}
         onClick={() => setIsOpen(true)}
       >
         <HiSun className=" rotate-0 scale-100 transition-all dark:-rotate-90 dark:scale-0" />
         <HiMoon className="absolute rotate-90 scale-0 transition-all dark:rotate-0 dark:scale-100" />
-        {theme}
       </button>
     </Popover>
   );
