@@ -25,49 +25,46 @@ export default function AllocatedPopover() {
   const { events, courseData } = usePreview();
   const [isOpen, setIsOpen] = useState(false);
   return (
-    <div
-      className={`sticky bottom-0 flex h-16 max-w-full flex-col items-center gap-2 border-t bg-white p-2 py-4 dark:border-t-neutral-700 dark:bg-neutral-900`}
+    <Popover
+      isOpen={isOpen}
+      positions={["top", "bottom"]}
+      padding={10}
+      containerClassName="z-[999]"
+      onClickOutside={() => setIsOpen(false)}
+      content={
+        <div className="flex w-[17rem] flex-col items-center gap-1 rounded-lg border bg-white p-3 shadow-lg dark:border-neutral-700 dark:bg-neutral-800">
+          {events.length === 0 ? (
+            <p className="text-sm dark:text-white">
+              To allocate a course drag it onto a event in the calendar.
+            </p>
+          ) : (
+            <>
+              {events.map((event, index) => (
+                <Badge
+                  key={event.courseCode + event.type}
+                  className={`${
+                    colourVariants[event.colour]
+                  } w-full items-center justify-between gap-1`}
+                >
+                  {`${event.title} - ${CourseType[event.type]}`}
+                  <Remove
+                    index={index}
+                    colour={event.colour}
+                    setIsOpen={setIsOpen}
+                  />
+                </Badge>
+              ))}
+              <ClearPreferences setIsOpen={setIsOpen} />
+            </>
+          )}
+        </div>
+      }
     >
-      <Popover
-        isOpen={isOpen}
-        positions={["top"]}
-        padding={10}
-        onClickOutside={() => setIsOpen(false)}
-        content={
-          <div className="flex w-[17rem] flex-col items-center gap-1 rounded-lg border bg-white p-3 shadow-lg dark:border-neutral-700 dark:bg-neutral-800">
-            {events.length === 0 ? (
-              <p className="text-sm dark:text-white">
-                To allocate a course drag it onto a event in the calendar.
-              </p>
-            ) : (
-              <>
-                {events.map((event, index) => (
-                  <Badge
-                    key={event.courseCode + event.type}
-                    className={`${
-                      colourVariants[event.colour]
-                    } w-full items-center justify-between gap-1`}
-                  >
-                    {`${event.title} - ${CourseType[event.type]}`}
-                    <Remove
-                      index={index}
-                      colour={event.colour}
-                      setIsOpen={setIsOpen}
-                    />
-                  </Badge>
-                ))}
-                <ClearPreferences setIsOpen={setIsOpen} />
-              </>
-            )}
-          </div>
-        }
-      >
-        <Button variant="outline" onClick={() => setIsOpen(!isOpen)}>
-          {events.length}/{courseData?.length ?? 0} Allocated{" "}
-          {isOpen ? <HiChevronDown /> : <HiChevronUp />}
-        </Button>
-      </Popover>
-    </div>
+      <Button variant="outline" onClick={() => setIsOpen(!isOpen)}>
+        {events.length}/{courseData?.length ?? 0} Allocated&nbsp;
+        {isOpen ? <HiChevronDown /> : <HiChevronUp />}
+      </Button>
+    </Popover>
   );
 }
 

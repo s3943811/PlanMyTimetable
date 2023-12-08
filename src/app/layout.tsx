@@ -3,7 +3,7 @@ import "~/styles/globals.css";
 import { Inter } from "next/font/google";
 import Navbar from "./(Navbar)/navbar";
 import { Toaster } from "react-hot-toast";
-import { ThemeProvider } from "~/contexts/themeProvider";
+import { ThemeProvider } from "~/contexts/ThemeProvider";
 
 const inter = Inter({
   subsets: ["latin"],
@@ -28,7 +28,9 @@ export default function RootLayout({
       >
         <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
           <Navbar />
-          <main className="flex flex-row sm:w-screen">{children}</main>
+          <main className="flex flex-col sm:w-screen sm:flex-row">
+            {children}
+          </main>
           <Toaster
             toastOptions={{
               className: " dark:text-white dark:bg-neutral-700",
