@@ -8,12 +8,14 @@ import { cn } from "~/lib/utils";
 export default function ClassCardClient({
   children,
   course,
+  id,
 }: {
   children: React.ReactNode;
   course: Course;
+  id: string;
 }) {
   const { attributes, listeners, setNodeRef, isDragging } = useDraggable({
-    id: "course" + course.courseCode + course.type,
+    id: id,
     data: {
       course: course,
     },

@@ -1,20 +1,27 @@
 "use client";
-import { ClassCard, ClassCardClient, DragOverlay } from "~/components";
+import { ClassCard, ClassCardClient } from "~/components";
 import { CourseType } from "~/lib/definitions";
 import { usePreview } from "~/contexts/PreviewContext";
 import { RxDragHandleDots2 } from "react-icons/rx";
 
-export default function ClassList() {
+export default function ClassList({ isMobile }: { isMobile: boolean }) {
   const { courseData } = usePreview();
 
   return (
-    <div className="hidden flex-col gap-3 overflow-y-auto overflow-x-hidden pb-4 pt-1 scrollbar-hide md:flex">
+    <div className="flex flex-col gap-3 overflow-y-auto overflow-x-hidden pb-4 pt-1 scrollbar-hide">
       {courseData.map((item) => (
         <div
           key={item.id}
           className="border-b border-b-neutral-100 px-3 pb-2 last:border-none dark:border-b-neutral-700"
         >
-          <ClassCardClient course={item}>
+          <ClassCardClient
+            course={item}
+            id={
+              (isMobile ? "mobileCourse" : "course") +
+              item.courseCode +
+              item.type
+            }
+          >
             <div className="space-y-1 px-1.5">
               <ClassCard
                 key={item.courseCode + CourseType[item.type]}
@@ -25,7 +32,6 @@ export default function ClassList() {
           </ClassCardClient>
         </div>
       ))}
-      <DragOverlay />
     </div>
   );
 }
