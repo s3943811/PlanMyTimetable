@@ -29,7 +29,7 @@ export default function MobileClassList() {
       </DialogTrigger>
       <DialogPortal>
         <DialogOverlay className="fixed inset-0 z-50 backdrop-brightness-[.50]" />
-        <DialogContent className=" fixed inset-y-12 left-0 z-50 h-full w-3/4 gap-4 overflow-auto border-r bg-white p-2 shadow-lg dark:border-r-neutral-700 dark:bg-neutral-900">
+        <DialogContent className=" fixed inset-y-12 left-0 z-50 h-full w-3/4 gap-4 overflow-auto border-r bg-white p-2 shadow-lg dark:border-r-neutral-700 dark:bg-neutral-900 md:inset-y-0">
           <DialogTitle className="inline-flex items-center gap-1 pl-1 text-md font-medium">
             Classes
           </DialogTitle>

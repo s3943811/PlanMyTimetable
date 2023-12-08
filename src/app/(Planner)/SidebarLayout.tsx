@@ -26,7 +26,7 @@ export default function SidebarLayout({
   }
 
   return (
-    <aside className="sticky top-0 hidden h-screen min-h-screen grow flex-col border-r dark:border-neutral-700 dark:bg-neutral-900 dark:text-white md:flex">
+    <aside className="sticky top-0 flex grow flex-col border-r dark:border-neutral-700 dark:bg-neutral-900 dark:text-white md:h-screen md:min-h-screen">
       {children}
     </aside>
   );
