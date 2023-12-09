@@ -17,13 +17,18 @@ export default function Event({ title, type, time }: EventProps) {
 
   return (
     <>
-      <h1 className="line-clamp-1 text-sm font-medium lg:line-clamp-none lg:text-base">
+      <h1 className=" line-clamp-2 break-all text-sm font-medium tracking-tight lg:text-base">
         {title}
       </h1>
-      <p className="text-xs font-normal lg:text-sm">
+      <p className=" whitespace-pre-wrap text-xs font-normal tracking-tighter lg:text-sm">
         {time.start} - {endTime.toFormat("HH:mm")}
       </p>
-      <p className=" text-xs">{`${CourseType[type]}, ${time.campus_description} (${time.location})`}</p>
+      <p className=" text-xs ">
+        {CourseType[type]}
+        <span className="hidden md:contents md:before:content-[',_']">
+          {time.campus_description}&nbsp;({time.location})
+        </span>
+      </p>
     </>
   );
 }

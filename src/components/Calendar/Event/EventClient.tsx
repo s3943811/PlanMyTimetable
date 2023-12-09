@@ -4,6 +4,7 @@ import { getDayEnum, getRowIndex } from "~/lib/functions";
 import { usePreview } from "~/contexts/PreviewContext";
 import { useFriend } from "~/contexts/FriendContext";
 import { useMemo } from "react";
+import { cn } from "~/lib/utils";
 
 interface EventClientProps {
   children: React.ReactNode;
@@ -101,13 +102,12 @@ export default function EventClient({
         {...attributes}
         tabIndex={0}
         style={{ height: `${height}%` }}
-        className={`z-10 ${
-          isDragging && "opacity-50"
-        } flex flex-col overflow-hidden ${
-          colourVariants[preference.colour]
-        } rounded px-3 py-2 ${
-          over ? "hover:cursor-copy" : "hover:cursor-grab"
-        }`}
+        className={cn(
+          `z-10 flex flex-col overflow-hidden rounded px-3 py-2 `,
+          isDragging && "opacity-50",
+          colourVariants[preference.colour],
+          over ? "hover:cursor-copy" : "hover:cursor-grab",
+        )}
       >
         {children}
         {friendsTaking && friendsTaking.length !== 0 && (
@@ -130,11 +130,12 @@ export default function EventClient({
         gridColumnStart: `${col}`,
         gridRowStart: `${row}`,
       }}
-      className={`z-10 ${
-        isDragging && "opacity-50"
-      } m-0.5 flex flex-col overflow-hidden ${
-        colourVariants[preference.colour]
-      } rounded px-3 py-2 ${over ? "hover:cursor-copy" : "hover:cursor-grab"}`}
+      className={cn(
+        `z-10 m-0.5 flex flex-col overflow-hidden rounded px-3 py-2 `,
+        isDragging && "opacity-50",
+        colourVariants[preference.colour],
+        over ? "hover:cursor-copy" : "hover:cursor-grab",
+      )}
     >
       {children}
       {friendsTaking && friendsTaking.length !== 0 && (

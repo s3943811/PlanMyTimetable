@@ -19,7 +19,7 @@ export default function Calendar() {
             <React.Fragment key={index}>
               <div
                 style={{ gridRowStart: `${num}` }}
-                className={`col-start-[1] border-r border-neutral-100 bg-white p-1.5 text-right text-xs font-medium uppercase text-neutral-400 dark:border-neutral-700 dark:bg-neutral-900`}
+                className={`col-start-[1] border-r border-neutral-100 bg-white p-0.5 text-right text-xs font-medium uppercase text-neutral-400 dark:border-neutral-700 dark:bg-neutral-900 md:p-1.5 `}
               >
                 {index % 2 !== 1 && `${index / 2 + 5}:00`}
               </div>
