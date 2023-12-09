@@ -30,11 +30,11 @@ export default function ClassCard({ course }: { course: Course }) {
   return (
     <>
       <h1 className="line-clamp-1 text-base font-medium">{course.title}</h1>
-      <div className="flex flex-col lg:flex-row lg:gap-2 lg:divide-x">
+      <div className="flex gap-2 divide-x md:block md:divide-x-0 lg:flex lg:flex-row lg:gap-2 lg:divide-x">
         <p className="text-xs text-neutral-400 dark:text-neutral-300">
           {course.courseCode}
         </p>
-        <p className=" text-xs text-neutral-400 dark:text-neutral-300 lg:pl-2">
+        <p className=" pl-2 text-xs text-neutral-400 dark:text-neutral-300 md:pl-0 lg:pl-2">
           {course.options.length} -&nbsp;
           {course.options.length === 1 ? "Option" : "Options"}
         </p>

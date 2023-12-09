@@ -313,7 +313,7 @@ export default function ClassForm({
           Type
         </label>
         <select
-          className={`appearence-none flex h-10 w-full rounded-md border ${
+          className={` flex h-10 w-full appearance-none rounded-md border ${
             errors.type && "border-red-300"
           } bg-white px-3 py-2 text-sm shadow-sm ${
             errors.type

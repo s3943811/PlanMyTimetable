@@ -5,6 +5,7 @@ import { RetainLink } from "~/components";
 import { usePreview } from "~/contexts/PreviewContext";
 import { HiChevronRight } from "react-icons/hi2";
 import { usePathname } from "next/navigation";
+import { cn } from "~/lib/utils";
 
 export default function ClassList() {
   const { courseData } = usePreview();
@@ -21,10 +22,12 @@ export default function ClassList() {
           >
             <RetainLink
               href={`/classes/${item.id}`}
-              className={`flex items-center justify-between rounded-md border-l-[6.5px] md:w-72 ${
-                colourVariants[item.colour]
-              } px-3 py-3 ${active ? "bg-neutral-50 dark:bg-neutral-800" : ""}
-            hover:bg-neutral-100 active:bg-neutral-100 dark:hover:bg-neutral-700 dark:focus:ring-neutral-700 dark:active:bg-neutral-600`}
+              className={cn(
+                `flex max-w-xs items-center justify-between rounded-md border-l-[6.5px] px-3 py-3 
+            hover:bg-neutral-100 active:bg-neutral-100 dark:hover:bg-neutral-700 dark:focus:ring-neutral-700 dark:active:bg-neutral-600 md:w-72`,
+                colourVariants[item.colour],
+                active ? "bg-neutral-50 dark:bg-neutral-800" : "",
+              )}
             >
               <div className="flex flex-col items-start justify-start gap-1">
                 <ClassCard key={item.id} course={item} />
