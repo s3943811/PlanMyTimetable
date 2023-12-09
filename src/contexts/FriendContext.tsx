@@ -1,6 +1,7 @@
 "use client";
 
-import { createContext, useContext, useState, useEffect } from "react";
+import { useLocalStorage, useIsClient } from "@uidotdev/usehooks";
+import { createContext, useContext } from "react";
 import type { Preference } from "~/lib/definitions";
 
 export type Friend = {
@@ -25,27 +26,8 @@ export function useFriend() {
   return useContext(FriendContext);
 }
 
-export function FriendProvider({ children }: FriendProviderProps) {
-  const [friendData, setFriendData] = useState<Friend[]>([]);
-
-  useEffect(() => {
-    if (typeof window !== "undefined") {
-      const storedValue = window.localStorage.getItem("friends");
-      if (storedValue !== null) {
-        setFriendData(JSON.parse(storedValue) as Friend[]);
-      }
-    }
-  }, []);
-
-  useEffect(() => {
-    if (typeof window !== "undefined" && friendData !== null) {
-      window.localStorage.setItem("friends", JSON.stringify(friendData));
-    }
-  }, [friendData]);
-
-  if (!friendData) {
-    return <>{children}</>;
-  }
+function FriendClient({ children }: FriendProviderProps) {
+  const [friendData, setFriendData] = useLocalStorage<Friend[]>("friend", []);
 
   return (
     <FriendContext.Provider value={{ friendData, setFriendData }}>
@@ -53,3 +35,18 @@ export function FriendProvider({ children }: FriendProviderProps) {
     </FriendContext.Provider>
   );
 }
+
+type ClientOnlyProps = {
+  children: React.ReactNode;
+  fallback?: React.ReactNode;
+};
+
+export const FriendProvider: React.FC<ClientOnlyProps> = ({
+  children,
+  fallback,
+}) => {
+  const isClient = useIsClient();
+
+  // Render children if on client side, otherwise return null
+  return isClient ? <FriendClient>{children}</FriendClient> : fallback ?? null;
+};
