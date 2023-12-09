@@ -6,12 +6,14 @@ import { colourVariants } from "~/lib/definitions";
 import { RxDragHandleDots2 } from "react-icons/rx";
 
 export default function ClassCardDragOverlay() {
-  const { activeCourse } = usePreview();
+  const { activeCourse, over } = usePreview();
   return (
     <DragOverlay
-      className={`z-50 flex w-72 flex-row items-center justify-between gap-1 rounded-md border-l-[6.5px] bg-neutral-100 px-2.5 py-2.5 shadow-sm dark:bg-neutral-700 ${
+      className={`z-50 flex w-72 flex-row items-center justify-between gap-1 rounded-md border-l-[6.5px] bg-stone-100 px-2.5 py-2.5 shadow-sm ${
         colourVariants[activeCourse?.colour ?? 0]
-      } `}
+      } ${
+        over ? "hover:cursor-copy" : "hover:cursor-grabbing"
+      } focus:ring-1 focus:ring-stone-200 active:bg-stone-100`}
     >
       {activeCourse && (
         <>
