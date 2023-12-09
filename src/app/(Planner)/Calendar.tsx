@@ -7,11 +7,12 @@ import {
 } from "~/components";
 import CalendarToolbar from "./CalendarToolbar";
 import CalendarLayout from "./CalendarLayout";
+import { FriendProvider } from "~/contexts/FriendContext";
 
 export default function Calendar() {
   return (
     <CalendarLayout>
-      <div className="grid grid-cols-[auto,repeat(5,minmax(0,1fr))] grid-rows-[2.5rem,repeat(38,2.8rem)] md:grid-rows-[2.5rem,repeat(38,4rem)]">
+      <div className="grid grid-cols-[auto,repeat(5,minmax(0,1fr))] grid-rows-[2.5rem,repeat(38,2.8rem)] md:grid-rows-[2.5rem,repeat(38,4rem)] lg:grid-rows-[2.5rem,repeat(38,2.8rem)]">
         <CalendarHeader />
         {Array.from({ length: 38 }, (_, index) => {
           const num = 2 + index;
@@ -31,7 +32,9 @@ export default function Calendar() {
             </React.Fragment>
           );
         })}
-        <EventList />
+        <FriendProvider fallback={<EventList />}>
+          <EventList />
+        </FriendProvider>
         <PreviewEventClient />
       </div>
       <CalendarToolbar />

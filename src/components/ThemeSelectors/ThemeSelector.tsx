@@ -1,19 +1,17 @@
 "use client";
 import { useTheme } from "next-themes";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import type { Dispatch, SetStateAction } from "react";
 import { HiSun, HiMoon, HiComputerDesktop } from "react-icons/hi2";
 import { Popover } from "react-tiny-popover";
 import { Button } from "~/components";
+import { useMounted } from "~/hooks/useMounted";
 import { cn } from "~/lib/utils";
 
 export default function ThemeSelector() {
-  const [mounted, setMounted] = useState(false);
   const [isOpen, setIsOpen] = useState(false);
   const { theme } = useTheme();
-  useEffect(() => {
-    setMounted(true);
-  }, []);
+  const mounted = useMounted();
   if (!mounted) {
     return (
       <div className=" h-8 w-8 animate-pulse rounded-md bg-neutral-100 dark:bg-neutral-700 sm:w-auto"></div>

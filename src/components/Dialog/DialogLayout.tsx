@@ -1,5 +1,6 @@
 "use client";
 import * as DialogPrimitive from "@radix-ui/react-dialog";
+import type { DialogProps as DialogPrimitiveProps } from "@radix-ui/react-dialog";
 import React from "react";
 
 const DialogTrigger = DialogPrimitive.Trigger;
@@ -10,14 +11,10 @@ const DialogTitle = DialogPrimitive.Title;
 const DialogDescription = DialogPrimitive.Description;
 const DialogContent = DialogPrimitive.Content;
 
-interface DialogProps
-  extends React.ComponentPropsWithoutRef<typeof DialogPrimitive.Root> {
+interface DialogProps extends DialogPrimitiveProps {
   width: number;
 }
-const Dialog = React.forwardRef<
-  React.ElementRef<typeof DialogPrimitive.Root>,
-  DialogProps
->(({ children, onOpenChange, width, ...props }) => {
+const Dialog = ({ children, onOpenChange, width, ...props }: DialogProps) => {
   React.useEffect(() => {
     const handleResize = () => {
       if (window.innerWidth >= width) {
@@ -37,9 +34,7 @@ const Dialog = React.forwardRef<
       {children}
     </DialogPrimitive.Root>
   );
-});
-
-Dialog.displayName = DialogPrimitive.Root.displayName;
+};
 
 export {
   Dialog,
