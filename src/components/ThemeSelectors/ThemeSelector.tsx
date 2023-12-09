@@ -1,6 +1,6 @@
 "use client";
 import { useTheme } from "next-themes";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import type { Dispatch, SetStateAction } from "react";
 import { HiSun, HiMoon, HiComputerDesktop } from "react-icons/hi2";
 import { Popover } from "react-tiny-popover";
