@@ -7,19 +7,39 @@ import {
   useSensor,
   useSensors,
 } from "@dnd-kit/core";
-import type {
-  DragEndEvent,
-  DragStartEvent,
-  DragOverEvent,
-} from "@dnd-kit/core";
-import { usePreview, DragType } from "./PreviewContext";
+import type { DragEndEvent, DragStartEvent } from "@dnd-kit/core";
+import { usePreview } from "./PreviewContext";
 import { restrictToWindowEdges } from "@dnd-kit/modifiers";
 import type { Course, Preference, Time } from "~/lib/definitions";
 import { useUrlState } from "~/hooks/useUrlState";
+import { createContext, useContext, useState } from "react";
+
+interface DnDContext {
+  dragType: DragType | null;
+  setDragType: (dragType: DragType | null) => void;
+  show: (over: boolean) => void;
+  hidden: boolean;
+  setMobileClassListSheetOpen: (over: boolean) => void;
+  openMobileClassListSheet: boolean;
+}
+
+const DnDContext = createContext({} as DnDContext);
+export function useDnD() {
+  return useContext(DnDContext);
+}
+
+export enum DragType {
+  event,
+  course,
+}
 
 export function DndProvider({ children }: { children: React.ReactNode }) {
-  const { setActiveCourse, events, setEvents, setDragType, setOver } =
-    usePreview();
+  const [dragType, setDragType] = useState<DragType | null>(null);
+  const [hidden, show] = useState(true);
+  const [openMobileClassListSheet, setMobileClassListSheetOpen] =
+    useState(false);
+
+  const { setActiveCourse, events, setEvents } = usePreview();
   const sensors = useSensors(
     useSensor(MouseSensor),
     useSensor(TouchSensor),
@@ -78,8 +98,9 @@ export function DndProvider({ children }: { children: React.ReactNode }) {
         // add a new event
         appendState(preference, "pref");
       }
+      setMobileClassListSheetOpen(false);
     }
-    setOver(false);
+    show(true);
     setActiveCourse(null);
   }
 
@@ -90,19 +111,11 @@ export function DndProvider({ children }: { children: React.ReactNode }) {
         : DragType.course,
     );
     setActiveCourse(event.active.data.current?.course as Course);
+    show(false);
   }
 
   function handleDragCancel() {
     setActiveCourse(null);
-    setOver(false);
-  }
-
-  function handleDragOver(event: DragOverEvent) {
-    if (event.over) {
-      setOver(true);
-    } else {
-      setOver(false);
-    }
   }
 
   return (
@@ -111,10 +124,20 @@ export function DndProvider({ children }: { children: React.ReactNode }) {
       onDragEnd={handleDragEnd}
       onDragStart={handleDragStart}
       onDragCancel={handleDragCancel}
-      onDragOver={handleDragOver}
       modifiers={[restrictToWindowEdges]}
     >
-      {children}
+      <DnDContext.Provider
+        value={{
+          dragType,
+          setDragType,
+          show,
+          hidden,
+          openMobileClassListSheet,
+          setMobileClassListSheetOpen,
+        }}
+      >
+        {children}
+      </DnDContext.Provider>
     </DndContext>
   );
 }
