@@ -2,18 +2,17 @@
 
 import { Button } from "~/components";
 import { IoIosShareAlt } from "react-icons/io";
-import { usePathname, useSearchParams } from "next/navigation";
+import { useSearchParams } from "next/navigation";
 import { useCallback } from "react";
 
 export default function ShareButton() {
-  const pathname = usePathname();
   const p = useSearchParams();
   const copyLink = useCallback(async () => {
     // console.log(pathname);
     // TODO: Update this based on location
     const link = `https://planmytimetable.vercel.app/?${p.toString()}`;
     await navigator.clipboard.writeText(link);
-  }, [pathname, p]);
+  }, [p]);
 
   return (
     <div className="group relative flex">
