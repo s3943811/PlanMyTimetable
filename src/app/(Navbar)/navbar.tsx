@@ -1,24 +1,44 @@
 import { HiBookOpen, HiHome } from "react-icons/hi2";
 import { HiQuestionMarkCircle } from "react-icons/hi";
-import { RetainLink, buttonVariants } from "~/components";
+import { ThemeSelector } from "~/components";
 import ActiveLink from "./ActiveLink";
 function Navbar() {
   return (
-    <nav className="sticky top-0 flex h-screen flex-col items-center justify-between border-r bg-white p-3 pt-8">
-      <div className="space-y-3">
-        <ActiveLink pathname="/">
+    <nav className="sticky top-0 z-[999] flex w-full flex-row border-b bg-white px-2 py-2 dark:border-neutral-700 dark:bg-neutral-900 dark:text-white md:z-0 md:h-screen md:w-fit md:flex-col md:items-center md:justify-between md:border-b-0 md:border-r md:p-3 md:pt-8">
+      <div className="inline-flex md:block md:space-y-3">
+        <ActiveLink
+          href="/"
+          className="w-fit text-base after:content-['PlanMyTimetable'] md:w-24 md:text-sm md:after:content-['Home']"
+        >
           <HiHome />
-          Home
         </ActiveLink>
-        <ActiveLink pathname="/classes">
+        <ActiveLink href="/classes" className="w-fit md:w-24">
           <HiBookOpen />
           Classes
         </ActiveLink>
       </div>
-      <div>
-        <RetainLink className={buttonVariants.ghost} href="/help">
-          <HiQuestionMarkCircle size={25} />
-        </RetainLink>
+      <div className="flex gap-2 text-xs md:flex-col md:pt-1 ">
+        <ActiveLink
+          href="/help"
+          className="w-fit md:w-24 md:after:content-['Help']"
+        >
+          <HiQuestionMarkCircle size={16} />
+        </ActiveLink>
+        <ThemeSelector />
+        <div className="hidden w-[6.2rem] space-y-1 border-t border-t-neutral-50 pt-2 dark:border-t-neutral-700 md:block">
+          <p className="whitespace-break-spaces break-words text-xs font-medium">
+            PlanMyTimetable
+          </p>
+          <p className=" whitespace-break-spaces break-all text-xs font-light">
+            Built by Maximus Dionyssopoulos.
+          </p>
+          <a
+            href="https://github.com/s3943811"
+            className="font-medium underline underline-offset-4 hover:font-semibold"
+          >
+            Github
+          </a>
+        </div>
       </div>
     </nav>
   );
