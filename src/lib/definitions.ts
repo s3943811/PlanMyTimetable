@@ -51,13 +51,13 @@ export enum ColourPalette {
 }
 
 export const colourVariants = {
-  0: "border-l-purple-400 dark:border-l-purple-700",
-  1: "border-l-yellow-400 dark:border-l-yellow-700",
-  2: "border-l-orange-400 dark:border-l-orange-700",
-  3: "border-l-red-400 dark:border-l-red-700",
-  4: "border-l-green-400 dark:border-l-green-700",
-  5: "border-l-teal-400 dark:border-l-teal-700",
-  6: "border-l-blue-400 dark:border-l-blue-700",
-  7: "border-l-fuchsia-400 dark:border-l-fuchsia-700",
-  8: "border-l-pink-400 dark:border-l-pink-700",
+  0: "border-l-purple-400",
+  1: "border-l-yellow-400",
+  2: "border-l-orange-400",
+  3: "border-l-red-400",
+  4: "border-l-green-400",
+  5: "border-l-teal-400",
+  6: "border-l-blue-400",
+  7: "border-l-fuchsia-400",
+  8: "border-l-pink-400",
 };

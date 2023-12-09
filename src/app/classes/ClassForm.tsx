@@ -243,10 +243,10 @@ export default function ClassForm({
               ? " focus:ring-red-400/60"
               : " focus:ring-neutral-400/60"
           } focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-1
-          disabled:cursor-not-allowed disabled:opacity-50 dark:border-neutral-600 dark:bg-neutral-900 dark:placeholder:text-neutral-400`}
+          disabled:cursor-not-allowed disabled:opacity-50`}
         />
         {errors.title && <ErrorMessage>{errors.title.message}</ErrorMessage>}
-        <p className="text-xs text-neutral-500 dark:text-neutral-400">
+        <p className="text-xs font-light text-neutral-500/90">
           This is the name of the class in plain text. For example, Full Stack
           Development.
         </p>
@@ -271,10 +271,10 @@ export default function ClassForm({
               ? " focus:ring-red-400/60"
               : " focus:ring-neutral-400/60"
           } focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-1
-           disabled:cursor-not-allowed disabled:opacity-50 dark:border-neutral-600 dark:bg-neutral-900 dark:placeholder:text-neutral-400`}
+           disabled:cursor-not-allowed disabled:opacity-50`}
         />
         {errors.code && <ErrorMessage>{errors.code.message}</ErrorMessage>}
-        <p className="text-xs text-neutral-500 dark:text-neutral-400">
+        <p className="text-xs font-light text-neutral-500/90">
           This is a code used to describe the course by the university. For
           example, COSC2758.
         </p>
@@ -288,7 +288,7 @@ export default function ClassForm({
         </label>
         <select
           className=" flex h-10 w-full appearance-none rounded-md border bg-white px-3 py-2 text-sm shadow-sm
-          disabled:cursor-not-allowed disabled:opacity-50 dark:border-neutral-600 dark:bg-neutral-900 dark:placeholder:text-neutral-400"
+          disabled:cursor-not-allowed disabled:opacity-50"
           {...register("colour")}
         >
           <option>Purple</option>
@@ -301,7 +301,7 @@ export default function ClassForm({
           <option>Fuchsia</option>
           <option>Pink</option>
         </select>
-        <p className="text-xs text-neutral-500 dark:text-neutral-400">
+        <p className="text-xs font-light text-neutral-500/90">
           A colour for the class.
         </p>
       </div>
@@ -313,14 +313,14 @@ export default function ClassForm({
           Type
         </label>
         <select
-          className={` flex h-10 w-full appearance-none rounded-md border ${
+          className={`appearence-none flex h-10 w-full rounded-md border ${
             errors.type && "border-red-300"
           } bg-white px-3 py-2 text-sm shadow-sm ${
             errors.type
               ? " focus:ring-red-400/60"
               : " focus:ring-neutral-400/60"
           } focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-1
-           disabled:cursor-not-allowed disabled:opacity-50 dark:border-neutral-600 dark:bg-neutral-900 dark:placeholder:text-neutral-400`}
+           disabled:cursor-not-allowed disabled:opacity-50`}
           {...register("type")}
           placeholder="Lecture"
         >
@@ -330,19 +330,19 @@ export default function ClassForm({
           <option>Practical</option>
           <option>Other</option>
         </select>
-        <p className="text-xs text-neutral-500 dark:text-neutral-400">
+        <p className="text-xs font-light text-neutral-500/90">
           The type of class. For example, a Lecture or a Workshop.
         </p>
         {errors.type && <ErrorMessage>{errors.type.message}</ErrorMessage>}
       </div>
-      <div className="sticky top-0 z-10 block justify-between space-y-1 bg-white py-1 dark:bg-neutral-900 md:flex md:space-y-0">
+      <div className="sticky top-0 z-10 inline-flex justify-between bg-white">
         <div className="space-y-1">
           <h3 className="text-lg font-medium">Options</h3>
-          <p className="text-xs text-neutral-500 dark:text-neutral-400">
+          <p className="text-xs font-light text-neutral-500/90">
             This is the times and rooms on offer for this class this semester.
           </p>
         </div>
-        <div className=" inline-flex gap-2">
+        <div className=" inline-flex gap-1">
           <Button
             variant="secondary"
             type="button"
@@ -387,12 +387,12 @@ export default function ClassForm({
               ? " focus:ring-red-400/60"
               : " focus:ring-neutral-400/60"
           } focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-1
-          disabled:cursor-not-allowed disabled:opacity-50 dark:border-neutral-600 dark:bg-neutral-900 dark:placeholder:text-neutral-400`}
+          disabled:cursor-not-allowed disabled:opacity-50`}
           />
           {errors.duration && (
             <ErrorMessage>{errors.duration.message}</ErrorMessage>
           )}
-          <p className="text-xs text-neutral-500 dark:text-neutral-400">
+          <p className="text-xs font-light text-neutral-500/90">
             How long the {watchType} goes for in minutes.
           </p>
         </div>
@@ -439,7 +439,7 @@ function OptionForm({
   remove: UseFieldArrayRemove;
 }) {
   return (
-    <div className="relative rounded-md border px-2.5 py-2 pb-3 dark:border-neutral-700">
+    <div className="relative rounded-md border px-2.5 py-2 pb-3">
       {index !== 0 && (
         <div className="absolute right-1 top-1">
           <Tooltip message="Remove" position="top">
@@ -461,7 +461,7 @@ function OptionForm({
 
             <select
               className=" flex h-10 w-full appearance-none rounded-md border bg-white px-3 py-2 text-sm shadow-sm
-          disabled:cursor-not-allowed disabled:opacity-50 dark:border-neutral-600 dark:bg-neutral-900 dark:placeholder:text-neutral-400"
+          disabled:cursor-not-allowed disabled:opacity-50"
               {...register(`options.${index}.day`)}
             >
               <option value="Mon">Monday</option>
@@ -475,7 +475,7 @@ function OptionForm({
                 {errors.options?.[index]?.day?.message}
               </ErrorMessage>
             }
-            <p className="text-xs text-neutral-500 dark:text-neutral-400">
+            <p className="text-xs font-light text-neutral-500/90">
               The day of the week.
             </p>
           </div>
@@ -499,14 +499,14 @@ function OptionForm({
               ? " focus:ring-red-400/60"
               : " focus:ring-neutral-400/60"
           } focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-1
-          disabled:cursor-not-allowed disabled:opacity-50 dark:border-neutral-600 dark:bg-neutral-900 dark:placeholder:text-neutral-400`}
+          disabled:cursor-not-allowed disabled:opacity-50`}
             />
             {
               <ErrorMessage>
                 {errors.options?.[index]?.start_time?.message}
               </ErrorMessage>
             }
-            <p className="text-xs text-neutral-500 dark:text-neutral-400">
+            <p className="text-xs font-light text-neutral-500/90">
               The time the {type} starts.
             </p>
           </div>
@@ -532,14 +532,14 @@ function OptionForm({
               ? " focus:ring-red-400/60"
               : " focus:ring-neutral-400/60"
           } focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-1
-          disabled:cursor-not-allowed disabled:opacity-50 dark:border-neutral-600 dark:bg-neutral-900 dark:placeholder:text-neutral-400`}
+          disabled:cursor-not-allowed disabled:opacity-50`}
             />
             {
               <ErrorMessage>
                 {errors.options?.[index]?.room?.message}
               </ErrorMessage>
             }
-            <p className="text-xs text-neutral-500 dark:text-neutral-400">
+            <p className="text-xs font-light text-neutral-500/90">
               {`What room the ${type} will be in (if online write "-").`}
             </p>
           </div>
@@ -562,14 +562,14 @@ function OptionForm({
               ? " focus:ring-red-400/60"
               : " focus:ring-neutral-400/60"
           } focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-1
-          disabled:cursor-not-allowed disabled:opacity-50 dark:border-neutral-600 dark:bg-neutral-900 dark:placeholder:text-neutral-400`}
+          disabled:cursor-not-allowed disabled:opacity-50`}
             />
             {
               <ErrorMessage>
                 {errors.options?.[index]?.campus?.message}
               </ErrorMessage>
             }
-            <p className="text-xs text-neutral-500 dark:text-neutral-400">
+            <p className="text-xs font-light text-neutral-500/90">
               {`What campus the ${type} will be on. For example, RMIT students may
               write "Melbourne City" or "Canvas".`}
             </p>

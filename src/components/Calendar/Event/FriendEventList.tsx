@@ -62,7 +62,7 @@ export function FriendEvent({
         gridColumnStart: `${getDayEnum(item.time.day)! + 2}`,
         gridRowStart: `${getRowIndex(item.time.start)}`,
       }}
-      className={`m-0.5 flex flex-col overflow-hidden rounded bg-neutral-300/40 py-2 pl-[1.19rem] pr-3 text-neutral-800 opacity-50 dark:bg-neutral-50/30 dark:text-white dark:opacity-60`}
+      className={`m-0.5 flex flex-col overflow-hidden rounded bg-neutral-300/40 py-2 pl-[1.19rem] pr-3 text-neutral-800 opacity-50 `}
     >
       <h1 className="line-clamp-1 text-sm font-medium lg:line-clamp-none lg:text-base">
         {item.title}
@@ -72,11 +72,11 @@ export function FriendEvent({
       </p>
       <div className="space-y-1">
         {item.friends.length !== 0 && (
-          <p className=" text-xs">
+          <p className=" text-xs font-light">
             {`Friend's taking: ${item.friends.join(", ")}`}
           </p>
         )}
-        <p className=" text-xs">{`${CourseType[item.type]}, ${
+        <p className=" text-xs font-light">{`${CourseType[item.type]}, ${
           item.time.campus_description
         } (${item.time.location})`}</p>
       </div>
@@ -124,7 +124,7 @@ export function FriendClashEvent({
         gridColumnStart: `${getDayEnum(item.time.day)! + 2}`,
         gridRowStart: `${getRowIndex(item.time.start)}`,
       }}
-      className={`m-0.5 flex flex-col overflow-hidden rounded bg-neutral-300/40 py-2 pl-[1.19rem] pr-3 text-neutral-800 opacity-50 dark:bg-neutral-50/30 dark:text-white dark:opacity-60 `}
+      className={`m-0.5 flex flex-col overflow-hidden rounded bg-neutral-300/40 py-2 pl-[1.19rem] pr-3 text-neutral-800 opacity-50 `}
     >
       <h1 className="line-clamp-1 text-sm font-medium lg:line-clamp-none lg:text-base">
         {item.title}
@@ -134,11 +134,11 @@ export function FriendClashEvent({
       </p>
       <div className="space-y-1">
         {friendsTaking && friendsTaking.length !== 0 && (
-          <p className=" text-xs">
+          <p className=" text-xs font-light">
             {`Friend's taking: ${friendsTaking.join(", ")}`}
           </p>
         )}
-        <p className=" text-xs">{`${CourseType[item.type]}, ${
+        <p className=" text-xs font-light">{`${CourseType[item.type]}, ${
           item.time.campus_description
         } (${item.time.location})`}</p>
       </div>
