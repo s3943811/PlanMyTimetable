@@ -128,22 +128,22 @@ export default function EventList() {
     }
   }, [pref, decode, setEvents]);
 
-  if (!friendData) {
-    return events.map((item) => {
-      const rowSpan: number = item.time.duration / 30;
-      return (
-        <div
-          key={item.courseCode + item.type}
-          style={{
-            gridRowEnd: `span ${rowSpan}`,
-            gridColumnStart: `${getDayEnum(item.time.day)! + 2}`,
-            gridRowStart: `${getRowIndex(item.time.start)}`,
-          }}
-          className={`z-10 animate-pulse rounded-md bg-neutral-200/50 py-2 dark:bg-neutral-50`}
-        ></div>
-      );
-    });
-  }
+  // if (!friendData) {
+  //   return events.map((item) => {
+  //     const rowSpan: number = item.time.duration / 30;
+  //     return (
+  //       <div
+  //         key={item.courseCode + item.type}
+  //         style={{
+  //           gridRowEnd: `span ${rowSpan}`,
+  //           gridColumnStart: `${getDayEnum(item.time.day)! + 2}`,
+  //           gridRowStart: `${getRowIndex(item.time.start)}`,
+  //         }}
+  //         className={`z-10 animate-pulse rounded-md bg-neutral-200/50 py-2 dark:bg-neutral-50`}
+  //       ></div>
+  //     );
+  //   });
+  // }
 
   return (
     <>

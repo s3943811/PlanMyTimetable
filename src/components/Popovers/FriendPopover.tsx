@@ -42,11 +42,11 @@ export default function FriendPopover() {
         <div
           className={`flex w-40 flex-col gap-1 rounded-lg border bg-white p-5 shadow-lg dark:border-neutral-700 dark:bg-neutral-800 dark:text-white`}
         >
-          {friendData.length === 0 ? (
+          {friendData?.length === 0 ? (
             <p className="text-sm">Add a friend to compare timetables.</p>
           ) : (
             <>
-              {friendData.map((item, index) => (
+              {friendData?.map((item, index) => (
                 <div
                   className="flex w-full flex-row items-center justify-between gap-2 rounded-md px-1"
                   key={item.id}

@@ -1,7 +1,6 @@
 "use client";
 
 import { usePreview } from "~/contexts/PreviewContext";
-import { FriendProvider } from "~/contexts/FriendContext";
 
 export default function CalendarLayout({
   children,
@@ -16,7 +15,7 @@ export default function CalendarLayout({
         courseData.length !== 0 ? "flex" : "hidden"
       } w-full grow flex-col`}
     >
-      <FriendProvider>{children}</FriendProvider>
+      {children}
     </section>
   );
 }
