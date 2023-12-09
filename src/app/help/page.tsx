@@ -49,8 +49,8 @@ export default function Page() {
             Friend data is stored in local storage, meaning it persists across
             tabs and remains everytime you visit PlanMyTimetable until it is
             removed.
-            <br />A friend's must create their timetable with PlanMyTimetable
-            for the friend comparison features to work properly.
+            <br />A friend&apos;s must create their timetable with
+            PlanMyTimetable for the friend comparison features to work properly.
           </p>
         </div>
         <div>
@@ -80,8 +80,8 @@ export default function Page() {
           <h3 className="font-medium">Share your timetable</h3>
           <p>
             To share your timetable with a friend use the share button on
-            toolbar below the calendar or copy the url when you've created your
-            timetable.
+            toolbar below the calendar or copy the url when you&apos;ve created
+            your timetable.
           </p>
         </div>
       </section>

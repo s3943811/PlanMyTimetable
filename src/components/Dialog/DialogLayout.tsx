@@ -17,7 +17,7 @@ interface DialogProps
 const Dialog = React.forwardRef<
   React.ElementRef<typeof DialogPrimitive.Root>,
   DialogProps
->(({ children, onOpenChange, width, ...props }, ref) => {
+>(({ children, onOpenChange, width, ...props }) => {
   React.useEffect(() => {
     const handleResize = () => {
       if (window.innerWidth >= width) {
@@ -30,7 +30,7 @@ const Dialog = React.forwardRef<
     return () => {
       window.removeEventListener("resize", handleResize);
     };
-  }, [onOpenChange]);
+  }, [onOpenChange, width]);
 
   return (
     <DialogPrimitive.Root onOpenChange={onOpenChange} {...props}>
@@ -38,6 +38,8 @@ const Dialog = React.forwardRef<
     </DialogPrimitive.Root>
   );
 });
+
+Dialog.displayName = DialogPrimitive.Root.displayName;
 
 export {
   Dialog,

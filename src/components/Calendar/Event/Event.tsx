@@ -10,7 +10,7 @@ interface EventProps {
 }
 export default function Event({ title, type, time }: EventProps) {
   const endTime = useMemo(() => {
-    let endTime = DateTime.fromFormat(time.start, "HH:mm");
+    const endTime = DateTime.fromFormat(time.start, "HH:mm");
     const duration = Duration.fromObject({ minutes: time.duration });
     return endTime.plus(duration);
   }, [time]);
