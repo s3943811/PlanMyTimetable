@@ -11,7 +11,7 @@ import CalendarLayout from "./CalendarLayout";
 export default function Calendar() {
   return (
     <CalendarLayout>
-      <div className="grid grid-cols-[auto,repeat(5,minmax(0,1fr))] grid-rows-[2.5rem,repeat(38,2.35rem)]">
+      <div className="grid grid-cols-[auto,repeat(5,minmax(0,1fr))] grid-rows-[2.5rem,repeat(38,2.8rem)] md:grid-rows-[2.5rem,repeat(38,4rem)]">
         <CalendarHeader />
         {Array.from({ length: 38 }, (_, index) => {
           const num = 2 + index;
