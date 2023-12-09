@@ -48,7 +48,7 @@ export default function PageSelector() {
           placeholder,
         )}
       >
-        Blocked Times
+        Blocked Time
       </RetainLink>
     </div>
   );

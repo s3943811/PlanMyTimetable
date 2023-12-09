@@ -1,3 +1,5 @@
+import BlockedForm from "./BlockedForm";
+
 export default function Page() {
-  return <h1>blocked</h1>;
+  return <BlockedForm />;
 }
