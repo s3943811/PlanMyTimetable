@@ -1,5 +1,9 @@
 "use client";
+import { useState } from "react";
+import { HiBars3 } from "react-icons/hi2";
+import { HiOutlineX } from "react-icons/hi";
 import {
+  Button,
   Dialog,
   DialogTrigger,
   DialogPortal,
@@ -7,18 +11,14 @@ import {
   DialogContent,
   DialogClose,
   DialogTitle,
-} from "@radix-ui/react-dialog";
-import { useState } from "react";
-import { HiBars3 } from "react-icons/hi2";
-import { HiOutlineX } from "react-icons/hi";
-import { Button } from "~/components";
+} from "~/components";
 import ClassList from "./ClassList";
 
 export default function MobileClassList() {
   const [open, setOpen] = useState(false);
 
   return (
-    <Dialog open={open} onOpenChange={setOpen}>
+    <Dialog open={open} onOpenChange={setOpen} width={768}>
       <DialogTrigger asChild>
         <Button
           variant="ghostIcon"

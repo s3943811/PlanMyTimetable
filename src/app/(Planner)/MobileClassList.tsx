@@ -1,16 +1,15 @@
 "use client";
+import { HiBars3 } from "react-icons/hi2";
+import { HiOutlineX } from "react-icons/hi";
 import {
+  Button,
   Dialog,
   DialogTrigger,
   DialogPortal,
   DialogContent,
   DialogClose,
   DialogTitle,
-} from "@radix-ui/react-dialog";
-import { useEffect, useState } from "react";
-import { HiBars3 } from "react-icons/hi2";
-import { HiOutlineX } from "react-icons/hi";
-import { Button } from "~/components";
+} from "~/components";
 import ClassList from "./ClassList";
 import { useDnD } from "~/contexts/DndProvider";
 
@@ -21,23 +20,8 @@ export default function MobileClassList() {
     setMobileClassListSheetOpen: setOpen,
   } = useDnD();
 
-  useEffect(() => {
-    const handleResize = () => {
-      if (window.innerWidth >= 768) {
-        // 768px is the breakpoint for 'md' in Tailwind CSS
-        setOpen(false);
-      }
-    };
-
-    window.addEventListener("resize", handleResize);
-
-    return () => {
-      window.removeEventListener("resize", handleResize);
-    };
-  }, []);
-
   return (
-    <Dialog open={open} onOpenChange={setOpen}>
+    <Dialog open={open} onOpenChange={setOpen} width={768}>
       <DialogTrigger asChild>
         <Button
           variant="ghostIcon"
