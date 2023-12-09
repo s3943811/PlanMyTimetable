@@ -139,7 +139,7 @@ export default function EventList() {
             gridColumnStart: `${getDayEnum(item.time.day)! + 2}`,
             gridRowStart: `${getRowIndex(item.time.start)}`,
           }}
-          className={`z-10 animate-pulse rounded-md bg-neutral-200/50 py-2`}
+          className={`z-10 animate-pulse rounded-md bg-neutral-200/50 py-2 dark:bg-neutral-50`}
         ></div>
       );
     });
@@ -165,7 +165,9 @@ export default function EventList() {
       ))}
       {clashes.map((group, index) => {
         const largestDuration = group.reduce((max, item) => {
-          return item.time.duration > max ? item.time.duration : max;
+          return Number(item.time.duration) > max
+            ? Number(item.time.duration)
+            : max;
         }, 0);
         const rowSpan: number = largestDuration / 30;
         const col = getDayEnum(group[index]!.time.day)! + 2;

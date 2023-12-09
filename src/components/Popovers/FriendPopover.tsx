@@ -40,7 +40,7 @@ export default function FriendPopover() {
       onClickOutside={() => setIsOpen(false)}
       content={
         <div
-          className={`flex w-40 flex-col gap-1 rounded-lg border bg-white p-5 shadow-lg`}
+          className={`flex w-40 flex-col gap-1 rounded-lg border bg-white p-5 shadow-lg dark:border-neutral-700 dark:bg-neutral-800 dark:text-white`}
         >
           {friendData.length === 0 ? (
             <p className="text-sm">Add a friend to compare timetables.</p>
@@ -72,7 +72,7 @@ export default function FriendPopover() {
                   </div>
                   <Tooltip message={`Remove ${item.name}`} position="top">
                     <button
-                      className="inline-flex h-6 items-center justify-center gap-1 whitespace-nowrap rounded-md px-2 py-2 text-sm hover:bg-neutral-50 active:bg-neutral-100"
+                      className="inline-flex h-6 items-center justify-center gap-1 whitespace-nowrap rounded-md px-2 py-2 text-sm hover:bg-neutral-50 active:bg-neutral-100 dark:hover:bg-neutral-700 dark:active:bg-neutral-600"
                       onClick={() => removeFriend(index)}
                     >
                       <HiMinus />
@@ -81,7 +81,7 @@ export default function FriendPopover() {
                 </div>
               ))}
               <button
-                className="ring-offset-background mt-1.5 inline-flex h-6 w-full items-center justify-center whitespace-nowrap rounded-md bg-neutral-900 px-2.5 py-1.5 text-sm font-medium text-neutral-50 hover:bg-neutral-700"
+                className="ring-offset-background mt-1.5 inline-flex h-6 w-full items-center justify-center whitespace-nowrap rounded-md bg-neutral-900 px-2.5 py-1.5 text-sm font-medium text-neutral-50 hover:bg-neutral-700 dark:bg-neutral-50 dark:text-neutral-800 dark:hover:bg-neutral-100"
                 onClick={() => {
                   setFriendData([]);
                   setIsOpen(false);

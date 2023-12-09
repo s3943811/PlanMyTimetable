@@ -11,25 +11,16 @@ interface PreviewContext {
   setActiveCourse: (course: Course | null) => void;
   events: Array<Preference>;
   setEvents: (preference: Array<Preference>) => void;
-  dragType: DragType | null;
-  setDragType: (dragType: DragType | null) => void;
-  over: boolean;
-  setOver: (over: boolean) => void;
   courseData: Course[];
   setCourseData: (course: Course[]) => void;
 }
-export enum DragType {
-  event,
-  course,
-}
+
 const PreviewContext = createContext({} as PreviewContext);
 export function usePreview() {
   return useContext(PreviewContext);
 }
 export function PreviewProvider({ children }: PreviewProviderProps) {
   const [activeCourse, setActiveCourse] = useState<Course | null>(null);
-  const [dragType, setDragType] = useState<DragType | null>(null);
-  const [over, setOver] = useState<boolean>(false);
 
   const { decode, searchParams } = useUrlState();
   const [events, setEvents] = useState<Array<Preference>>(
@@ -52,10 +43,6 @@ export function PreviewProvider({ children }: PreviewProviderProps) {
         setActiveCourse,
         events,
         setEvents,
-        dragType,
-        setDragType,
-        over,
-        setOver,
         courseData,
         setCourseData,
       }}
