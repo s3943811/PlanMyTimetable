@@ -1,15 +1,9 @@
-/**
- * This script creates a popover window to select a semester and then fetches class data based on the selected semester.
- * The fetched data is processed and encoded before redirecting to a website with the encoded data.
- * The script also includes helper functions for swapping characters and crushing strings.
- */
 (() => {
   let semester;
   const semesters = Object.keys(window.data.student.student_enrolment_sem);
   let classes = [];
 
   const createWindow = async () => {
-    // create popover to select semester
     let container = document.createElement("div");
     container.style.position = "fixed";
     container.style.top = "0";
@@ -34,7 +28,6 @@
     form.style.background = "white";
     form.style.fontFamily = "sans-serif";
 
-    // add semester radio buttons
     for (const [index, value] of semesters.entries()) {
       let radio = document.createElement("input");
       radio.type = "radio";
@@ -49,8 +42,6 @@
       form.appendChild(label);
       form.appendChild(radio);
     }
-
-    // create button and function run on click of button
     let submit = document.createElement("button");
     submit.textContent = "Next";
     submit.addEventListener("click", function (event) {
@@ -94,16 +85,8 @@
     }
   };
 
-  /**
-   * Runs the bookmarklet code.
-   *
-   * @param {Function} close - The function to close the bookmarklet.
-   * @param {Function} update - The function to update the bookmarklet.
-   * @returns {Promise<void>} - A promise that resolves when the bookmarklet code is executed successfully.
-   */
   const run = async (close, update) => {
     try {
-      // get all class data
       classes = await Promise.all(
         Object.values(
           window.data.student.student_enrolment_sem[semesters[semester]],
@@ -121,7 +104,6 @@
                 .slice(0, -1)
                 .join("/");
 
-              // create url to fetch data from
               const fetchUrl = new URL(
                 `${url.origin}${path_base}/rest/student/${
                   window.data.student.student_code
@@ -130,12 +112,10 @@
                 }/activities/?${"ss"}=${token}`,
               );
 
-              // fetch individual class data
               const request = await fetch(fetchUrl);
 
               if (request.status === 200) {
                 let data = await request.json();
-                // create object for class
                 const classs = {
                   id: nanoid(),
                   title: course.description,
@@ -159,7 +139,6 @@
         }),
       );
       classes = classes.flat();
-      // encode and redirect to site
       const encoded = encodeURIComponent(crush(JSON.stringify(classes)));
       window
         .open(`https://planmytimetable.vercel.app/?state=${encoded}`)
