@@ -111,8 +111,8 @@ export default function EventClient({
       >
         {children}
         {friendsTaking && friendsTaking.length !== 0 && (
-          <p className=" mt-2 text-xs">
-            This is also being taken at this time by: {friendsTaking.join(", ")}
+          <p className="text-xs md:before:content-['This_is_also_being_taken_at_this_time_by:_']">
+            {friendsTaking.join(", ")}
           </p>
         )}
       </div>
@@ -139,8 +139,8 @@ export default function EventClient({
     >
       {children}
       {friendsTaking && friendsTaking.length !== 0 && (
-        <p className=" mt-2 text-xs">
-          This is also being taken at this time by: {friendsTaking.join(", ")}
+        <p className="text-xs md:before:content-['This_is_also_being_taken_at_this_time_by:_']">
+          {friendsTaking.join(", ")}
         </p>
       )}
     </div>
