@@ -50,6 +50,13 @@ export enum ColourPalette {
   Pink,
 }
 
+export type BlockedEvent = {
+  name: string;
+  day: "Mon" | "Tue" | "Wed" | "Thu" | "Fri";
+  start: string;
+  duration: number;
+};
+
 export const colourVariants = {
   0: "border-l-purple-400 dark:border-l-purple-700",
   1: "border-l-yellow-400 dark:border-l-yellow-700",
