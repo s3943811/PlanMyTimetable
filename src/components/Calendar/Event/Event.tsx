@@ -17,7 +17,7 @@ export default function Event({ title, type, time }: EventProps) {
 
   return (
     <>
-      <h1 className="truncate text-sm font-medium tracking-tight xl:text-base">
+      <h1 className="line-clamp-6 text-sm font-medium tracking-tight xl:text-base">
         {title}
       </h1>
       <p className=" whitespace-pre-wrap text-xs font-normal tracking-tighter sm:whitespace-nowrap md:text-sm lg:whitespace-normal">
