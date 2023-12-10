@@ -23,7 +23,9 @@ export default function PreviewEventClient() {
   /**
    * This function compares active course options with blocked events
    * and returns all options which do not overlap with the blocked event
-   * overlap: the option doesn't start in the blocked time or option doesn't end in the blocked time
+   * overlap: option starts same as blocked and starts before blocked ends
+   * OR
+   * option ends after blocked start and starts before blocked ends
    * uses Luxon and endTime function to create times/objects for easier comparison
    */
   const notBlocked = useMemo(() => {
@@ -41,8 +43,10 @@ export default function PreviewEventClient() {
           option.duration,
         );
         return (
-          (optionStartTime ?? 0) < (blockedStartTime ?? 0) ||
-          (optionEndTime ?? 0) > (blockedEndTime ?? 0)
+          ((blockedStartTime ?? 0) <= (optionStartTime ?? 0) &&
+            (optionStartTime ?? 0) <= (blockedEndTime ?? 0)) ||
+          ((optionEndTime ?? 0) >= (blockedStartTime ?? 0) &&
+            (optionStartTime ?? 0) <= (blockedEndTime ?? 0))
         );
       });
     });
