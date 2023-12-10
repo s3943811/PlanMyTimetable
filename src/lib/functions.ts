@@ -1,45 +1,6 @@
 import { ColourPalette, CourseType, Days } from "./definitions";
 import type { Preference, Time } from "./definitions";
 
-export function getTimes(): Array<string> {
-  const times = [];
-  const time = new Date();
-  time.setHours(0, 0, 0, 0);
-  while (time.getDate() === new Date().getDate()) {
-    times.push(
-      new Date(time).toLocaleTimeString([], {
-        hour: "2-digit",
-        minute: "2-digit",
-        hour12: true,
-      }),
-    );
-    time.setMinutes(time.getMinutes() + 60);
-  }
-  return times;
-}
-
-export function convertTimeToIndex(
-  time: string,
-  duration: number,
-): Array<number> {
-  const indexes: Array<number> = [];
-  const delimiterIndex = time.indexOf(":");
-  let hour = Number(time.substring(0, delimiterIndex));
-  const minute = Number(time.substring(delimiterIndex + 1)) / 60;
-  if (minute !== 0) {
-    hour += minute;
-  }
-  const startIndex = Math.ceil(hour * 2);
-  indexes.push(startIndex);
-  duration /= 30;
-  if (duration !== 0) {
-    for (let index = startIndex + 1; index < startIndex + duration; index++) {
-      indexes.push(index);
-    }
-  }
-  return indexes;
-}
-
 export function compareDays(day1: string, day2: Days) {
   switch (day2) {
     case Days.Monday:
@@ -71,9 +32,15 @@ export function getDayEnum(day: string): Days {
   }
 }
 export function getRowIndex(time: string) {
+  // Split string from format HH:mm and get minute and hour
   const delimiterIndex = time.indexOf(":");
   const hour = Number(time.substring(0, delimiterIndex));
-  return 3 + Math.ceil(hour * 2) - 10;
+  const minute = Number(time.substring(delimiterIndex + 1));
+  // as css grid start at 1 therefore min row is 2 for an event (header row 1)
+  const offset = minute >= 30 ? 3 : 2;
+  // 48(7) rows: hour * 2 as start time 24hr subtract 10 due to displaying having hours before 5am
+  // add offset due to minute either on the half hour (3) or full hour (2)
+  return offset + Math.ceil(hour * 2) - 10;
 }
 
 export function addMinutesToTimeString(
