@@ -4,6 +4,7 @@ import {
   TimeSlot,
   PreviewEventClient,
   EventList,
+  BlockedEventList,
 } from "~/components";
 import CalendarToolbar from "./CalendarToolbar";
 import CalendarLayout from "./CalendarLayout";
@@ -36,6 +37,7 @@ export default function Calendar() {
           <EventList />
         </FriendProvider>
         <PreviewEventClient />
+        <BlockedEventList />
       </div>
       <CalendarToolbar />
     </CalendarLayout>

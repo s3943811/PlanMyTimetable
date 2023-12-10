@@ -13,6 +13,7 @@ export { default as Tooltip } from "./Tooltip/Tooltip";
 export { default as ClearPreferences } from "./Button/ClearPreferenceButton";
 export { default as Event } from "./Calendar/Event/Event";
 export { default as EventList } from "./Calendar/Event/EventList";
+export { default as BlockedEventList } from "./Calendar/Event/BlockedEventList";
 export { default as PreviewEventClient } from "./Calendar/Event/PreviewEventClient";
 export { default as DragOverlay } from "./DragOverlay/DragOverlay";
 export { default as RetainLink } from "./Link/RetainParamsLink";
