@@ -51,6 +51,7 @@ export enum ColourPalette {
 }
 
 export type BlockedEvent = {
+  id: string;
   name: string;
   day: "Mon" | "Tue" | "Wed" | "Thu" | "Fri";
   start: string;
