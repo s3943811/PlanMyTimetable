@@ -15,6 +15,7 @@ export default function BlockedEventList() {
 
     return (
       <div
+        key={blocked.id}
         style={{
           gridRowEnd: `span ${rowSpan}`,
           gridColumnStart: `${col}`,
