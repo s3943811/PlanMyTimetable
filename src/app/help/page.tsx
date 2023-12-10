@@ -29,9 +29,9 @@ export default function Page() {
           First add a class following the steps&nbsp;
           <a
             href="/classes/add"
-            className="font-medium underline underline-offset-4 after:content-['_↗']"
+            className="font-medium underline underline-offset-4"
           >
-            here
+            on the add page
           </a>
           .
         </p>
