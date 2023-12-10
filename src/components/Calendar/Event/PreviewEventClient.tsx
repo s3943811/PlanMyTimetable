@@ -1,37 +1,72 @@
 "use client";
 import { usePreview } from "~/contexts/PreviewContext";
-import type { Time, Course, Days } from "~/lib/definitions";
+import { type Time, type Course, type Days } from "~/lib/definitions";
 import {
   getDayEnum,
   getRowIndex,
   groupTimesByStartAndDay,
 } from "~/lib/functions";
-import React, { useMemo } from "react";
+import React, { useCallback, useMemo } from "react";
 import Clash from "./Clash";
 import { useDroppable } from "@dnd-kit/core";
+import { Duration, DateTime } from "luxon";
 
 export default function PreviewEventClient() {
-  const { activeCourse } = usePreview();
+  const { activeCourse, blockedEvents } = usePreview();
+
+  const endTime = useCallback(
+    (start: string, duration: number) => {
+      const endTime = DateTime.fromFormat(`${start}`, "HH:mm");
+      const durationObj = Duration.fromObject({ minutes: duration });
+      return [endTime.plus(durationObj), endTime];
+    },
+    [activeCourse],
+  );
+
+  /**
+   * This function compares active course options with blocked events
+   * and returns all options which do not overlap with the blocked event
+   * overlap: the option doesn't start in the blocked time or option doesn't end in the blocked time
+   * uses Luxon and endTime function to create times/objects for easier comparison
+   */
+  const notBlocked = useMemo(() => {
+    return activeCourse?.options.filter((option) => {
+      return !blockedEvents.some((blockedEvent) => {
+        if (blockedEvent.day !== option.day) {
+          return false;
+        }
+        const [blockedEndTime, blockedStartTime] = endTime(
+          blockedEvent.start,
+          blockedEvent.duration,
+        );
+        const [optionEndTime, optionStartTime] = endTime(
+          option.start,
+          option.duration,
+        );
+        return (
+          (optionStartTime ?? 0) < (blockedStartTime ?? 0) ||
+          (optionEndTime ?? 0) > (blockedEndTime ?? 0)
+        );
+      });
+    });
+  }, [activeCourse, blockedEvents, endTime]);
 
   const clashes: Time[][] = useMemo<Time[][]>(
     () =>
       groupTimesByStartAndDay(
-        activeCourse?.options.filter((obj, index, self) => {
+        notBlocked?.filter((obj, index, self) => {
           return (
             self.filter((t) => t.start === obj.start && t.day === obj.day)
               .length > 1
           );
         }),
       ),
-    [activeCourse],
+    [notBlocked],
   );
 
   const noClash = useMemo(
-    () =>
-      activeCourse?.options.filter(
-        (option) => !clashes.flat().includes(option),
-      ),
-    [clashes, activeCourse],
+    () => notBlocked?.filter((option) => !clashes.flat().includes(option)),
+    [clashes, notBlocked],
   );
 
   return (
