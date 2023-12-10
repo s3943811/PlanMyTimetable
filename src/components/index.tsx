@@ -28,3 +28,4 @@ export {
   SheetTitle,
   SheetDescription,
 } from "./Dialog/DialogLayout";
+export { default as BlockedDialog } from "./Dialog/BlockedTimeDialog";

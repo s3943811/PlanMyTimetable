@@ -3,6 +3,7 @@ import {
   buttonVariants,
   Tooltip,
   AllocatedPopover,
+  BlockedDialog,
 } from "~/components";
 import { HiOutlinePlusCircle } from "react-icons/hi";
 import SidebarLayout from "./SidebarLayout";
@@ -32,6 +33,7 @@ export default function ClassListSidebar({
               <HiOutlinePlusCircle /> Add
             </RetainLink>
           </Tooltip>
+          <BlockedDialog />
         </div>
       </div>
       {children}
