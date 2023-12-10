@@ -3,6 +3,11 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import * as z from "zod";
 import { useForm } from "react-hook-form";
 import { Button } from "~/components";
+import type { BlockedEvent } from "~/lib/definitions";
+import { useEffect, useRef } from "react";
+import { usePreview } from "~/contexts/PreviewContext";
+import { useUrlState } from "~/hooks/useUrlState";
+import toast from "react-hot-toast";
 
 export default function BlockedForm() {
   const schema = z.object({
@@ -13,12 +18,24 @@ export default function BlockedForm() {
       .regex(
         /^([0-1][0-9]|2[0-3]):[0-5][0-9](:[0-5][0-9])?$/,
         "Invalid time format",
+      )
+      .regex(
+        /^(0[5-9]|1[0-9]|2[0-3]):[0-5][0-9]$/,
+        "Time must start on or after 5 am",
       ),
     duration: z.coerce
       .number({ invalid_type_error: "Duration must be a number" })
       .gte(30, { message: "Duration must be at least 30 minutes." })
       .lte(600, { message: "Duration must be less than than 600 minutes." }),
+    name: z
+      .string()
+      .trim()
+      .min(1, { message: "Name is required" })
+      .max(120, { message: "Name must be less than 120 characters" }),
   });
+
+  const { blockedEvents, setBlockedEvents } = usePreview();
+  const { appendState } = useUrlState();
 
   const {
     register,
@@ -26,10 +43,61 @@ export default function BlockedForm() {
     formState: { errors },
   } = useForm<z.infer<typeof schema>>({ resolver: zodResolver(schema) });
 
-  const onSubmit = (values: z.infer<typeof schema>) => {};
+  const updated = useRef<{
+    blocked: BlockedEvent;
+    toastMsg: string;
+  } | null>(null);
+
+  const onSubmit = (values: z.infer<typeof schema>) => {
+    const blockedEvent: BlockedEvent = {
+      name: values.name,
+      day: values.day,
+      duration: values.duration,
+      start: values.start_time,
+    };
+    setBlockedEvents([...blockedEvents, blockedEvent]);
+    updated.current = {
+      blocked: blockedEvent,
+      toastMsg: `${blockedEvent.name} created`,
+    };
+  };
+
+  useEffect(() => {
+    if (updated.current) {
+      appendState(updated.current.blocked, "blocked", "/");
+      toast.success(updated.current.toastMsg);
+      updated.current = null;
+    }
+  }, [blockedEvents, appendState]);
 
   return (
     <form className="contents space-y-7" onSubmit={handleSubmit(onSubmit)}>
+      <div className=" space-y-2">
+        <label
+          className="ml-0.5 text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
+          htmlFor="name"
+        >
+          Name
+        </label>
+        <input
+          {...register("name")}
+          id="name"
+          placeholder="Name"
+          className={`flex h-10 w-full rounded-md border ${
+            errors.name && "border-red-300"
+          } px-3 py-2 text-sm shadow-sm file:border-0 
+          file:bg-transparent file:font-medium placeholder:text-neutral-500/90 ${
+            errors.name
+              ? " focus:ring-red-400/60"
+              : " focus:ring-neutral-400/60"
+          } focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-1
+          disabled:cursor-not-allowed disabled:opacity-50 dark:border-neutral-600 dark:bg-neutral-900 dark:placeholder:text-neutral-400`}
+        />
+        {errors.name && <ErrorMessage>{errors.name.message}</ErrorMessage>}
+        <p className="text-xs text-neutral-500 dark:text-neutral-400">
+          Give a name to the blocked time.
+        </p>
+      </div>
       <div className=" space-y-2">
         <label
           className="ml-0.5 text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
@@ -106,7 +174,7 @@ export default function BlockedForm() {
           <ErrorMessage>{errors.duration.message}</ErrorMessage>
         )}
         <p className="text-xs text-neutral-500 dark:text-neutral-400">
-          How long you want to block out.
+          How long you want to block out (in minutes).
         </p>
       </div>
       <div className="ml-auto space-x-5">
