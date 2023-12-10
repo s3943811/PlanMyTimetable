@@ -14,14 +14,11 @@ import { Duration, DateTime } from "luxon";
 export default function PreviewEventClient() {
   const { activeCourse, blockedEvents } = usePreview();
 
-  const endTime = useCallback(
-    (start: string, duration: number) => {
-      const endTime = DateTime.fromFormat(`${start}`, "HH:mm");
-      const durationObj = Duration.fromObject({ minutes: duration });
-      return [endTime.plus(durationObj), endTime];
-    },
-    [activeCourse],
-  );
+  const endTime = useCallback((start: string, duration: number) => {
+    const endTime = DateTime.fromFormat(`${start}`, "HH:mm");
+    const durationObj = Duration.fromObject({ minutes: duration });
+    return [endTime.plus(durationObj), endTime];
+  }, []);
 
   /**
    * This function compares active course options with blocked events
