@@ -18,7 +18,7 @@ export const buttonVariants = {
   normal:
     "inline-flex h-8 w-fit items-center justify-center gap-1 whitespace-nowrap rounded-md bg-neutral-900 shadow px-4 py-2 text-sm text-neutral-50 hover:bg-neutral-700 dark:bg-neutral-50 dark:text-neutral-800 dark:hover:bg-neutral-100 dark:shadow-neutral-600",
   secondary:
-    "inline-flex h-8 w-fit items-center justify-center gap-1 whitespace-nowrap rounded-md bg-neutral-100/80 shadow-sm px-4 py-2 text-sm hover:bg-neutral-100 dark:bg-neutral-800 dark:text-neutral-50 dark:hover:bg-neutral-700 dark:shadow-neutral-600",
+    "inline-flex h-8 w-fit items-center justify-center gap-1 whitespace-nowrap rounded-md bg-neutral-100/80 shadow-sm px-4 py-2 text-sm hover:bg-neutral-100 dark:bg-neutral-700 dark:text-neutral-50 dark:hover:bg-neutral-700",
   outline:
     "inline-flex h-8 w-fit items-center justify-center gap-1 whitespace-nowrap rounded-md border border-neutral-200 px-4 py-2 text-sm hover:bg-neutral-50 dark:border-neutral-600 dark:hover:bg-neutral-800",
   ghost:
