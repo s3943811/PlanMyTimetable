@@ -4,71 +4,82 @@ import * as z from "zod";
 import { useForm } from "react-hook-form";
 import { Button } from "~/components";
 import type { BlockedEvent } from "~/lib/definitions";
-import { useEffect, useRef } from "react";
 import { usePreview } from "~/contexts/PreviewContext";
 import { useUrlState } from "~/hooks/useUrlState";
 import toast from "react-hot-toast";
+import { nanoid } from "nanoid";
 
-export default function BlockedForm() {
-  const schema = z.object({
-    day: z.enum(["Mon", "Tue", "Wed", "Thu", "Fri"]),
-    start_time: z
-      .string()
-      .trim()
-      .regex(
-        /^([0-1][0-9]|2[0-3]):[0-5][0-9](:[0-5][0-9])?$/,
-        "Invalid time format",
-      )
-      .regex(
-        /^(0[5-9]|1[0-9]|2[0-3]):[0-5][0-9]$/,
-        "Time must start on or after 5 am",
-      ),
-    duration: z.coerce
-      .number({ invalid_type_error: "Duration must be a number" })
-      .gte(30, { message: "Duration must be at least 30 minutes." })
-      .lte(600, { message: "Duration must be less than than 600 minutes." }),
-    name: z
-      .string()
-      .trim()
-      .min(1, { message: "Name is required" })
-      .max(120, { message: "Name must be less than 120 characters" }),
-  });
+const schema = z.object({
+  id: z.string().optional(),
+  day: z.enum(["Mon", "Tue", "Wed", "Thu", "Fri"]),
+  start_time: z
+    .string()
+    .trim()
+    .regex(
+      /^([0-1][0-9]|2[0-3]):[0-5][0-9](:[0-5][0-9])?$/,
+      "Invalid time format",
+    )
+    .regex(
+      /^(0[5-9]|1[0-9]|2[0-3]):[0-5][0-9]$/,
+      "Time must start on or after 5 am",
+    ),
+  duration: z.coerce
+    .number({ invalid_type_error: "Duration must be a number" })
+    .gte(30, { message: "Duration must be at least 30 minutes." })
+    .lte(600, { message: "Duration must be less than than 600 minutes." }),
+  name: z
+    .string()
+    .trim()
+    .min(1, { message: "Name is required" })
+    .max(120, { message: "Name must be less than 120 characters" }),
+});
 
-  const { blockedEvents, setBlockedEvents } = usePreview();
-  const { appendState } = useUrlState();
+export default function BlockedForm({
+  defaultValues,
+}: {
+  defaultValues?: z.infer<typeof schema>;
+}) {
+  const { blockedEvents } = usePreview();
+  const { appendState, replaceState } = useUrlState();
 
   const {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm<z.infer<typeof schema>>({ resolver: zodResolver(schema) });
-
-  const updated = useRef<{
-    blocked: BlockedEvent;
-    toastMsg: string;
-  } | null>(null);
+  } = useForm<z.infer<typeof schema>>({
+    resolver: zodResolver(schema),
+    defaultValues: defaultValues,
+  });
 
   const onSubmit = (values: z.infer<typeof schema>) => {
     const blockedEvent: BlockedEvent = {
+      id: defaultValues?.id ?? nanoid(9),
       name: values.name,
       day: values.day,
       duration: values.duration,
       start: values.start_time,
     };
-    setBlockedEvents([...blockedEvents, blockedEvent]);
-    updated.current = {
-      blocked: blockedEvent,
-      toastMsg: `${blockedEvent.name} created`,
-    };
-  };
-
-  useEffect(() => {
-    if (updated.current) {
-      appendState(updated.current.blocked, "blocked", "/");
-      toast.success(updated.current.toastMsg);
-      updated.current = null;
+    if (
+      defaultValues?.day === blockedEvent.day &&
+      defaultValues?.name === blockedEvent.name &&
+      defaultValues?.duration === blockedEvent.duration &&
+      defaultValues?.start_time === blockedEvent.start
+    )
+      return;
+    if (defaultValues) {
+      const newBlocked = blockedEvents.map((item) => {
+        if (item.id === defaultValues.id) {
+          return blockedEvent;
+        }
+        return item;
+      });
+      replaceState(newBlocked, "blocked");
+      toast.success(`${blockedEvent.name} updated`);
+      return;
     }
-  }, [blockedEvents, appendState]);
+    appendState(blockedEvent, "blocked", "/");
+    toast.success(`${blockedEvent.name} created`);
+  };
 
   return (
     <form className="contents space-y-7" onSubmit={handleSubmit(onSubmit)}>
@@ -93,7 +104,7 @@ export default function BlockedForm() {
           } focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-1
           disabled:cursor-not-allowed disabled:opacity-50 dark:border-neutral-600 dark:bg-neutral-900 dark:placeholder:text-neutral-400`}
         />
-        {errors.name && <ErrorMessage>{errors.name.message}</ErrorMessage>}
+        {<ErrorMessage>{errors.name?.message}</ErrorMessage>}
         <p className="text-xs text-neutral-500 dark:text-neutral-400">
           Give a name to the blocked time.
         </p>
@@ -117,7 +128,7 @@ export default function BlockedForm() {
           <option value="Thu">Thursday</option>
           <option value="Fri">Friday</option>
         </select>
-        {errors.day && <ErrorMessage>{errors.day.message}</ErrorMessage>}
+        {<ErrorMessage>{errors.day?.message}</ErrorMessage>}
         <p className="text-xs text-neutral-500 dark:text-neutral-400">
           The day you want to block out a time.
         </p>
@@ -170,19 +181,13 @@ export default function BlockedForm() {
           } focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-1
           disabled:cursor-not-allowed disabled:opacity-50 dark:border-neutral-600 dark:bg-neutral-900 dark:placeholder:text-neutral-400`}
         />
-        {errors.duration && (
-          <ErrorMessage>{errors.duration.message}</ErrorMessage>
-        )}
+        {<ErrorMessage>{errors.duration?.message}</ErrorMessage>}
         <p className="text-xs text-neutral-500 dark:text-neutral-400">
           How long you want to block out (in minutes).
         </p>
       </div>
       <div className="ml-auto space-x-5">
-        <Button variant="outline" type="reset">
-          Clear form
-        </Button>
-
-        <Button>Block time</Button>
+        <Button>{defaultValues ? `Updated blocked time` : "Block time"}</Button>
       </div>
     </form>
   );
