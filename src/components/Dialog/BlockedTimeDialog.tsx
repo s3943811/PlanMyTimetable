@@ -61,9 +61,9 @@ export default function BlockedDialog() {
               {visible && (
                 <RetainLink
                   href="/classes/add/blocked"
-                  className="underline underline-offset-4 hover:font-medium hover:decoration-2"
+                  className="inline-flex items-center underline underline-offset-4 hover:font-medium hover:decoration-2"
                 >
-                  Block out a time
+                  Block out another time time
                 </RetainLink>
               )}
             </DialogDescription>
@@ -87,14 +87,20 @@ export default function BlockedDialog() {
                       </span>
                       <HiChevronDown className="h-4 w-4 shrink-0 text-neutral-600 transition-transform duration-200 dark:text-neutral-300" />
                     </AccordionTrigger>
-                    <Button
-                      variant="normalIcon"
-                      onClick={() => handleDelete(item.name, index)}
+                    <Tooltip
+                      position="top"
+                      className="-left-[5rem]"
+                      message={`Delete ${item.name} - ${item.day}`}
                     >
-                      <HiTrash />
-                    </Button>
+                      <Button
+                        variant="normalIcon"
+                        onClick={() => handleDelete(item.name, index)}
+                      >
+                        <HiTrash />
+                      </Button>
+                    </Tooltip>
                   </AccordionHeader>
-                  <AccordionContent className=" data-[state=closed]:animate-accordion-up data-[state=open]:animate-accordion-down overflow-hidden px-1 py-2 transition-all">
+                  <AccordionContent className=" overflow-hidden px-1 py-2 transition-all data-[state=closed]:animate-accordion-up data-[state=open]:animate-accordion-down">
                     <BlockedForm
                       defaultValues={{
                         id: item.id,
