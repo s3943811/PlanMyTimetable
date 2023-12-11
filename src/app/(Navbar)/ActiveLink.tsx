@@ -20,14 +20,18 @@ export default function ActiveLink({
   // console.log(segement);
   const active =
     segement === href || (layoutSegement && href.includes(layoutSegement));
+
+  const activeStyle =
+    "[&[data-state=active]]:bg-neutral-50 [&[data-state=active]]:font-medium [&[data-state=active]]:dark:bg-neutral-800";
   return (
     <RetainLink
       {...props}
+      data-state={active ? "active" : "inactive"}
       href={href}
       className={cn(
-        `flex h-8 w-24 flex-row items-center gap-1 whitespace-nowrap rounded-lg ${
-          active ? "bg-neutral-50 font-medium dark:bg-neutral-800" : ""
-        } px-2.5 py-1.5 text-sm hover:bg-neutral-100 active:bg-neutral-200 dark:hover:bg-neutral-700 dark:active:bg-neutral-600 `,
+        `flex h-8 w-24 flex-row items-center gap-1 whitespace-nowrap rounded-lg px-2.5 py-1.5 text-sm transition-all
+        hover:bg-neutral-100 active:bg-neutral-200 dark:hover:bg-neutral-700 dark:active:bg-neutral-600 `,
+        activeStyle,
         className,
       )}
     >
