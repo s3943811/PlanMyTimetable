@@ -27,6 +27,7 @@ export default function ClassListSidebar({
           </div>
           <Tooltip message={"Add"} position="bottom">
             <RetainLink
+              data-umami-event="add button homepage"
               className={buttonVariants.outlineIcon}
               href="/classes/add"
             >

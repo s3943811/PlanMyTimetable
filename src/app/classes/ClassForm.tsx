@@ -417,7 +417,12 @@ export default function ClassForm({
             Clear
           </Button>
         )}
-        <Button variant="normalLarge">
+        <Button
+          variant="normalLarge"
+          data-umami-event={
+            defaultValues ? "updated class form" : "manual class form"
+          }
+        >
           {defaultValues ? `Update Class` : "Add Class"}
         </Button>
       </div>

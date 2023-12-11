@@ -4,6 +4,8 @@ import { Inter } from "next/font/google";
 import Navbar from "./(Navbar)/navbar";
 import { Toaster } from "react-hot-toast";
 import ThemeProvider from "~/contexts/ThemeProvider";
+import Script from "next/script";
+import { Analytics } from "@vercel/analytics/react";
 
 const inter = Inter({
   subsets: ["latin"],
@@ -38,7 +40,13 @@ export default function RootLayout({
             position="bottom-right"
           />
         </ThemeProvider>
+        <Analytics />
       </body>
+      <Script
+        async
+        src="https://plan-my-timetable-analytics.vercel.app/script.js"
+        data-website-id="b3182ddb-8ac5-40ae-9612-1e16c24b5d16"
+      />
     </html>
   );
 }

@@ -138,6 +138,7 @@ function PreviewEvent({
     ></div>
   ) : (
     <div
+      data-umami-event="preview event droppable"
       ref={setNodeRef}
       style={{
         gridRowEnd: `span ${rowSpan}`,

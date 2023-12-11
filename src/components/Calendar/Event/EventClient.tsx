@@ -97,6 +97,7 @@ export default function EventClient({
     const height = (preference.time.duration / clash) * 100;
     return (
       <div
+        data-umami-event="event clash drag"
         ref={setNodeRef}
         {...listeners}
         {...attributes}
@@ -121,6 +122,7 @@ export default function EventClient({
 
   return (
     <div
+      data-umami-event="event drag"
       ref={setNodeRef}
       {...listeners}
       {...attributes}
