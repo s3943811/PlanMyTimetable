@@ -1,4 +1,5 @@
 import { HiOutlineUserAdd, HiMinus } from "react-icons/hi";
+import { HiInbox } from "react-icons/hi2";
 export default function Page() {
   return (
     <article className=" container flex grow flex-col space-y-4 divide-y divide-neutral-200 p-8 dark:divide-neutral-700 dark:bg-neutral-900 dark:text-white">
@@ -29,11 +30,17 @@ export default function Page() {
           First add a class following the steps&nbsp;
           <a
             href="/classes/add"
-            className="font-medium underline underline-offset-4 after:content-['_↗']"
+            className="font-medium underline underline-offset-4"
           >
-            here
+            on the add page
           </a>
-          .
+          ,&nbsp;
+          <a
+            href="/classes/add/manual"
+            className="font-medium underline underline-offset-4"
+          >
+            or manually.
+          </a>
         </p>
         <p>
           Then drag the class for the sidebar into a preview slot on the
@@ -84,6 +91,19 @@ export default function Page() {
             your timetable.
           </p>
         </div>
+      </section>
+      <section className="space-y-1 pt-2">
+        <h3 className="text-lg font-medium">Block (fixed) times</h3>
+        <p>
+          Blocked/fixed times are useful when attempting to plan around a fixed
+          event in your calendar, for example, a work day. Blocked times will
+          hide preferences that overlap with that time, meaning you cannot drop
+          that event onto that time slot if it overlaps with a blocked event.
+        </p>
+        <p className="inline-flex items-center">
+          To edit, or delete a blocked out time, you can click the inbox icon (
+          <HiInbox />) to see all your blocked out times.
+        </p>
       </section>
     </article>
   );

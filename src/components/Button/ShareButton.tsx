@@ -1,6 +1,6 @@
 "use client";
 
-import { Button } from "~/components";
+import { Button, Tooltip } from "~/components";
 import { IoIosShareAlt } from "react-icons/io";
 import { useSearchParams } from "next/navigation";
 import { useCallback } from "react";
@@ -14,16 +14,11 @@ export default function ShareButton() {
   }, [p]);
 
   return (
-    <div className="group relative flex">
+    <Tooltip message={"Copy To Clipboard"} position="top" className="-left-5">
       <Button onClick={() => copyLink()}>
         <IoIosShareAlt />
         Share
       </Button>
-      <span
-        className={`absolute -left-5 bottom-10 z-[999] scale-0 whitespace-nowrap rounded bg-gray-800 p-2 text-xs text-white group-hover:scale-100 dark:bg-neutral-200 dark:text-neutral-950`}
-      >
-        Copy to clipboard
-      </span>
-    </div>
+    </Tooltip>
   );
 }

@@ -70,10 +70,10 @@ export function FriendEvent({
       <p className="text-xs font-normal lg:text-sm">
         {item.time.start} - {endTime}
       </p>
-      <div className="space-y-1">
+      <div className="">
         {item.friends.length !== 0 && (
-          <p className=" text-xs">
-            {`Friend's taking: ${item.friends.join(", ")}`}
+          <p className=" text-xs md:before:content-['Friend\'s_taking:_']">
+            {item.friends.join(", ")}
           </p>
         )}
         <p className=" text-xs">{`${CourseType[item.type]}, ${

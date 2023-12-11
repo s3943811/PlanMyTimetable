@@ -3,21 +3,26 @@ import * as DialogPrimitive from "@radix-ui/react-dialog";
 import type { DialogProps as DialogPrimitiveProps } from "@radix-ui/react-dialog";
 import React from "react";
 
-const DialogTrigger = DialogPrimitive.Trigger;
-const DialogPortal = DialogPrimitive.Portal;
-const DialogClose = DialogPrimitive.Close;
-const DialogOverlay = DialogPrimitive.Overlay;
-const DialogTitle = DialogPrimitive.Title;
-const DialogDescription = DialogPrimitive.Description;
-const DialogContent = DialogPrimitive.Content;
+const SheetTrigger = DialogPrimitive.Trigger;
+const SheetPortal = DialogPrimitive.Portal;
+const SheetClose = DialogPrimitive.Close;
+const SheetOverlay = DialogPrimitive.Overlay;
+const SheetTitle = DialogPrimitive.Title;
+const SheetDescription = DialogPrimitive.Description;
+const SheetContent = DialogPrimitive.Content;
 
-interface DialogProps extends DialogPrimitiveProps {
-  width: number;
+interface SheetProps extends DialogPrimitiveProps {
+  closeWidth: number;
 }
-const Dialog = ({ children, onOpenChange, width, ...props }: DialogProps) => {
+const Sheet = ({
+  children,
+  onOpenChange,
+  closeWidth,
+  ...props
+}: SheetProps) => {
   React.useEffect(() => {
     const handleResize = () => {
-      if (window.innerWidth >= width) {
+      if (window.innerWidth >= closeWidth) {
         onOpenChange?.(false);
       }
     };
@@ -27,7 +32,7 @@ const Dialog = ({ children, onOpenChange, width, ...props }: DialogProps) => {
     return () => {
       window.removeEventListener("resize", handleResize);
     };
-  }, [onOpenChange, width]);
+  }, [onOpenChange, closeWidth]);
 
   return (
     <DialogPrimitive.Root onOpenChange={onOpenChange} {...props}>
@@ -37,12 +42,12 @@ const Dialog = ({ children, onOpenChange, width, ...props }: DialogProps) => {
 };
 
 export {
-  Dialog,
-  DialogPortal,
-  DialogOverlay,
-  DialogClose,
-  DialogTrigger,
-  DialogContent,
-  DialogTitle,
-  DialogDescription,
+  Sheet,
+  SheetPortal,
+  SheetOverlay,
+  SheetClose,
+  SheetTrigger,
+  SheetContent,
+  SheetTitle,
+  SheetDescription,
 };
