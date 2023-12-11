@@ -16,6 +16,7 @@
     "@radix-ui/react-dialog": "^1.0.5",
     "@t3-oss/env-nextjs": "^0.7.0",
     "@uidotdev/usehooks": "^2.4.1",
+    "@vercel/analytics": "^1.1.1",
     "clsx": "^2.0.0",
     "jsoncrush": "^1.1.8",
     "luxon": "^3.4.4",

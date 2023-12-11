@@ -5,6 +5,7 @@ import Navbar from "./(Navbar)/navbar";
 import { Toaster } from "react-hot-toast";
 import ThemeProvider from "~/contexts/ThemeProvider";
 import Script from "next/script";
+import { Analytics } from "@vercel/analytics/react";
 
 const inter = Inter({
   subsets: ["latin"],
@@ -39,6 +40,7 @@ export default function RootLayout({
             position="bottom-right"
           />
         </ThemeProvider>
+        <Analytics />
       </body>
       <Script
         async
