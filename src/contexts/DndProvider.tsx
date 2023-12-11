@@ -53,6 +53,7 @@ export function DndProvider({ children }: { children: React.ReactNode }) {
       const activeCourse = active.data.current?.course as Course;
       const activeTime = over.data.current?.time as Time;
       const preference: Preference = {
+        id: activeCourse.id,
         title: activeCourse.title,
         courseCode: activeCourse.courseCode,
         type: activeCourse.type,
@@ -64,11 +65,7 @@ export function DndProvider({ children }: { children: React.ReactNode }) {
        * This was done so that elements can be dragged within the calendar and not be duplicated but rather moved
        */
       const isAlreadyEvent = events.find(
-        (course) =>
-          course.title === activeCourse.title &&
-          course.courseCode === activeCourse.courseCode &&
-          course.type === activeCourse.type &&
-          course.colour === activeCourse.colour,
+        (course) => course.id === activeCourse.id,
       );
       if (isAlreadyEvent) {
         /**
@@ -81,12 +78,7 @@ export function DndProvider({ children }: { children: React.ReactNode }) {
          */
         let parsedPrefs = decode("pref") as Preference[];
         parsedPrefs = parsedPrefs.map((item: Preference) => {
-          if (
-            item.title === preference.title &&
-            item.courseCode === preference.courseCode &&
-            item.type === preference.type &&
-            item.colour === preference.colour
-          ) {
+          if (item.id === preference.id) {
             return preference;
           }
           return item;

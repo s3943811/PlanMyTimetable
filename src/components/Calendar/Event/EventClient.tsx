@@ -55,19 +55,12 @@ export default function EventClient({
   };
 
   const course = useMemo(
-    () =>
-      courseData.find(
-        (course) =>
-          course.title === preference.title &&
-          course.courseCode === preference.courseCode &&
-          course.type === preference.type &&
-          course.colour === preference.colour,
-      ),
+    () => courseData.find((course) => course.id === preference.id),
     [courseData, preference],
   );
 
   const { attributes, listeners, setNodeRef, isDragging, over } = useDraggable({
-    id: "event" + preference.courseCode + preference.type,
+    id: "event" + preference.id,
     data: {
       course: course,
     },

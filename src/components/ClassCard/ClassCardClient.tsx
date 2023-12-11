@@ -26,14 +26,7 @@ export default function ClassCardClient({
   });
   const { events } = usePreview();
   const isAllocated = useMemo(
-    () =>
-      events.find(
-        (item) =>
-          item.title === course.title &&
-          item.courseCode === course.courseCode &&
-          item.type === course.type &&
-          item.colour === course.colour,
-      ),
+    () => events.find((item) => item.id === course.id),
     [events, course],
   );
   return (

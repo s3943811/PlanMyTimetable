@@ -146,22 +146,15 @@ export default function ClassForm({
 
     if (defaultValues) {
       const courses = courseData.map((item) => {
-        if (
-          item.title === defaultValues.title &&
-          item.courseCode === defaultValues.code &&
-          getCourseTypeString(item.type) === defaultValues.type
-        ) {
+        if (item.id === defaultValues.id) {
           return course;
         }
         return item;
       });
       const newEvents = events.map((item) => {
-        if (
-          item.title === defaultValues.title &&
-          item.courseCode === defaultValues.code &&
-          getCourseTypeString(item.type) === defaultValues.type
-        ) {
+        if (item.id === defaultValues.id) {
           return {
+            id: defaultValues.id,
             title: values.title,
             courseCode: values.code,
             type: CourseType[values.type as keyof typeof CourseType],

@@ -8,12 +8,9 @@ import { getDayEnum, getRowIndex } from "~/lib/functions";
 export default function EventDragOverlay() {
   const { events, activeCourse } = usePreview();
   const event: Preference = events.find(
-    (course) =>
-      course.title === activeCourse?.title &&
-      course.courseCode === activeCourse?.courseCode &&
-      course.type === activeCourse?.type &&
-      course.colour === activeCourse?.colour,
+    (course) => course.id === activeCourse?.id,
   )!;
+
   if (!event) {
     return;
   }
