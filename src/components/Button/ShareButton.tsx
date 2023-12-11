@@ -15,7 +15,7 @@ export default function ShareButton() {
 
   return (
     <Tooltip message={"Copy To Clipboard"} position="top" className="-left-5">
-      <Button onClick={() => copyLink()}>
+      <Button onClick={() => copyLink()} data-umami-event="Share button">
         <IoIosShareAlt />
         Share
       </Button>

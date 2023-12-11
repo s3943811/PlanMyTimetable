@@ -10,7 +10,7 @@ export default function HomePage() {
     <PreviewProvider>
       <DndProvider>
         <ClassListSidebar>
-          <div className="hidden overflow-y-auto overflow-x-hidden scrollbar-hide md:block">
+          <div className="hidden grow overflow-y-auto overflow-x-hidden scrollbar-hide md:block">
             <ClassList isMobile={false} />
           </div>
           <div

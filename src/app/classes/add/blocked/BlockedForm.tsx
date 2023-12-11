@@ -187,7 +187,13 @@ export default function BlockedForm({
         </p>
       </div>
       <div className="ml-auto space-x-5">
-        <Button>{defaultValues ? `Updated blocked time` : "Block time"}</Button>
+        <Button
+          data-umami-event={
+            defaultValues ? "updated blocked time" : "add blocked time"
+          }
+        >
+          {defaultValues ? `Updated blocked time` : "Block time"}
+        </Button>
       </div>
     </form>
   );

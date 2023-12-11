@@ -65,7 +65,7 @@ export default function AddFriend() {
   const [open, setOpen] = useState(false);
   return (
     <Dialog modal open={open} onOpenChange={setOpen}>
-      <DialogTrigger>
+      <DialogTrigger data-umami-event="Add dialog trigger">
         <Tooltip message="Friend Comparison" position="top">
           <span className={buttonVariants.outlineIcon}>
             <HiOutlineUserAdd />
@@ -140,7 +140,7 @@ export default function AddFriend() {
               </p>
             )}
             <div className="ml-auto">
-              <Button>Add friend</Button>
+              <Button data-umani-event="add friend button">Add friend</Button>
             </div>
           </form>
           <DialogClose asChild>

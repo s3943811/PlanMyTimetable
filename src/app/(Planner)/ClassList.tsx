@@ -8,7 +8,7 @@ export default function ClassList({ isMobile }: { isMobile: boolean }) {
   const { courseData } = usePreview();
 
   return (
-    <div className="flex flex-col gap-3 overflow-y-auto overflow-x-hidden pb-4 pt-1 scrollbar-hide">
+    <div className="flex grow flex-col gap-3 overflow-y-auto overflow-x-hidden pb-4 pt-1 scrollbar-hide">
       {courseData.map((item) => (
         <div
           key={item.id}
