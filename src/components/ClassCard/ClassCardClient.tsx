@@ -38,6 +38,7 @@ export default function ClassCardClient({
   );
   return (
     <div
+      data-umami-event="class card drag"
       ref={setNodeRef}
       {...listeners}
       {...attributes}

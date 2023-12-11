@@ -60,7 +60,11 @@ export default function AllocatedPopover() {
         </div>
       }
     >
-      <Button variant="outline" onClick={() => setIsOpen(!isOpen)}>
+      <Button
+        variant="outline"
+        onClick={() => setIsOpen(!isOpen)}
+        data-umami-event="open allocated popover"
+      >
         {events.length}/{courseData?.length ?? 0} Allocated&nbsp;
         {isOpen ? <HiChevronDown /> : <HiChevronUp />}
       </Button>
@@ -101,6 +105,7 @@ function Remove({
     <button
       className={`p-[0.2rem flex items-center rounded-3xl ${colourVariants[colour]}`}
       onClick={handleRemove}
+      data-umami-event="remove class"
     >
       <HiOutlineX size={14} />
     </button>

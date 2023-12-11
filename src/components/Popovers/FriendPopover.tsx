@@ -58,6 +58,7 @@ export default function FriendPopover() {
                       className=""
                       checked={item.active}
                       onChange={() => setActive(item)}
+                      data-umami-event="hide friend"
                     />
                     <label
                       htmlFor={item.name + "_selector"}
@@ -74,6 +75,7 @@ export default function FriendPopover() {
                     <button
                       className="inline-flex h-6 items-center justify-center gap-1 whitespace-nowrap rounded-md px-2 py-2 text-sm hover:bg-neutral-50 active:bg-neutral-100 dark:hover:bg-neutral-700 dark:active:bg-neutral-600"
                       onClick={() => removeFriend(index)}
+                      data-umami-event="clear friend"
                     >
                       <HiMinus />
                     </button>
@@ -94,7 +96,11 @@ export default function FriendPopover() {
         </div>
       }
     >
-      <Button variant="outline" onClick={() => setIsOpen(!isOpen)}>
+      <Button
+        variant="outline"
+        onClick={() => setIsOpen(!isOpen)}
+        data-umami-event="open friend popover"
+      >
         Friends <HiOutlineSelector />
       </Button>
     </Popover>
