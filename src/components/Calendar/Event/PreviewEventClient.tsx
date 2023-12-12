@@ -82,21 +82,37 @@ export default function PreviewEventClient() {
               row={getRowIndex(group[index]!.start)}
               span={rowSpan}
             >
-              {group.map((time) => (
+              {group.map((time, index) => (
                 <React.Fragment
-                  key={time.day + time.start + time.duration + time.location}
+                  key={
+                    time.day +
+                    time.start +
+                    time.duration +
+                    time.location +
+                    index
+                  }
                 >
-                  <PreviewEvent time={time} course={activeCourse} clash />
+                  <PreviewEvent
+                    time={time}
+                    course={activeCourse}
+                    clash
+                    index={index}
+                  />
                 </React.Fragment>
               ))}
             </Clash>
           );
         })}
-        {noClash?.map((time: Time) => (
+        {noClash?.map((time: Time, index) => (
           <React.Fragment
-            key={time.day + time.start + time.duration + time.location}
+            key={time.day + time.start + time.duration + time.location + index}
           >
-            <PreviewEvent time={time} course={activeCourse} clash={false} />
+            <PreviewEvent
+              time={time}
+              course={activeCourse}
+              clash={false}
+              index={index}
+            />
           </React.Fragment>
         ))}
       </>
@@ -108,34 +124,49 @@ function PreviewEvent({
   time,
   course,
   clash,
+  index,
 }: {
   time: Time;
   course: Course;
   clash: boolean;
+  index: number;
 }) {
   const col = useMemo<Days>(() => getDayEnum(time.day), [time]);
   const row = useMemo<number>(() => getRowIndex(time.start), [time]);
   const rowSpan = useMemo<number>(() => time.duration / 30, [time]);
 
   const { setNodeRef, isOver } = useDroppable({
-    id: time.day + time.start + time.duration + time.location,
+    id: time.day + time.start + time.duration + time.location + index,
     data: {
       accepts: course,
       time: time,
     },
   });
+  const { events } = usePreview();
+
+  const isAllocatedTime = useMemo(
+    () =>
+      !events.some(
+        (item) => item.time.day === time.day && item.time.start === time.start,
+      ),
+    [events, time],
+  );
 
   return clash ? (
     <div
       ref={setNodeRef}
-      className={`w-full
+      className={` w-1/2
       ${
         isOver
-          ? "border-[0.19rem] border-dashed border-green-500 bg-green-500/40"
+          ? "border-[0.187rem] border-dashed border-green-500 bg-green-500/40"
           : "border-[0.18rem] border-dashed bg-slate-300/30"
       }
-       m-0.5 rounded px-3 py-2 hover:cursor-copy`}
-    ></div>
+        rounded px-2 py-2 hover:cursor-copy`}
+    >
+      <p className="break-words text-xs">
+        {time.campus_description}&nbsp;({time.location})
+      </p>
+    </div>
   ) : (
     <div
       data-umami-event="preview event droppable"
@@ -148,10 +179,16 @@ function PreviewEvent({
       className={`
       ${
         isOver
-          ? "border-[0.19rem] border-dashed border-green-500 bg-green-500/40"
-          : "border-[0.18rem] border-dashed bg-slate-300/30"
+          ? "border-[0.187rem] border-dashed border-green-500 bg-green-500/40"
+          : "border-[0.18rem] border-dashed bg-slate-300/30 "
       }
        m-0.5 rounded px-3 py-2 hover:cursor-copy`}
-    ></div>
+    >
+      {isAllocatedTime && (
+        <p className=" text-xs">
+          {time.campus_description}&nbsp;({time.location})
+        </p>
+      )}
+    </div>
   );
 }
