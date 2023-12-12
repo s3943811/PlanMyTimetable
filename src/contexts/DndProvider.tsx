@@ -112,6 +112,7 @@ export function DndProvider({ children }: { children: React.ReactNode }) {
 
   return (
     <DndContext
+      autoScroll={false}
       sensors={sensors}
       onDragEnd={handleDragEnd}
       onDragStart={handleDragStart}
