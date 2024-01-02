@@ -15,7 +15,7 @@ const inter = Inter({
 export const metadata = {
   title: "PlanMyTimetable",
   description: "A simple webapp to plan your timetable interactively",
-  icons: [{ rel: "icon", url: "/calendar3.svg" }],
+  icons: [{ rel: "icon", url: "/favicon.ico" }],
 };
 
 export default function RootLayout({
