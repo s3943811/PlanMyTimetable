@@ -16,11 +16,7 @@ export default function ClassList({ isMobile }: { isMobile: boolean }) {
         >
           <ClassCardClient
             course={item}
-            id={
-              (isMobile ? "mobileCourse" : "course") +
-              item.courseCode +
-              item.type
-            }
+            id={(isMobile ? "mobileCourse" : "course") + item.id}
           >
             <div className="space-y-1 px-1.5">
               <ClassCard

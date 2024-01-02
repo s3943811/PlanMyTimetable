@@ -56,7 +56,7 @@ export function FriendEvent({
   const rowSpan: number = Number(item.time.duration) / 30;
   return (
     <div
-      key={item.courseCode + item.type}
+      key={item.id}
       style={{
         gridRowEnd: `span ${rowSpan}`,
         gridColumnStart: `${getDayEnum(item.time.day)! + 2}`,
@@ -118,7 +118,7 @@ export function FriendClashEvent({
 
   return (
     <div
-      key={item.courseCode + item.type}
+      key={item.id}
       style={{
         gridRowEnd: `span ${rowSpan}`,
         gridColumnStart: `${getDayEnum(item.time.day)! + 2}`,

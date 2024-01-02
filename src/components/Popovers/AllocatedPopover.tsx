@@ -41,7 +41,7 @@ export default function AllocatedPopover() {
             <>
               {events.map((event, index) => (
                 <Badge
-                  key={event.courseCode + event.type}
+                  key={event.id}
                   className={`${
                     colourVariants[event.colour]
                   } w-full items-center justify-between gap-1`}

@@ -17,7 +17,7 @@ export default function EventClient({
   preference,
   clash,
 }: EventClientProps) {
-  const { courseData } = usePreview();
+  const { courseData, activeCourse } = usePreview();
   const { friendData } = useFriend();
   const friendsTaking = useMemo(
     () =>
@@ -55,19 +55,12 @@ export default function EventClient({
   };
 
   const course = useMemo(
-    () =>
-      courseData.find(
-        (course) =>
-          course.title === preference.title &&
-          course.courseCode === preference.courseCode &&
-          course.type === preference.type &&
-          course.colour === preference.colour,
-      ),
+    () => courseData.find((course) => course.id === preference.id),
     [courseData, preference],
   );
 
   const { attributes, listeners, setNodeRef, isDragging, over } = useDraggable({
-    id: "event" + preference.courseCode + preference.type,
+    id: "event" + preference.id,
     data: {
       course: course,
     },
@@ -76,7 +69,6 @@ export default function EventClient({
       tabIndex: 0,
     },
   });
-  // const rowSpan: number = preference.time.duration / 30;
 
   const col = useMemo<Days>(
     () => getDayEnum(preference.time.day) + 2,
@@ -90,6 +82,19 @@ export default function EventClient({
     () => preference.time.duration / 30,
     [preference],
   );
+
+  const sameTime = useMemo(() => {
+    return course?.options.some((option) => {
+      const similarOptions = course.options.filter(
+        (item) => item.start === option.start && item.day === option.day,
+      );
+      return similarOptions.length > 1;
+    });
+  }, [course]);
+
+  const isDraggingActiveCourse = useMemo(() => {
+    return activeCourse?.id === course?.id;
+  }, [activeCourse, course]);
 
   // console.log(rowSpan);
 
@@ -105,7 +110,8 @@ export default function EventClient({
         style={{ height: `${height}%` }}
         className={cn(
           `z-10 flex flex-col overflow-hidden rounded px-3 py-2 `,
-          isDragging && "opacity-50",
+          (isDragging || isDraggingActiveCourse) &&
+            (sameTime ? "opacity-10" : "opacity-50"),
           colourVariants[preference.colour],
           over ? "hover:cursor-copy" : "hover:cursor-grab",
         )}
@@ -133,8 +139,9 @@ export default function EventClient({
         gridRowStart: `${row}`,
       }}
       className={cn(
-        `z-10 m-0.5 flex flex-col overflow-hidden rounded px-3 py-2 `,
-        isDragging && "opacity-50",
+        ` z-10 m-0.5 flex flex-col overflow-hidden rounded px-3 py-2 `,
+        (isDragging || isDraggingActiveCourse) &&
+          (sameTime ? "opacity-10" : "opacity-50"),
         colourVariants[preference.colour],
         over ? "hover:cursor-copy" : "hover:cursor-grab",
       )}

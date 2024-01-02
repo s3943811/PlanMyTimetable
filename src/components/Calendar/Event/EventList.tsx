@@ -81,7 +81,7 @@ export default function EventList() {
             ) &&
             !eventTimes.has(`${stateItem.time.start}-${stateItem.time.day}`)
           ) {
-            const key = `${stateItem.title}+${stateItem.courseCode}+${stateItem.type}+${stateItem.time.start}+${stateItem.time.day}+${stateItem.time.duration}+${stateItem.time.campus_description}+${stateItem.time.location}`;
+            const key = `${stateItem.id}+${stateItem.title}+${stateItem.courseCode}+${stateItem.type}+${stateItem.time.start}+${stateItem.time.day}+${stateItem.time.duration}+${stateItem.time.campus_description}+${stateItem.time.location}`;
             if (!preferenceMap[key]) {
               preferenceMap[key] = [];
             }
@@ -92,6 +92,7 @@ export default function EventList() {
 
     return Object.entries(preferenceMap).map(([key, friends]) => {
       const [
+        id,
         title,
         courseCode,
         type,
@@ -103,6 +104,7 @@ export default function EventList() {
       ] = key.split("+") as [
         string,
         string,
+        string,
         CourseType,
         string,
         string,
@@ -111,6 +113,7 @@ export default function EventList() {
         string,
       ];
       return {
+        id,
         title,
         courseCode,
         type,
@@ -148,18 +151,14 @@ export default function EventList() {
   return (
     <>
       {eventsNoClashes.map((item) => (
-        <React.Fragment key={item.courseCode + item.type}>
+        <React.Fragment key={item.id}>
           <EventClient preference={item}>
             <Event title={item.title} type={item.type} time={item.time} />
           </EventClient>
         </React.Fragment>
       ))}
       {friendsNoClashes.map((item) => (
-        <React.Fragment
-          key={
-            item.courseCode + item.type + item.title + item.friends.join(",")
-          }
-        >
+        <React.Fragment key={item.id + item.friends.join(",")}>
           <FriendEvent item={item} />
         </React.Fragment>
       ))}
@@ -179,11 +178,7 @@ export default function EventList() {
             span={rowSpan}
           >
             {group.map((item) => (
-              <React.Fragment
-                key={
-                  item.courseCode + item.originalType + item.type + item.title
-                }
-              >
+              <React.Fragment key={item.id}>
                 {item.originalType === "event" ? (
                   <EventClient preference={item} clash={largestDuration}>
                     <Event

@@ -16,6 +16,7 @@ export type Time = {
 };
 
 export type Preference = {
+  id: string;
   title: string;
   courseCode: string;
   type: CourseType;
