@@ -1,6 +1,6 @@
 "use client";
-import Event from "./Event";
-import EventClient from "./EventClient";
+import Event from "./EventBody";
+import EventClient from "./EventClientWrapper";
 import { useEffect, useMemo } from "react";
 import React from "react";
 import { usePreview } from "~/contexts/PreviewContext";

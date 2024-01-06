@@ -1,7 +1,13 @@
 import { HiOutlinePlusCircle } from "react-icons/hi";
 import { RetainLink, Tooltip, buttonVariants } from "~/components";
-import ClassList from "../ClassList";
-import MobileClassList from "../MobileClassList";
+import ClassList from "../(ClassesComponents)/LinkedClassList";
+import MobileClassList from "../(ClassesComponents)/LinkedMobileClassList";
+
+import { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "Edit Class",
+};
 
 export default function ClassLayout({
   children,

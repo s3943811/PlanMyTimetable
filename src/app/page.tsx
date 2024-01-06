@@ -1,6 +1,6 @@
-import ClassListSidebar from "./(Planner)/ClassListSidebar";
-import Calendar from "./(Planner)/Calendar";
-import ClassList from "./(Planner)/ClassList";
+import ClassListSidebar from "./(Home)/ClassListSidebar";
+import Calendar from "./(Home)/Calendar";
+import ClassList from "./(Home)/DraggableClassList";
 import { PreviewProvider } from "~/contexts/PreviewContext";
 import { DndProvider } from "~/contexts/DndProvider";
 import { AllocatedPopover, DragOverlay } from "~/components";

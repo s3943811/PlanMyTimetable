@@ -1,5 +1,4 @@
 "use client";
-import { useState } from "react";
 import { HiBars3 } from "react-icons/hi2";
 import { HiOutlineX } from "react-icons/hi";
 import {
@@ -7,15 +6,19 @@ import {
   Sheet,
   SheetTrigger,
   SheetPortal,
-  SheetOverlay,
   SheetContent,
   SheetClose,
   SheetTitle,
 } from "~/components";
-import ClassList from "./ClassList";
+import ClassList from "./DraggableClassList";
+import { useDnD } from "~/contexts/DndProvider";
 
 export default function MobileClassList() {
-  const [open, setOpen] = useState(false);
+  const {
+    hidden,
+    openMobileClassListSheet: open,
+    setMobileClassListSheetOpen: setOpen,
+  } = useDnD();
 
   return (
     <Sheet open={open} onOpenChange={setOpen} closeWidth={768}>
@@ -28,12 +31,15 @@ export default function MobileClassList() {
         </Button>
       </SheetTrigger>
       <SheetPortal>
-        <SheetOverlay className="fixed inset-0 z-50 backdrop-brightness-[.50]" />
-        <SheetContent className=" fixed inset-y-12 left-0 z-50 h-full w-3/4 gap-4 overflow-auto border-r bg-white p-2 shadow-lg dark:border-r-neutral-700 dark:bg-neutral-900 md:inset-y-0">
+        <SheetContent
+          className={`fixed inset-y-12 left-0 z-50 ${
+            hidden ? "" : "invisible"
+          }  md:hidd h-full gap-4 overflow-auto border-r bg-white p-2 shadow-lg dark:border-r-neutral-700 dark:bg-neutral-900 md:inset-y-0`}
+        >
           <SheetTitle className="inline-flex items-center gap-1 pl-1 text-md font-medium">
             Classes
           </SheetTitle>
-          <ClassList />
+          <ClassList isMobile />
           <SheetClose asChild>
             <Button
               variant="ghostIcon"

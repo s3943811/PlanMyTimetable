@@ -1,7 +1,7 @@
 "use client";
 import { DragOverlay } from "@dnd-kit/core";
 import { usePreview } from "~/contexts/PreviewContext";
-import Event from "../Calendar/Event/Event";
+import Event from "../Event/EventBody";
 import type { Preference } from "~/lib/definitions";
 import { getDayEnum, getRowIndex } from "~/lib/functions";
 
