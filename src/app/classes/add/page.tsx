@@ -1,3 +1,8 @@
+import { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "Add Class",
+};
 export default function Page() {
   return (
     <div className="space-y-4">

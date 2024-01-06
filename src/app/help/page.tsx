@@ -1,5 +1,12 @@
 import { HiOutlineUserAdd, HiMinus } from "react-icons/hi";
 import { HiInbox } from "react-icons/hi2";
+
+import { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "Help",
+};
+
 export default function Page() {
   return (
     <article className=" container flex grow flex-col space-y-4 divide-y divide-neutral-200 p-8 dark:divide-neutral-700 dark:bg-neutral-900 dark:text-white">
