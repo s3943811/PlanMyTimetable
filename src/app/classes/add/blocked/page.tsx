@@ -1,5 +1,9 @@
 import BlockedForm from "./BlockedForm";
+import { Metadata } from "next";
 
+export const metadata: Metadata = {
+  title: "Add blocked time",
+};
 export default function Page() {
   return (
     <>

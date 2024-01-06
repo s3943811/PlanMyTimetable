@@ -6,8 +6,8 @@ import {
   EventList,
   BlockedEventList,
 } from "~/components";
-import CalendarToolbar from "./CalendarToolbar";
-import CalendarLayout from "./CalendarLayout";
+import CalendarToolbar from "../../components/Calendar/CalendarToolbar";
+import CalendarLayout from "../../components/Calendar/CalendarLayout";
 import { FriendProvider } from "~/contexts/FriendContext";
 
 export default function Calendar() {

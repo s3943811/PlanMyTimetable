@@ -1,4 +1,4 @@
-import Event from "./Event";
+import Event from "./EventBody";
 import type { Friend } from "~/contexts/FriendContext";
 import { CourseType } from "~/lib/definitions";
 import type { Course, Preference } from "~/lib/definitions";

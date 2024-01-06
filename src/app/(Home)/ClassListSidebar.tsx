@@ -7,7 +7,7 @@ import {
 } from "~/components";
 import { HiOutlinePlusCircle } from "react-icons/hi";
 import SidebarLayout from "./SidebarLayout";
-import MobileClassList from "./MobileClassList";
+import MobileClassList from "./DraggableMobileClassList";
 
 export default function ClassListSidebar({
   children,

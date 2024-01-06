@@ -6,14 +6,18 @@ import { Toaster } from "react-hot-toast";
 import ThemeProvider from "~/contexts/ThemeProvider";
 import Script from "next/script";
 import { Analytics } from "@vercel/analytics/react";
+import { Metadata } from "next";
 
 const inter = Inter({
   subsets: ["latin"],
   variable: "--font-sans",
 });
 
-export const metadata = {
-  title: "PlanMyTimetable",
+export const metadata: Metadata = {
+  title: {
+    default: "PlanMyTimetable",
+    template: "%s | PlanMyTimetable",
+  },
   description: "A simple webapp to plan your timetable interactively",
 };
 
