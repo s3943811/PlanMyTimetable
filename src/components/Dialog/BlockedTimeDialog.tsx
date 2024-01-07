@@ -63,7 +63,7 @@ export default function BlockedDialog() {
                   href="/classes/add/blocked"
                   className="inline-flex items-center underline underline-offset-4 hover:font-medium hover:decoration-2"
                 >
-                  Block out another time time
+                  Block out another time
                 </RetainLink>
               )}
             </DialogDescription>
