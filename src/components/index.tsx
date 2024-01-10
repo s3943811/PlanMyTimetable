@@ -29,3 +29,4 @@ export {
   SheetDescription,
 } from "./Dialog/DialogLayout";
 export { default as BlockedDialog } from "./Dialog/BlockedTimeDialog";
+export { Tabs, TabsList, TabsTrigger, TabsContent } from "./Tabs/Tabs";
