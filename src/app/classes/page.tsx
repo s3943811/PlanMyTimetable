@@ -10,6 +10,6 @@ export default function Page() {
     // console.log(redirectURL);
     redirect(redirectURL);
   } else {
-    redirect("/");
+    redirect("/classes/add");
   }
 }
