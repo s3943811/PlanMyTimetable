@@ -7,7 +7,7 @@ export default function PageSelector() {
   const pathname = usePathname();
 
   const active =
-    "[&[data-state=active]]:font-medium [&[data-state=active]]:underline [&[data-state=active]]:decoration-[1.5px] u[&[data-state=active]]:nderline-offset-[7px]";
+    "[&[data-state=active]]:font-medium [&[data-state=active]]:underline [&[data-state=active]]:decoration-[1.5px] [&[data-state=active]]:underline-offset-[7px]";
   const placeholder =
     "[&[data-state=inactive]]:text-neutral-500/90 [&[data-state=inactive]]:dark:text-neutral-400";
   return (
