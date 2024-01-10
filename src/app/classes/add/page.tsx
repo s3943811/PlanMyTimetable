@@ -1,17 +1,148 @@
 import { Metadata } from "next";
+import { HiBookmark } from "react-icons/hi2";
+import { IoExtensionPuzzleSharp } from "react-icons/io5";
+import { cn } from "~/lib/utils";
+import { Tabs, TabsList, TabsTrigger, TabsContent } from "~/components";
+import {
+  ChromeIcon,
+  FirefoxIcon,
+  ChromiumIcon,
+  ArcIcon,
+  BraveIcon,
+  OperaIcon,
+  EdgeIcon,
+  ExtensionIcon,
+} from "./(svg)";
 
 export const metadata: Metadata = {
   title: "Add Class",
 };
+
 export default function Page() {
+  const active =
+    "[&[data-state=active]]:font-medium [&[data-state=active]]:underline [&[data-state=active]]:decoration-[1.5px] [&[data-state=active]]:underline-offset-[7px]";
+  const inactive =
+    "[&[data-state=inactive]]:text-neutral-500/90 [&[data-state=inactive]]:dark:text-neutral-400";
   return (
     <div className="space-y-4">
       <h3 className="text-md font-medium">Automatic data gathering</h3>
       <p className="text-base">
         If your university uses Allocate+ for timetable purposes, you can gather
         the data automatically using the following steps (currently this is
-        known to work for RMIT Unversity only):
+        known to work for RMIT Unversity only).
+        <br />
+        There are two methods available for automatic data gathering, either
+        install a browser extension or create a bookmark:
       </p>
+      <div
+        data-orientation="horizontal"
+        role="none"
+        className=" h-[1px] w-full shrink-0 bg-neutral-200 dark:bg-neutral-600"
+      ></div>
+      <Tabs defaultValue="extensions">
+        <TabsList className="flex w-fit flex-row items-center gap-4">
+          <TabsTrigger
+            value="extensions"
+            className={cn(
+              "inline-flex w-full items-center justify-center whitespace-nowrap rounded-md py-1.5 transition-all",
+              active,
+              inactive,
+            )}
+          >
+            <IoExtensionPuzzleSharp />
+            &nbsp;Browser Extensions
+          </TabsTrigger>
+          /
+          <TabsTrigger
+            value="bookmark"
+            className={cn(
+              "inline-flex w-full items-center justify-center rounded-md py-1.5 transition-all",
+              active,
+              inactive,
+            )}
+          >
+            <HiBookmark />
+            &nbsp;Bookmark
+          </TabsTrigger>
+        </TabsList>
+        <BrowserExtensionTab />
+        <BookmarkTab />
+      </Tabs>
+    </div>
+  );
+}
+
+const BrowserExtensionTab = () => {
+  return (
+    <TabsContent
+      value="extensions"
+      className="flex w-full items-center justify-center py-2"
+    >
+      <div className=" flex h-full max-w-3xl flex-col items-center justify-center gap-2 overflow-hidden rounded-lg border p-2 dark:border-neutral-700 ">
+        <div className="relative h-24 w-full ">
+          <div className="absolute h-full w-full bg-[radial-gradient(#e5e5e5_1px,transparent_1px)] [background-size:16px_16px] [mask-image:radial-gradient(ellipse_50%_50%_at_50%_50%,#000_70%,transparent_100%)] dark:bg-[radial-gradient(#737373_1px,transparent_1px)]"></div>
+          <div className="relative flex items-center justify-center pt-5">
+            <ExtensionIcon />
+          </div>
+        </div>
+        <h4 className=" text-lg font-medium">
+          Install the PlanMyTimetable Capture browser extension.
+        </h4>
+        <div className="grid grid-cols-2 grid-rows-1 gap-3">
+          <div className="flex flex-row gap-2 rounded-xl border p-2 dark:border-neutral-700">
+            <ChromeIcon />
+            {/* TODO UPDATE LINK */}
+            <a
+              className="font-medium  after:content-['_↗']"
+              href=""
+              target="_blank"
+            >
+              Chrome<sup className=" top-0 align-super ">*</sup>
+            </a>
+          </div>
+          <div className="flex flex-row gap-2 rounded-xl border p-2 dark:border-neutral-700">
+            <FirefoxIcon />
+            <a
+              className="font-medium  after:content-['_↗']"
+              href="https://addons.mozilla.org/en-US/firefox/addon/planmytimetable-capture/"
+              target="_blank"
+            >
+              Firefox
+            </a>
+          </div>
+        </div>
+
+        <p className="text-sm text-neutral-500 dark:text-neutral-400">
+          *If you have a chromium based browser for example:&nbsp;
+          <span className="inline-flex items-center text-center align-top">
+            <EdgeIcon />
+            &nbsp;Edge,
+          </span>
+          <span className="inline-flex items-center text-center align-top">
+            &nbsp;
+            <ArcIcon />
+            &nbsp;Arc,
+          </span>
+          <span className="inline-flex items-center text-center align-top">
+            &nbsp;
+            <BraveIcon />
+            &nbsp;Brave,
+          </span>
+          &nbsp;or&nbsp;
+          <span className="inline-flex items-center text-center align-top">
+            <OperaIcon />
+            &nbsp;Opera,
+          </span>
+          &nbsp;you can also use the Chrome web store to install the extension.
+        </p>
+      </div>
+    </TabsContent>
+  );
+};
+
+const BookmarkTab = () => {
+  return (
+    <TabsContent value="bookmark" className="py-2">
       <ol className="list-inside list-decimal space-y-3 text-sm marker:font-medium">
         <li>
           Bookmark the following code ( drag this into the bookmarks bar or
@@ -53,6 +184,6 @@ export default function Page() {
         <li>Select the semester you wish to plan for.</li>
         <li>You will then be redirected to a new page with your data.</li>
       </ol>
-    </div>
+    </TabsContent>
   );
-}
+};
