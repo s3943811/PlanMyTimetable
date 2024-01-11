@@ -74,8 +74,11 @@ const BrowserExtensionTab = () => {
       <div className=" flex h-full max-w-3xl flex-col items-center justify-center gap-2 overflow-hidden rounded-lg border p-2 dark:border-neutral-700 ">
         <div className="relative h-24 w-full ">
           <div className="absolute h-full w-full bg-[radial-gradient(#e5e5e5_1px,transparent_1px)] [background-size:16px_16px] [mask-image:radial-gradient(ellipse_50%_50%_at_50%_50%,#000_70%,transparent_100%)] dark:bg-[radial-gradient(#737373_1px,transparent_1px)]"></div>
-          <div className="relative flex items-center justify-center pt-5">
-            <ExtensionIcon />
+          <div className="relative flex items-center justify-center pt-4">
+            {/* <div className="mt-1.5 rounded-xl border p-2 shadow-[0_5px_50px_-12px_rgba(250,204,21,1)] dark:border-neutral-700 dark:bg-neutral-900"> */}
+            <div className="rounded-3xl shadow-[0_5px_50px_-4px_rgba(202,138,4,1)] dark:shadow-[0_5px_50px_-4px_rgba(234,179,8,1)]">
+              <ExtensionIcon />
+            </div>
           </div>
         </div>
         <h4 className=" text-lg font-medium">
@@ -84,10 +87,9 @@ const BrowserExtensionTab = () => {
         <div className="grid grid-cols-2 grid-rows-1 gap-3">
           <div className="flex flex-row items-center gap-2 rounded-xl border p-2 dark:border-neutral-700">
             <ChromeIcon />
-            {/* TODO UPDATE LINK */}
             <a
               className="font-medium  after:content-['_↗']"
-              href=""
+              href="https://chromewebstore.google.com/detail/planmytimetable-capture/copaeobjeemflpmmdlbllpoldganmdpa"
               target="_blank"
             >
               Chrome<sup className=" top-0 align-super ">*</sup>
