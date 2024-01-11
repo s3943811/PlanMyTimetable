@@ -6,7 +6,6 @@ import { Tabs, TabsList, TabsTrigger, TabsContent } from "~/components";
 import {
   ChromeIcon,
   FirefoxIcon,
-  ChromiumIcon,
   ArcIcon,
   BraveIcon,
   OperaIcon,
@@ -20,7 +19,7 @@ export const metadata: Metadata = {
 
 export default function Page() {
   const active =
-    "[&[data-state=active]]:font-medium [&[data-state=active]]:underline [&[data-state=active]]:decoration-[1.5px] [&[data-state=active]]:underline-offset-[7px]";
+    "[&[data-state=active]]:font-medium data-[state=active]:border-b-black dark:data-[state=active]:border-b-white";
   const inactive =
     "[&[data-state=inactive]]:text-neutral-500/90 [&[data-state=inactive]]:dark:text-neutral-400";
   return (
@@ -34,17 +33,12 @@ export default function Page() {
         There are two methods available for automatic data gathering, either
         install a browser extension or create a bookmark:
       </p>
-      <div
-        data-orientation="horizontal"
-        role="none"
-        className=" h-[1px] w-full shrink-0 bg-neutral-200 dark:bg-neutral-600"
-      ></div>
       <Tabs defaultValue="extensions">
-        <TabsList className="flex w-fit flex-row items-center gap-4">
+        <TabsList className="flex w-full flex-row items-center gap-4 border-b dark:border-b-neutral-700">
           <TabsTrigger
             value="extensions"
             className={cn(
-              "inline-flex w-full items-center justify-center whitespace-nowrap rounded-md py-1.5 transition-all",
+              "inline-flex w-fit items-center justify-center border-b-2 border-b-transparent pb-3 pt-2 transition-all ",
               active,
               inactive,
             )}
@@ -52,11 +46,10 @@ export default function Page() {
             <IoExtensionPuzzleSharp />
             &nbsp;Browser Extensions
           </TabsTrigger>
-          /
           <TabsTrigger
             value="bookmark"
             className={cn(
-              "inline-flex w-full items-center justify-center rounded-md py-1.5 transition-all",
+              "inline-flex w-fit items-center justify-center border-b-2 border-b-transparent pb-3 pt-2 transition-all ",
               active,
               inactive,
             )}
@@ -76,7 +69,7 @@ const BrowserExtensionTab = () => {
   return (
     <TabsContent
       value="extensions"
-      className="flex w-full items-center justify-center py-2"
+      className="flex w-full items-center justify-center py-4"
     >
       <div className=" flex h-full max-w-3xl flex-col items-center justify-center gap-2 overflow-hidden rounded-lg border p-2 dark:border-neutral-700 ">
         <div className="relative h-24 w-full ">
@@ -89,7 +82,7 @@ const BrowserExtensionTab = () => {
           Install the PlanMyTimetable Capture browser extension.
         </h4>
         <div className="grid grid-cols-2 grid-rows-1 gap-3">
-          <div className="flex flex-row gap-2 rounded-xl border p-2 dark:border-neutral-700">
+          <div className="flex flex-row items-center gap-2 rounded-xl border p-2 dark:border-neutral-700">
             <ChromeIcon />
             {/* TODO UPDATE LINK */}
             <a
@@ -100,7 +93,7 @@ const BrowserExtensionTab = () => {
               Chrome<sup className=" top-0 align-super ">*</sup>
             </a>
           </div>
-          <div className="flex flex-row gap-2 rounded-xl border p-2 dark:border-neutral-700">
+          <div className="flex flex-row items-center gap-2 rounded-xl border p-2 dark:border-neutral-700">
             <FirefoxIcon />
             <a
               className="font-medium  after:content-['_↗']"
@@ -113,7 +106,8 @@ const BrowserExtensionTab = () => {
         </div>
 
         <p className="text-sm text-neutral-500 dark:text-neutral-400">
-          *If you have a chromium based browser for example:&nbsp;
+          <sup className=" top-0 align-super ">*</sup>If you have a chromium
+          based browser for example:&nbsp;
           <span className="inline-flex items-center text-center align-top">
             <EdgeIcon />
             &nbsp;Edge,
