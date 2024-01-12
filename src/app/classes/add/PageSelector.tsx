@@ -7,16 +7,16 @@ export default function PageSelector() {
   const pathname = usePathname();
 
   const active =
-    "[&[data-state=active]]:font-medium [&[data-state=active]]:underline [&[data-state=active]]:decoration-[1.5px] [&[data-state=active]]:underline-offset-[7px]";
+    "[&[data-state=active]]:font-medium data-[state=active]:border-b-black dark:data-[state=active]:border-b-white";
   const placeholder =
     "[&[data-state=inactive]]:text-neutral-500/90 [&[data-state=inactive]]:dark:text-neutral-400";
   return (
-    <div className="mt-1 inline-flex h-10 w-fit items-center justify-center gap-3 rounded-lg ">
+    <div className="mb-3 inline-flex h-10 w-full items-center gap-3 border-b dark:border-b-neutral-700 ">
       <RetainLink
         data-state={pathname === "/classes/add" ? "active" : "inactive"}
         href="/classes/add"
         className={cn(
-          `inline-flex w-full items-center justify-center rounded-md py-1.5 transition-all 
+          `inline-flex w-fit items-center justify-center border-b-2 border-b-transparent py-1.5 transition-all
         `,
           active,
           placeholder,
@@ -29,7 +29,7 @@ export default function PageSelector() {
         data-state={pathname === "/classes/add/manual" ? "active" : "inactive"}
         href="/classes/add/manual"
         className={cn(
-          `inline-flex w-full items-center justify-center rounded-md py-1.5 transition-all 
+          `inline-flex w-fit items-center justify-center border-b-2 border-b-transparent py-1.5 transition-all
         `,
           active,
           placeholder,
@@ -42,7 +42,7 @@ export default function PageSelector() {
         data-state={pathname === "/classes/add/blocked" ? "active" : "inactive"}
         href="/classes/add/blocked"
         className={cn(
-          `inline-flex w-full items-center justify-center whitespace-nowrap rounded-md py-1.5 transition-all 
+          `inline-flex w-fit items-center justify-center border-b-2 border-b-transparent py-1.5 transition-all
         `,
           active,
           placeholder,

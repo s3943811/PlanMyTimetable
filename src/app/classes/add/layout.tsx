@@ -8,11 +8,6 @@ export default function AddLayout({ children }: { children: React.ReactNode }) {
         calendar.
       </p>
       <PageSelector />
-      <div
-        data-orientation="horizontal"
-        role="none"
-        className=" my-3 h-[1px] w-full shrink-0 bg-neutral-200 dark:bg-neutral-600"
-      ></div>
       {children}
     </section>
   );
