@@ -17,16 +17,20 @@ interface classPageProps {
 
 export default function Page({ params, searchParams }: classPageProps) {
   const decode = useCallback((): Course[] => {
-    return JSON.parse(JSONCrush.uncrush(searchParams.state));
+    try {
+      return JSON.parse(JSONCrush.uncrush(searchParams.state));
+    } catch (e) {
+      notFound();
+    }
   }, [searchParams]);
 
   const courseData = decode();
 
   const course = courseData.find((course) => course.id === params.class);
 
-  if (courseData.length === 0) {
-    redirect("/classes/add");
-  }
+  // if (courseData.length === 0) {
+  //   redirect(`/classes/add?${params.toString()}`);
+  // }
 
   if (!course) {
     notFound();
