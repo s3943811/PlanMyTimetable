@@ -1,63 +1,36 @@
-"use client";
-import { Button } from "~/components";
-import { HiTrash } from "react-icons/hi2";
-import { usePreview } from "~/contexts/PreviewContext";
 import { getColourString, getCourseTypeString } from "~/lib/functions";
 import { notFound } from "next/navigation";
 import { CourseType } from "~/lib/definitions";
-import type { Preference } from "~/lib/definitions";
+import type { Course } from "~/lib/definitions";
 import ClassForm from "../(ClassesComponents)/ClassForm";
 import type { formSchema } from "../(ClassesComponents)/ClassForm";
 import type { z } from "zod";
-import { useUrlState } from "~/hooks/useUrlState";
-import toast from "react-hot-toast";
+import { useCallback } from "react";
+import JSONCrush from "jsoncrush";
+import { redirect } from "next/navigation";
+import DeleteButton from "./DeleteButton";
 
-export default function Page({ params }: { params: { class: string } }) {
-  const { courseData } = usePreview();
-  const { replaceMultiple, decode, redirect } = useUrlState();
+interface classPageProps {
+  params: { class: string };
+  searchParams: { state: string };
+}
+
+export default function Page({ params, searchParams }: classPageProps) {
+  const decode = useCallback((): Course[] => {
+    return JSON.parse(JSONCrush.uncrush(searchParams.state));
+  }, [searchParams]);
+
+  const courseData = decode();
 
   const course = courseData.find((course) => course.id === params.class);
 
   if (courseData.length === 0) {
-    redirect("/classes");
+    redirect("/classes/add");
   }
 
   if (!course) {
     notFound();
   }
-
-  const handleDelete = () => {
-    const index = courseData.findIndex(
-      (item) =>
-        item.title === course?.title &&
-        item.courseCode === course.courseCode &&
-        item.type === course.type,
-    );
-    let events: Preference[] = [];
-    const parsedPrefs: Preference[] = decode("pref") as Preference[];
-    if (parsedPrefs) {
-      events = parsedPrefs;
-    }
-    const eventIndex = events.findIndex(
-      (item) =>
-        item.title === course?.title &&
-        item.courseCode === course.courseCode &&
-        item.type === course.type,
-    );
-    // console.log(eventIndex);
-    const classes = index !== -1 ? courseData.toSpliced(index, 1) : courseData;
-    const newEvents =
-      eventIndex !== -1 ? events.toSpliced(eventIndex, 1) : events;
-    const newIndex = index >= courseData.length - 1 ? 0 : index + 1;
-    replaceMultiple(
-      [
-        { element: classes, prefName: "state" },
-        { element: newEvents, prefName: "pref" },
-      ],
-      `/classes/${courseData[newIndex]?.id}`,
-    );
-    toast.success("Class deleted successfully");
-  };
 
   const formValues: z.infer<typeof formSchema> = {
     id: course.id,
@@ -87,11 +60,7 @@ export default function Page({ params }: { params: { class: string } }) {
             Update class details. Remove unneeded classes.
           </p>
         </div>
-
-        <Button onClick={handleDelete}>
-          <HiTrash />
-          Delete
-        </Button>
+        <DeleteButton id={course.id} />
       </div>
       <div
         data-orientation="horizontal"
