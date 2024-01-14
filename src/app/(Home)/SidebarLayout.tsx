@@ -2,6 +2,7 @@
 import { usePreview } from "~/contexts/PreviewContext";
 import { HiOutlineAcademicCap } from "react-icons/hi2";
 import { RetainLink } from "~/components";
+import { buttonVariants } from "~/components";
 
 export default function SidebarLayout({
   children,
@@ -16,10 +17,10 @@ export default function SidebarLayout({
         <HiOutlineAcademicCap size={96} />
         <p>{`You haven't added any classes yet.`}</p>
         <RetainLink
-          className="under font-medium underline decoration-[1.5px] underline-offset-[7px] transition-all hover:font-semibold"
+          className={buttonVariants.normalLarge}
           href={"/classes/add"}
         >
-          Add a class now.
+          Add a class now
         </RetainLink>
       </div>
     );
