@@ -12,7 +12,6 @@ import * as z from "zod";
 import { useUrlState } from "~/hooks/useUrlState";
 import { ColourPalette, CourseType } from "~/lib/definitions";
 import { usePreview } from "~/contexts/PreviewContext";
-import { getCourseTypeString } from "~/lib/functions";
 import toast from "react-hot-toast";
 import type { Course, Preference } from "~/lib/definitions";
 import type {

@@ -1,4 +1,4 @@
-import { Metadata } from "next";
+import type { Metadata } from "next";
 import { HiBookmark } from "react-icons/hi2";
 import { IoExtensionPuzzleSharp } from "react-icons/io5";
 import { cn } from "~/lib/utils";

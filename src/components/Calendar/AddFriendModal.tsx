@@ -140,7 +140,7 @@ export default function AddFriend() {
               </p>
             )}
             <div className="ml-auto">
-              <Button data-umani-event="add friend button">Add friend</Button>
+              <Button data-umami-event="add friend button">Add friend</Button>
             </div>
           </form>
           <DialogClose asChild>

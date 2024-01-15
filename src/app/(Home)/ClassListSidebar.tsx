@@ -1,7 +1,6 @@
 import {
   RetainLink,
   buttonVariants,
-  Tooltip,
   AllocatedPopover,
   BlockedDialog,
 } from "~/components";
@@ -25,15 +24,13 @@ export default function ClassListSidebar({
           <div className="md:hidden">
             <AllocatedPopover />
           </div>
-          <Tooltip message={"Add"} position="bottom">
-            <RetainLink
-              data-umami-event="add button homepage"
-              className={buttonVariants.outlineIcon}
-              href="/classes/add"
-            >
-              <HiOutlinePlusCircle /> Add
-            </RetainLink>
-          </Tooltip>
+          <RetainLink
+            // data-umami-event="add button homepage"
+            className={buttonVariants.outlineIcon}
+            href="/classes/add"
+          >
+            <HiOutlinePlusCircle /> Add
+          </RetainLink>
           <BlockedDialog />
         </div>
       </div>

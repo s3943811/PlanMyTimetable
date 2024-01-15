@@ -1,7 +1,7 @@
 import { HiOutlineUserAdd, HiMinus } from "react-icons/hi";
 import { HiInbox } from "react-icons/hi2";
 
-import { Metadata } from "next";
+import type { Metadata } from "next";
 
 export const metadata: Metadata = {
   title: "Help",
