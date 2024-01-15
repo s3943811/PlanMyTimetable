@@ -17,7 +17,7 @@ interface classPageProps {
 export default function Page({ params, searchParams }: classPageProps) {
   const decode = useCallback((): Course[] => {
     try {
-      return JSON.parse(JSONCrush.uncrush(searchParams.state));
+      return JSON.parse(JSONCrush.uncrush(searchParams.state)) as Course[];
     } catch (e) {
       notFound();
     }
