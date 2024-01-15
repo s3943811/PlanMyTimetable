@@ -3,7 +3,7 @@ import { RetainLink, Tooltip, buttonVariants } from "~/components";
 import ClassList from "../(ClassesComponents)/LinkedClassList";
 import MobileClassList from "../(ClassesComponents)/LinkedMobileClassList";
 
-import { Metadata } from "next";
+import type { Metadata } from "next";
 
 export const metadata: Metadata = {
   title: "Edit Class",

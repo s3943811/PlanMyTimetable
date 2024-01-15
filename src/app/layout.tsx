@@ -6,7 +6,7 @@ import { Toaster } from "react-hot-toast";
 import ThemeProvider from "~/contexts/ThemeProvider";
 import Script from "next/script";
 import { Analytics } from "@vercel/analytics/react";
-import { Metadata } from "next";
+import type { Metadata } from "next";
 
 const inter = Inter({
   subsets: ["latin"],
@@ -19,6 +19,16 @@ export const metadata: Metadata = {
     template: "%s | PlanMyTimetable",
   },
   description: "A simple webapp to plan your timetable interactively",
+  keywords: [
+    "RMIT",
+    "Allocate+",
+    "Timetable",
+    "Melbourne Uni",
+    "Uni Melb",
+    "Monash",
+    "Drag",
+    "Drop",
+  ],
 };
 
 export default function RootLayout({

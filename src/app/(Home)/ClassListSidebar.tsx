@@ -1,7 +1,6 @@
 import {
   RetainLink,
   buttonVariants,
-  Tooltip,
   AllocatedPopover,
   BlockedDialog,
 } from "~/components";

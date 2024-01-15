@@ -1,5 +1,5 @@
 import ClassForm from "../../(ClassesComponents)/ClassForm";
-import { Metadata } from "next";
+import type { Metadata } from "next";
 
 export const metadata: Metadata = {
   title: "Manual class add",

@@ -7,7 +7,6 @@ import type { formSchema } from "../(ClassesComponents)/ClassForm";
 import type { z } from "zod";
 import { useCallback } from "react";
 import JSONCrush from "jsoncrush";
-import { redirect } from "next/navigation";
 import DeleteButton from "./DeleteButton";
 
 interface classPageProps {
