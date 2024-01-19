@@ -70,7 +70,7 @@ export default function Page() {
         <div>
           <h3 className="font-medium">Add a friend</h3>
           <p className="">
-            You can add a friend by clicking the "Add Friend" icon{" "}
+            You can add a friend by clicking the &quot;Add Friend&quot; icon{" "}
             <span className="inline-flex items-center">
               (<HiOutlineUserAdd />)
             </span>{" "}
