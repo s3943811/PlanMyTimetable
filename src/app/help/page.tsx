@@ -20,15 +20,15 @@ export default function Page() {
       <section className="pt-2">
         <h3 className="text-lg font-medium">Issues and Changes</h3>
         <p>
-          If you want to report an problem, or suggest an improvement or
+          If you want to report a problem, or suggest an improvement or
           change,&nbsp;
           <a
             href="https://github.com/s3943811/timetable/issues/new"
             className="font-medium underline underline-offset-4 after:content-['_↗']"
           >
-            create an issue on Github
+            please create an issue on Github
           </a>
-          .
+          , and describe the problem or request.
         </p>
       </section>
       <section className="pt-2 ">
@@ -61,19 +61,19 @@ export default function Page() {
           <h3 className="text-lg font-medium">Friend timetable comparison</h3>
           <p className="whitespace-pre-line text-sm text-neutral-500 dark:text-neutral-400">
             Friend data is stored in local storage, meaning it persists across
-            tabs and remains everytime you visit PlanMyTimetable until it is
+            tabs and is retained everytime you visit PlanMyTimetable until it is
             removed.
-            <br />A friend&apos;s must create their timetable with
-            PlanMyTimetable for the friend comparison features to work properly.
+            <br />A friend must create their timetable with PlanMyTimetable for
+            the friend comparison features to work properly.
           </p>
         </div>
         <div>
           <h3 className="font-medium">Add a friend</h3>
           <p className="">
-            You can add a friend by clicking the add friend icon{" "}
+            You can add a friend by clicking the "Add Friend" icon{" "}
             <span className="inline-flex items-center">
               (<HiOutlineUserAdd />)
-            </span>
+            </span>{" "}
             on the toolbar below the calendar and filling out the details in the
             modal.
           </p>
@@ -81,20 +81,20 @@ export default function Page() {
         <div>
           <h3 className="font-medium">Manage friends</h3>
           <p className="">
-            You can remove friends individually or all together, by clicking the
-            &quot;Friends&quot; button to show a popover. The popover, allows
-            users to remove friends by dismissing them through the minus icon{" "}
+            You can remove friends individually or all at once by clicking the
+            &quot;Friends&quot; button to show a popover. The popover allows
+            users to remove friends by clicking the minus icon{" "}
             <span className="inline-flex items-center">
               (<HiMinus />)
-            </span>
-            or users can hide and show friends through the checkbox.
+            </span>{" "}
+            or users can hide and show friends using the checkbox.
           </p>
         </div>
         <div>
           <h3 className="font-medium">Share your timetable</h3>
           <p>
-            To share your timetable with a friend use the share button on
-            toolbar below the calendar or copy the url when you&apos;ve created
+            To share your timetable with a friend, use the share button on the
+            toolbar below the calendar or copy the URL after you&apos;ve created
             your timetable.
           </p>
         </div>
@@ -102,14 +102,14 @@ export default function Page() {
       <section className="space-y-1 pt-2">
         <h3 className="text-lg font-medium">Block (fixed) times</h3>
         <p>
-          Blocked/fixed times are useful when attempting to plan around a fixed
-          event in your calendar, for example, a work day. Blocked times will
-          hide preferences that overlap with that time, meaning you cannot drop
-          that event onto that time slot if it overlaps with a blocked event.
+          Blocked/fixed times are useful when planning around a fixed event in
+          your calendar, such as a workday. Blocked times will hide preferences
+          that overlap with that time, meaning you cannot place an event onto a
+          time slot if it overlaps with a blocked event.
         </p>
         <p className="inline-flex items-center">
           To edit, or delete a blocked out time, you can click the inbox icon (
-          <HiInbox />) to see all your blocked out times.
+          <HiInbox />) to view all your blocked times.
         </p>
       </section>
     </article>
