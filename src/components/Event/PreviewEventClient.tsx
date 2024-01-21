@@ -74,12 +74,13 @@ export default function PreviewEventClient() {
     activeCourse && (
       <>
         {clashes.map((group, index) => {
-          const rowSpan: number = group[index]!.duration / 30;
+          const rowSpan = group[0]!.duration / 30;
+
           return (
             <Clash
               key={index}
-              col={getDayEnum(group[index]!.day)! + 2}
-              row={getRowIndex(group[index]!.start)}
+              col={getDayEnum(group[0]!.day)! + 2}
+              row={getRowIndex(group[0]!.start)}
               span={rowSpan}
             >
               {group.map((time, index) => (
@@ -155,7 +156,7 @@ function PreviewEvent({
   return clash ? (
     <div
       ref={setNodeRef}
-      className={` w-1/2
+      className={` w-1/2 overflow-hidden
       ${
         isOver
           ? "border-[0.187rem] border-dashed border-green-500 bg-green-500/40"
@@ -169,14 +170,13 @@ function PreviewEvent({
     </div>
   ) : (
     <div
-      data-umami-event="preview event droppable"
       ref={setNodeRef}
       style={{
         gridRowEnd: `span ${rowSpan}`,
         gridColumnStart: `${col + 2}`,
         gridRowStart: `${row}`,
       }}
-      className={`
+      className={` overflow-hidden
       ${
         isOver
           ? "border-[0.187rem] border-dashed border-green-500 bg-green-500/40"

@@ -27,11 +27,16 @@ export default function Page() {
       <h3 className="text-md font-medium">Automatic data gathering</h3>
       <p className="text-base">
         If your university uses Allocate+ for timetable purposes, you can gather
-        the data automatically using the following steps (currently this is
-        known to work for RMIT Unversity only).
-        <br />
-        There are two methods available for automatic data gathering, either
-        install a browser extension or create a bookmark:
+        the data automatically using the following steps. There are two methods
+        available for automatic data gathering, either install a browser
+        extension or create a bookmark (
+        <a
+          href="https://github.com/s3943811/PlanMyTimetable#university-support"
+          className="font-medium underline underline-offset-4 after:content-['_↗']"
+        >
+          view supported universities here
+        </a>
+        ).
       </p>
       <Tabs defaultValue="extensions">
         <TabsList className="flex w-full flex-row items-center gap-4 border-b dark:border-b-neutral-700">

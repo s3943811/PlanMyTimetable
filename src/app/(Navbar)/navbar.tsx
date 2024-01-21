@@ -34,7 +34,7 @@ function Navbar() {
           </p>
           <a
             href="https://github.com/s3943811"
-            className="font-medium underline underline-offset-4 hover:font-semibold"
+            className="font-medium underline underline-offset-4 after:content-['_↗'] hover:font-semibold"
           >
             Github
           </a>
