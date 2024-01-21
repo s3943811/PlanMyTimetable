@@ -16,7 +16,7 @@ export default function Clash({
         gridColumnStart: `${col}`,
         gridRowStart: `${row}`,
       }}
-      className={`flex flex-row gap-1 p-1`}
+      className={`flex flex-row gap-2 p-1`}
     >
       {children}
     </div>
