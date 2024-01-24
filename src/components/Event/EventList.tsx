@@ -131,27 +131,10 @@ export default function EventList() {
     }
   }, [pref, decode, setEvents]);
 
-  // if (!friendData) {
-  //   return events.map((item) => {
-  //     const rowSpan: number = item.time.duration / 30;
-  //     return (
-  //       <div
-  //         key={item.courseCode + item.type}
-  //         style={{
-  //           gridRowEnd: `span ${rowSpan}`,
-  //           gridColumnStart: `${getDayEnum(item.time.day)! + 2}`,
-  //           gridRowStart: `${getRowIndex(item.time.start)}`,
-  //         }}
-  //         className={`z-10 animate-pulse rounded-md bg-neutral-200/50 py-2 dark:bg-neutral-50`}
-  //       ></div>
-  //     );
-  //   });
-  // }
-
   return (
     <>
       {eventsNoClashes.map((item) => (
-        <React.Fragment key={item.id}>
+        <React.Fragment key={item.id + (item.grouped ? item.grouped_code : "")}>
           <EventClient preference={item}>
             <Event title={item.title} type={item.type} time={item.time} />
           </EventClient>
@@ -178,7 +161,9 @@ export default function EventList() {
             span={rowSpan}
           >
             {group.map((item) => (
-              <React.Fragment key={item.id}>
+              <React.Fragment
+                key={item.id + (item.grouped ? item.grouped_code : "")}
+              >
                 {item.originalType === "event" ? (
                   <EventClient preference={item} clash={largestDuration}>
                     <Event
