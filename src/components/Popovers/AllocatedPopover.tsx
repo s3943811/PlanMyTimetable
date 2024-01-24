@@ -2,11 +2,11 @@
 import { usePreview } from "~/contexts/PreviewContext";
 import Badge from "../Badge/Badge";
 import { CourseType } from "~/lib/definitions";
-import type { ColourPalette } from "~/lib/definitions";
+import type { ColourPalette, Preference } from "~/lib/definitions";
 import { HiOutlineX, HiChevronUp, HiChevronDown } from "react-icons/hi";
 import type { SetStateAction } from "react";
 import { Popover } from "react-tiny-popover";
-import { useState } from "react";
+import { useMemo, useState } from "react";
 import { Button, ClearPreferences } from "..";
 import { useUrlState } from "~/hooks/useUrlState";
 
@@ -24,6 +24,34 @@ export default function AllocatedPopover() {
   };
   const { events, courseData } = usePreview();
   const [isOpen, setIsOpen] = useState(false);
+
+  const nonGroupedEvents = useMemo(() => {
+    // Find the first preference that matches the pattern
+    const firstPreference = events.find((event) => {
+      if (event.grouped) {
+        const firstTwoDigits = event.grouped_code.slice(0, 2);
+        const pattern = new RegExp(`^${firstTwoDigits}-P[1-9]$`);
+        return pattern.test(event.grouped_code);
+      }
+      return false;
+    });
+
+    // Filter out the first preference and all other preferences that match the pattern or have a different id
+    const otherPreferences = events.filter((event) => {
+      if (event.grouped) {
+        const firstTwoDigits = event.grouped_code.slice(0, 2);
+        const pattern = new RegExp(`^${firstTwoDigits}-P[1-9]$`);
+        return (
+          !pattern.test(event.grouped_code) || event.id !== firstPreference?.id
+        );
+      }
+      return true;
+    });
+
+    return firstPreference
+      ? [firstPreference, ...otherPreferences.flat()]
+      : [...otherPreferences.flat()];
+  }, [events]);
   return (
     <Popover
       isOpen={isOpen}
@@ -33,25 +61,35 @@ export default function AllocatedPopover() {
       onClickOutside={() => setIsOpen(false)}
       content={
         <div className="flex w-[17rem] flex-col items-center gap-1 rounded-lg border bg-white p-3 shadow-lg dark:border-neutral-700 dark:bg-neutral-800">
-          {events.length === 0 ? (
+          {nonGroupedEvents.length === 0 ? (
             <p className="text-sm dark:text-white">
               To allocate a course drag it onto a event in the calendar.
             </p>
           ) : (
             <>
-              {events.map((event, index) => (
+              {nonGroupedEvents.map((event, index) => (
                 <Badge
-                  key={event.id}
+                  key={event.id + (event.grouped ? event.grouped_code : "")}
                   className={`${
                     colourVariants[event.colour]
                   } w-full items-center justify-between gap-1`}
                 >
                   {`${event.title} - ${CourseType[event.type]}`}
-                  <Remove
-                    index={index}
-                    colour={event.colour}
-                    setIsOpen={setIsOpen}
-                  />
+                  {event.grouped ? (
+                    <Remove
+                      grouped
+                      group_code={event.grouped_code}
+                      colour={event.colour}
+                      setIsOpen={setIsOpen}
+                    />
+                  ) : (
+                    <Remove
+                      grouped={false}
+                      index={index}
+                      colour={event.colour}
+                      setIsOpen={setIsOpen}
+                    />
+                  )}
                 </Badge>
               ))}
               <ClearPreferences setIsOpen={setIsOpen} />
@@ -65,22 +103,28 @@ export default function AllocatedPopover() {
         onClick={() => setIsOpen(!isOpen)}
         data-umami-event="open allocated popover"
       >
-        {events.length}/{courseData?.length ?? 0} Allocated&nbsp;
+        {nonGroupedEvents.length}/{courseData?.length ?? 0} Allocated&nbsp;
         {isOpen ? <HiChevronDown /> : <HiChevronUp />}
       </Button>
     </Popover>
   );
 }
 
-function Remove({
-  index,
-  colour,
-  setIsOpen,
-}: {
-  index: number;
-  colour: ColourPalette;
-  setIsOpen: (value: SetStateAction<boolean>) => void;
-}) {
+type RemoveProps =
+  | {
+      grouped: false;
+      index: number;
+      colour: ColourPalette;
+      setIsOpen: (value: SetStateAction<boolean>) => void;
+    }
+  | {
+      grouped: true;
+      colour: ColourPalette;
+      setIsOpen: (value: SetStateAction<boolean>) => void;
+      group_code: string;
+    };
+
+function Remove(props: RemoveProps) {
   const colourVariants = {
     0: "hover:bg-purple-50/60 dark:hover:bg-purple-600",
     1: "hover:bg-yellow-50/60 dark:hover:bg-yellow-600",
@@ -96,14 +140,32 @@ function Remove({
   const { events } = usePreview();
   const { replaceState } = useUrlState();
 
+  /**
+   * If a grouped event find all the ones that match that regex and filter for the ones that don't
+   */
   const handleRemove = () => {
-    const newEvents = events.toSpliced(index, 1);
+    let newEvents: Preference[];
+    if (!props.grouped) {
+      newEvents = events.toSpliced(props.index, 1);
+    } else {
+      newEvents = events.filter(
+        (item) =>
+          !(
+            item.grouped &&
+            item.grouped_code.match(
+              new RegExp(`^${props.group_code.slice(0, 2)}-P[1-9]$`),
+            )
+          ),
+      );
+    }
     replaceState(newEvents, "pref");
-    setIsOpen(newEvents.length !== 0);
+    props.setIsOpen(newEvents.length !== 0);
   };
   return (
     <button
-      className={`p-[0.2rem flex items-center rounded-3xl ${colourVariants[colour]}`}
+      className={`p-[0.2rem flex items-center rounded-3xl ${
+        colourVariants[props.colour]
+      }`}
       onClick={handleRemove}
       data-umami-event="remove class"
     >
