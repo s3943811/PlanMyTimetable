@@ -21,22 +21,44 @@ import type {
 } from "react-hook-form";
 import { nanoid } from "nanoid";
 
-const optionSchema = z.object({
-  day: z.enum(["Mon", "Tue", "Wed", "Thu", "Fri"]),
-  start_time: z
-    .string()
-    .trim()
-    .regex(
-      /^([0-1][0-9]|2[0-3]):[0-5][0-9](:[0-5][0-9])?$/,
-      "Invalid time format",
-    )
-    .regex(
-      /^(0[5-9]|1[0-9]|2[0-3]):[0-5][0-9]$/,
-      "Time must start on or after 5 am",
-    ),
-  room: z.string().trim().min(1, { message: "Room is required" }),
-  campus: z.string().trim().min(1, { message: "Campus is required" }),
-});
+const optionSchema = z.discriminatedUnion("grouped", [
+  z.object({
+    grouped: z.literal(false),
+    day: z.enum(["Mon", "Tue", "Wed", "Thu", "Fri"]),
+    start_time: z
+      .string()
+      .trim()
+      .regex(
+        /^([0-1][0-9]|2[0-3]):[0-5][0-9](:[0-5][0-9])?$/,
+        "Invalid time format",
+      )
+      .regex(
+        /^(0[5-9]|1[0-9]|2[0-3]):[0-5][0-9]$/,
+        "Time must start on or after 5 am",
+      ),
+    room: z.string().trim().min(1, { message: "Room is required" }),
+    campus: z.string().trim().min(1, { message: "Campus is required" }),
+  }),
+  z.object({
+    grouped: z.literal(true),
+    grouped_code: z.string(),
+    day: z.enum(["Mon", "Tue", "Wed", "Thu", "Fri"]),
+    start_time: z
+      .string()
+      .trim()
+      .regex(
+        /^([0-1][0-9]|2[0-3]):[0-5][0-9](:[0-5][0-9])?$/,
+        "Invalid time format",
+      )
+      .regex(
+        /^(0[5-9]|1[0-9]|2[0-3]):[0-5][0-9]$/,
+        "Time must start on or after 5 am",
+      ),
+    room: z.string().trim().min(1, { message: "Room is required" }),
+    campus: z.string().trim().min(1, { message: "Campus is required" }),
+  }),
+]);
+
 export const formSchema = z.object({
   id: z.string(),
   title: z
@@ -83,6 +105,7 @@ const val: z.infer<typeof formSchema> = {
       start_time: "",
       room: "",
       campus: "",
+      grouped: false,
     },
   ],
 };
@@ -132,12 +155,24 @@ export default function ClassForm({
       type: CourseType[values.type],
       colour: ColourPalette[values.colour],
       options: values.options.map((item) => {
+        if (item.grouped) {
+          return {
+            day: item.day,
+            start: item.start_time,
+            duration: values.duration,
+            location: item.room,
+            campus_description: item.campus,
+            grouped: true,
+            grouped_code: item.grouped_code,
+          };
+        }
         return {
           day: item.day,
           start: item.start_time,
           duration: values.duration,
           location: item.room,
           campus_description: item.campus,
+          grouped: false,
         };
       }),
     };
@@ -150,8 +185,21 @@ export default function ClassForm({
         }
         return item;
       });
-      const newEvents = events.map((item) => {
+      const newEvents: Preference[] = events.map((item) => {
         if (item.id === defaultValues.id) {
+          if (item.grouped) {
+            return {
+              id: defaultValues.id,
+              title: values.title,
+              courseCode: values.code,
+              type: CourseType[values.type as keyof typeof CourseType],
+              colour:
+                ColourPalette[values.colour as keyof typeof ColourPalette],
+              time: item.time,
+              grouped: true,
+              grouped_code: item.grouped_code,
+            };
+          }
           return {
             id: defaultValues.id,
             title: values.title,
@@ -159,19 +207,13 @@ export default function ClassForm({
             type: CourseType[values.type as keyof typeof CourseType],
             colour: ColourPalette[values.colour as keyof typeof ColourPalette],
             time: item.time,
+            grouped: item.grouped,
           };
         }
         return item;
       });
       setCourseData(courses);
-      // replaceMultiple(
-      //   [
-      //     { element: courses, prefName: "state" },
-      //     { element: newEvents, prefName: "pref" },
-      //   ],
-      //   `/classes/${course.courseCode}-${getCourseTypeString(course.type)}`,
-      // );
-      // toast.success("Class updated successfully");
+
       update.current = {
         course: course,
         toastMsg: `${course.title} (${CourseType[course.type]}) updated`,
@@ -351,7 +393,13 @@ export default function ClassForm({
             variant="secondary"
             type="button"
             onClick={() =>
-              append({ day: "Mon", start_time: "", room: "", campus: "" })
+              append({
+                day: "Mon",
+                start_time: "",
+                room: "",
+                campus: "",
+                grouped: false,
+              })
             }
           >
             <HiOutlinePlusCircle /> Add Option
