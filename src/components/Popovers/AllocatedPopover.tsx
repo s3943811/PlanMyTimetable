@@ -26,31 +26,15 @@ export default function AllocatedPopover() {
   const [isOpen, setIsOpen] = useState(false);
 
   const nonGroupedEvents = useMemo(() => {
-    // Find the first preference that matches the pattern
-    const firstPreference = events.find((event) => {
-      if (event.grouped) {
-        const firstTwoDigits = event.grouped_code.slice(0, 2);
-        const pattern = new RegExp(`^${firstTwoDigits}-P[1-9]$`);
-        return pattern.test(event.grouped_code);
+    /**
+     * Find events with unique ids, if grouped will return the first item
+     */
+    return events.reduce((accumulator: Preference[], currItem: Preference) => {
+      if (!accumulator.find((item: Preference) => item.id === currItem.id)) {
+        accumulator.push(currItem);
       }
-      return false;
-    });
-
-    // Filter out the first preference and all other preferences that match the pattern or have a different id
-    const otherPreferences = events.filter((event) => {
-      if (event.grouped) {
-        const firstTwoDigits = event.grouped_code.slice(0, 2);
-        const pattern = new RegExp(`^${firstTwoDigits}-P[1-9]$`);
-        return (
-          !pattern.test(event.grouped_code) || event.id !== firstPreference?.id
-        );
-      }
-      return true;
-    });
-
-    return firstPreference
-      ? [firstPreference, ...otherPreferences.flat()]
-      : [...otherPreferences.flat()];
+      return accumulator;
+    }, []);
   }, [events]);
   return (
     <Popover
@@ -79,6 +63,7 @@ export default function AllocatedPopover() {
                     <Remove
                       grouped
                       group_code={event.grouped_code}
+                      id={event.id}
                       colour={event.colour}
                       setIsOpen={setIsOpen}
                     />
@@ -122,6 +107,7 @@ type RemoveProps =
       colour: ColourPalette;
       setIsOpen: (value: SetStateAction<boolean>) => void;
       group_code: string;
+      id: string;
     };
 
 function Remove(props: RemoveProps) {
@@ -142,6 +128,7 @@ function Remove(props: RemoveProps) {
 
   /**
    * If a grouped event find all the ones that match that regex and filter for the ones that don't
+   * and ensure it has the correct id so we don't remove all grouped items
    */
   const handleRemove = () => {
     let newEvents: Preference[];
@@ -154,7 +141,8 @@ function Remove(props: RemoveProps) {
             item.grouped &&
             item.grouped_code.match(
               new RegExp(`^${props.group_code.slice(0, 2)}-P[1-9]$`),
-            )
+            ) &&
+            item.id === props.id
           ),
       );
     }
