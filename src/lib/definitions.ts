@@ -7,22 +7,45 @@ export type Course = {
   options: Array<Time>;
 };
 
-export type Time = {
-  day: "Mon" | "Tue" | "Wed" | "Thu" | "Fri";
-  start: string;
-  duration: number;
-  location: string;
-  campus_description: string;
-};
+export type Time =
+  | {
+      day: "Mon" | "Tue" | "Wed" | "Thu" | "Fri";
+      start: string;
+      duration: number;
+      location: string;
+      campus_description: string;
+      grouped: true;
+      grouped_code: string;
+    }
+  | {
+      day: "Mon" | "Tue" | "Wed" | "Thu" | "Fri";
+      start: string;
+      duration: number;
+      location: string;
+      campus_description: string;
+      grouped: false;
+    };
 
-export type Preference = {
-  id: string;
-  title: string;
-  courseCode: string;
-  type: CourseType;
-  colour: ColourPalette;
-  time: Time;
-};
+export type Preference =
+  | {
+      id: string;
+      title: string;
+      courseCode: string;
+      type: CourseType;
+      colour: ColourPalette;
+      grouped: false;
+      time: Time;
+    }
+  | {
+      id: string;
+      title: string;
+      courseCode: string;
+      type: CourseType;
+      colour: ColourPalette;
+      grouped: true;
+      grouped_code: string;
+      time: Time;
+    };
 export enum CourseType {
   Lecture,
   Tutorial,
