@@ -152,12 +152,12 @@ export default function EventList() {
             : max;
         }, 0);
         const rowSpan: number = largestDuration / 30;
-        const col = getDayEnum(group[index]!.time.day)! + 2;
+        const col = getDayEnum(group[0]!.time.day)! + 2;
         return (
           <Clash
             key={index}
             col={col}
-            row={getRowIndex(group[index]!.time.start)}
+            row={getRowIndex(group[0]!.time.start)}
             span={rowSpan}
           >
             {group.map((item) => (
