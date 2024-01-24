@@ -26,7 +26,15 @@ export function useUrlState() {
   const decode = useCallback(
     (pref: string): unknown => {
       const encodedValue = searchParams.get(pref);
-      return encodedValue && JSON.parse(JSONCrush.uncrush(encodedValue));
+      if (!encodedValue) {
+        return;
+      }
+      try {
+        const uncrushed = JSONCrush.uncrush(encodedValue);
+        return JSON.parse(uncrushed);
+      } catch (e) {
+        throw new Error(`Error decoding: ${pref}`);
+      }
     },
     [searchParams],
   );
