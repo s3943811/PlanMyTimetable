@@ -47,8 +47,12 @@ export function useUrlState() {
       const state = decode(prefName) as Array<unknown>;
       let encoded;
       const params = new URLSearchParams(searchParams);
-      if (state) {
-        state.push(element);
+      if (state && state.length !== 0) {
+        if (Array.isArray(element)) {
+          state.push(...element);
+        } else {
+          state.push(element);
+        }
         encoded = JSONCrush.crush(JSON.stringify(state));
         params.delete(prefName);
       } else if (Array.isArray(element)) {
