@@ -2,7 +2,6 @@ import { HiBookOpen, HiHome } from "react-icons/hi2";
 import { HiQuestionMarkCircle } from "react-icons/hi";
 import { Button, ThemeSelector } from "~/components";
 import ActiveLink from "./ActiveLink";
-import Script from "next/script";
 function Navbar() {
   return (
     <nav className="sticky top-0 z-[998] flex flex-row border-b bg-white px-2 py-2 dark:border-neutral-700 dark:bg-neutral-900 dark:text-white md:z-0 md:h-screen md:w-fit md:flex-col md:items-center md:justify-between md:border-b-0 md:border-r md:p-3 md:pt-8">

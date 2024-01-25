@@ -49,7 +49,7 @@ export function useUrlState() {
       const params = new URLSearchParams(searchParams);
       if (state && state.length !== 0) {
         if (Array.isArray(element)) {
-          state.push(...element);
+          state.push(...(element as unknown[]));
         } else {
           state.push(element);
         }
