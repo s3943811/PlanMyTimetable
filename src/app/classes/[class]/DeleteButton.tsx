@@ -41,7 +41,10 @@ export default function DeleteButton({ id }: deleteButtonProps) {
   };
 
   return (
-    <Button onClick={handleDelete}>
+    <Button
+      onClick={handleDelete}
+      className="bg-red-500  hover:bg-red-600 dark:bg-red-500 dark:text-white dark:hover:bg-red-600"
+    >
       <HiTrash />
       Delete
     </Button>
