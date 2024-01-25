@@ -43,11 +43,22 @@ export default function Page({ params, searchParams }: classPageProps) {
     duration: course.options[0]!.duration,
     colour: getColourString(course.colour),
     options: course.options.map((item) => {
+      if (item.grouped) {
+        return {
+          day: item.day,
+          start_time: item.start,
+          room: item.location,
+          campus: item.campus_description,
+          grouped: true,
+          grouped_code: item.grouped_code,
+        };
+      }
       return {
         day: item.day,
         start_time: item.start,
         room: item.location,
         campus: item.campus_description,
+        grouped: false,
       };
     }),
   };

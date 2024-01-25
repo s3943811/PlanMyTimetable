@@ -63,3 +63,7 @@ To share your timetable with a friend, use the share button on the toolbar below
 ### Block (fixed) times
 
 Blocked/fixed times are useful when planning around a fixed event in your calendar, such as a workday. Blocked times will hide preferences that overlap with that time, meaning you cannot place an event onto a time slot if it overlaps with a blocked event. To edit or delete a blocked time, click the inbox icon to view all your blocked times.
+
+## Credits
+
+- Tom Anderson ([andogq](https://github.com/andogq)) - Modified the bookmark code available [here](https://github.com/andogq/timetable), to select semester, use nanoid and JSONCrush, and redirect to this site.

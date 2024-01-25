@@ -52,14 +52,40 @@ export function DndProvider({ children }: { children: React.ReactNode }) {
     if (over && over.data.current?.accepts === active.data.current?.course) {
       const activeCourse = active.data.current?.course as Course;
       const activeTime = over.data.current?.time as Time;
-      const preference: Preference = {
-        id: activeCourse.id,
-        title: activeCourse.title,
-        courseCode: activeCourse.courseCode,
-        type: activeCourse.type,
-        colour: activeCourse.colour,
-        time: activeTime,
-      };
+      /**
+       * If a time is grouped, i.e a single preference but multiple events in the calendar
+       * then we need to do the following:
+       * find all the matching groupped times from the course
+       * set the preference to grouped and create all the preferences that are grouped
+       */
+      let preference: Preference | Array<Preference>;
+      if (activeTime.grouped) {
+        const firstTwoDigits = activeTime.grouped_code.slice(0, 2);
+        const pattern = new RegExp(`^${firstTwoDigits}-P[1-9]$`);
+
+        preference = activeCourse.options
+          .filter((time) => time.grouped && pattern.test(time.grouped_code))
+          .map((option) => ({
+            id: activeCourse.id,
+            title: activeCourse.title,
+            courseCode: activeCourse.courseCode,
+            type: activeCourse.type,
+            colour: activeCourse.colour,
+            grouped: true,
+            grouped_code: option.grouped ? option.grouped_code : "",
+            time: option,
+          }));
+      } else {
+        preference = {
+          id: activeCourse.id,
+          title: activeCourse.title,
+          courseCode: activeCourse.courseCode,
+          type: activeCourse.type,
+          colour: activeCourse.colour,
+          grouped: false,
+          time: activeTime,
+        };
+      }
       /**
        * Search the events array and determine wherther the element being dragged matches an event
        * This was done so that elements can be dragged within the calendar and not be duplicated but rather moved
@@ -72,22 +98,35 @@ export function DndProvider({ children }: { children: React.ReactNode }) {
          * If we determine we have an element that has already been dropped once
          * we then decode the url params and replace the element with the new preference and re-encode it
          * replacing the previous string
-         * uing the setState (setEvents) is key has the useEffect is looking for if the length of currentPref (searchParams.getAll("pref"))
-         * changes, which dosen't occur here since its already been dropped
-         * this was done to keep the other preferences
+         * the setState here is for UX reasons, without it there is a slight delay between the update whereas with it its almost instant
+         *
+         *
+         * Grouped Preferences: Here we check if the preference we have created is an array - if so its a grouped event
+         * if its grouped all we do is filter the prefs to remove the old grouped items
+         * then reconstruct the array with the filtered preferences and our new grouped preferences
+         * for non-grouped its similar except what we are doing is just mapping over the prefs
+         * and if the ids match return the new preference else return the old one.
          */
         let parsedPrefs = decode("pref") as Preference[];
-        parsedPrefs = parsedPrefs.map((item: Preference) => {
-          if (item.id === preference.id) {
-            return preference;
-          }
-          return item;
-        });
+        if (Array.isArray(preference)) {
+          parsedPrefs = parsedPrefs.filter(
+            (item) => item.id !== activeCourse.id,
+          );
+          parsedPrefs = [...parsedPrefs, ...preference];
+        } else if (!Array.isArray(preference)) {
+          parsedPrefs = parsedPrefs.map((item: Preference) => {
+            if (!Array.isArray(preference) && item.id === preference.id) {
+              return preference;
+            }
+            return item;
+          });
+        }
+
         // replace the old "event" with this new one
         replaceState(parsedPrefs, "pref");
         setEvents(parsedPrefs);
       } else {
-        // add a new event
+        // add a new event(s)
         appendState(preference, "pref");
       }
       setMobileClassListSheetOpen(false);

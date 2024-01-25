@@ -60,7 +60,10 @@ export default function EventClient({
   );
 
   const { attributes, listeners, setNodeRef, isDragging, over } = useDraggable({
-    id: "event" + preference.id,
+    id:
+      "event" +
+      preference.id +
+      (preference.grouped ? preference.grouped_code : ""),
     data: {
       course: course,
     },

@@ -70,7 +70,7 @@ export function FriendEvent({
         `m-1 flex flex-col overflow-hidden rounded-md border bg-neutral-50 py-2 
       pl-[1.19rem] pr-3 text-neutral-800 transition-all  dark:border-neutral-400 
       dark:bg-neutral-800 dark:text-white `,
-        activeCourse ? "opacity-15" : "opacity-50 dark:opacity-40",
+        activeCourse ? "opacity-15" : "opacity-70 dark:opacity-50",
       )}
     >
       <h1 className="line-clamp-1 text-sm font-medium lg:line-clamp-none lg:text-base">
@@ -125,6 +125,7 @@ export function FriendClashEvent({
 
   const rowSpan: number = item.time.duration / 30;
   const endTime = addMinutesToTimeString(item.time.start, item.time.duration);
+  const { activeCourse } = usePreview();
 
   return (
     <div
@@ -134,7 +135,12 @@ export function FriendClashEvent({
         gridColumnStart: `${getDayEnum(item.time.day)! + 2}`,
         gridRowStart: `${getRowIndex(item.time.start)}`,
       }}
-      className={`m-0.5 flex flex-col overflow-hidden rounded bg-neutral-300/40 py-2 pl-[1.19rem] pr-3 text-neutral-800 opacity-50 dark:bg-neutral-50/30 dark:text-white dark:opacity-60 `}
+      className={cn(
+        `m-1 flex flex-col overflow-hidden rounded-md border bg-neutral-50 py-2 
+      pl-[1.19rem] pr-3 text-neutral-800 transition-all  dark:border-neutral-400 
+      dark:bg-neutral-800 dark:text-white `,
+        activeCourse ? "opacity-15" : "opacity-70 dark:opacity-50",
+      )}
     >
       <h1 className="line-clamp-1 text-sm font-medium lg:line-clamp-none lg:text-base">
         {item.title}

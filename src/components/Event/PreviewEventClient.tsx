@@ -136,8 +136,10 @@ function PreviewEvent({
   const row = useMemo<number>(() => getRowIndex(time.start), [time]);
   const rowSpan = useMemo<number>(() => time.duration / 30, [time]);
 
-  const { setNodeRef, isOver } = useDroppable({
-    id: time.day + time.start + time.duration + time.location + index,
+  const { setNodeRef, isOver, over } = useDroppable({
+    id: time.grouped
+      ? time.grouped_code
+      : time.day + time.start + time.duration + time.location + index,
     data: {
       accepts: course,
       time: time,
@@ -153,12 +155,25 @@ function PreviewEvent({
     [events, time],
   );
 
+  /**
+   * This returns true if the time is grouped and matches the pattern
+   * to highlight with over style for all group previews when over one
+   */
+  const overGroup = useMemo(() => {
+    if (!time.grouped) {
+      return;
+    }
+    const firstTwoDigits = time.grouped_code.slice(0, 2);
+    const pattern = new RegExp(`^${firstTwoDigits}-P[1-9]$`);
+    return over?.id.toString().match(pattern);
+  }, [time, over]);
+
   return clash ? (
     <div
       ref={setNodeRef}
       className={` w-1/2 overflow-hidden
       ${
-        isOver
+        isOver || overGroup
           ? "border-[0.187rem] border-dashed border-green-500 bg-green-500/40"
           : "border-[0.18rem] border-dashed bg-slate-300/30"
       }
@@ -178,7 +193,7 @@ function PreviewEvent({
       }}
       className={` overflow-hidden
       ${
-        isOver
+        isOver || overGroup
           ? "border-[0.187rem] border-dashed border-green-500 bg-green-500/40"
           : "border-[0.18rem] border-dashed bg-slate-300/30 "
       }

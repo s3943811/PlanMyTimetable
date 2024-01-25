@@ -1,6 +1,6 @@
 import { HiBookOpen, HiHome } from "react-icons/hi2";
 import { HiQuestionMarkCircle } from "react-icons/hi";
-import { ThemeSelector } from "~/components";
+import { Button, ThemeSelector } from "~/components";
 import ActiveLink from "./ActiveLink";
 function Navbar() {
   return (
@@ -25,6 +25,9 @@ function Navbar() {
           <HiQuestionMarkCircle size={16} />
         </ActiveLink>
         <ThemeSelector />
+        <Button className="w-24">
+          <a href="https://www.buymeacoffee.com/maxdionyssopoulos">Donate</a>
+        </Button>
         <div className="hidden w-[6.2rem] space-y-1 border-t border-t-neutral-50 pt-2 dark:border-t-neutral-700 md:block">
           <p className="whitespace-break-spaces break-words text-xs font-medium">
             PlanMyTimetable

@@ -26,7 +26,15 @@ export function useUrlState() {
   const decode = useCallback(
     (pref: string): unknown => {
       const encodedValue = searchParams.get(pref);
-      return encodedValue && JSON.parse(JSONCrush.uncrush(encodedValue));
+      if (!encodedValue) {
+        return;
+      }
+      try {
+        const uncrushed = JSONCrush.uncrush(encodedValue);
+        return JSON.parse(uncrushed);
+      } catch (e) {
+        throw new Error(`Error decoding: ${pref}`);
+      }
     },
     [searchParams],
   );
@@ -39,8 +47,12 @@ export function useUrlState() {
       const state = decode(prefName) as Array<unknown>;
       let encoded;
       const params = new URLSearchParams(searchParams);
-      if (state) {
-        state.push(element);
+      if (state && state.length !== 0) {
+        if (Array.isArray(element)) {
+          state.push(...(element as unknown[]));
+        } else {
+          state.push(element);
+        }
         encoded = JSONCrush.crush(JSON.stringify(state));
         params.delete(prefName);
       } else if (Array.isArray(element)) {

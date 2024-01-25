@@ -112,6 +112,27 @@ export default function Page() {
           <HiInbox />) to view all your blocked times.
         </p>
       </section>
+      <section className="pt-2">
+        <h3 className="text-lg font-medium">Credits</h3>
+        <p>
+          Tom Anderson (
+          <a
+            href="https://github.com/andogq"
+            className="font-medium underline underline-offset-4 after:content-['_↗']"
+          >
+            andogq
+          </a>
+          ) - Modified the bookmark code available&nbsp;
+          <a
+            href="https://github.com/andogq/timetable"
+            className="font-medium underline underline-offset-4 after:content-['_↗']"
+          >
+            here
+          </a>
+          , to select semester, use nanoid and JSONCrush, and redirect to this
+          site.
+        </p>
+      </section>
     </article>
   );
 }

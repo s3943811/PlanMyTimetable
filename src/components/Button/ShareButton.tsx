@@ -9,8 +9,8 @@ export default function ShareButton() {
   const p = useSearchParams();
   const copyLink = useCallback(async () => {
     // console.log(pathname);
-    const link = `https://planmytimetable.vercel.app/?${p.toString()}`;
-    await navigator.clipboard.writeText(link);
+    const markdown = `[View My Timetable](https://planmytimetable.vercel.app/?${p.toString()})`;
+    await navigator.clipboard.writeText(markdown);
   }, [p]);
 
   return (
