@@ -142,13 +142,20 @@
                   courseCode: course.callista_code ?? subject_code,
                   type: selectType(Object.values(data)[0].activityType),
                   colour: index,
-                  options: Object.values(data).map((item) => ({
-                    day: item.day_of_week,
-                    start: item.start_time,
-                    duration: item.duration,
-                    location: item.location,
-                    campus_description: item.campus_description,
-                  })),
+                  options: Object.values(data).map((item) => {
+                    const option = {
+                      day: item.day_of_week,
+                      start: item.start_time,
+                      duration: item.duration,
+                      location: item.location,
+                      campus_description: item.campus_description,
+                    };
+                    if (item.activity_code.match(/\d{2}-P[1-9]/g)) {
+                      option.grouped = true;
+                      option.grouped_code = item.activity_code;
+                    }
+                    return option;
+                  }),
                 };
                 return classs;
               } else {

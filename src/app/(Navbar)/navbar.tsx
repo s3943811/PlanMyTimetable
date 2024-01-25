@@ -4,7 +4,7 @@ import { Button, ThemeSelector } from "~/components";
 import ActiveLink from "./ActiveLink";
 function Navbar() {
   return (
-    <nav className="sticky top-0 z-[998] flex flex-row border-b bg-white px-2 py-2 dark:border-neutral-700 dark:bg-neutral-900 dark:text-white md:z-0 md:h-screen md:w-fit md:flex-col md:items-center md:justify-between md:border-b-0 md:border-r md:p-3 md:pt-8">
+    <nav className="sticky top-0 z-[998] flex flex-row flex-wrap border-b bg-white px-2 py-2 dark:border-neutral-700 dark:bg-neutral-900 dark:text-white md:z-0 md:h-screen md:w-fit md:flex-col md:items-center md:justify-between md:border-b-0 md:border-r md:p-3 md:pt-8">
       <div className="inline-flex md:block md:space-y-3">
         <ActiveLink
           href="/"
@@ -17,7 +17,7 @@ function Navbar() {
           Classes
         </ActiveLink>
       </div>
-      <div className="flex gap-2 text-xs md:flex-col md:pt-1 ">
+      <div className="flex gap-2 text-xs md:flex-col md:pt-1">
         <ActiveLink
           href="/help"
           className="w-fit md:w-24 md:after:content-['Help']"
@@ -25,7 +25,7 @@ function Navbar() {
           <HiQuestionMarkCircle size={16} />
         </ActiveLink>
         <ThemeSelector />
-        <Button className="w-24">
+        <Button className=" bg-green-500 text-green-100 hover:bg-green-600 dark:bg-green-500 dark:text-green-100 dark:hover:bg-green-600">
           <a href="https://www.buymeacoffee.com/maxdionyssopoulos">Donate</a>
         </Button>
         <div className="hidden w-[6.2rem] space-y-1 border-t border-t-neutral-50 pt-2 dark:border-t-neutral-700 md:block">
