@@ -1,14 +1,17 @@
 import { HiBookOpen, HiHome } from "react-icons/hi2";
 import { HiQuestionMarkCircle } from "react-icons/hi";
-import { Button, ThemeSelector } from "~/components";
+import { ThemeSelector } from "~/components";
 import ActiveLink from "./ActiveLink";
+import { BMCLogo } from "./bmc";
+import { cn } from "~/lib/utils";
+
 function Navbar() {
   return (
-    <nav className="sticky top-0 z-[998] flex flex-row flex-wrap border-b bg-white px-2 py-2 dark:border-neutral-700 dark:bg-neutral-900 dark:text-white md:z-0 md:h-screen md:w-fit md:flex-col md:items-center md:justify-between md:border-b-0 md:border-r md:p-3 md:pt-8">
+    <nav className="sticky top-0 z-[998] flex w-svw flex-row border-b bg-white px-2 py-2 dark:border-neutral-700 dark:bg-neutral-900 dark:text-white md:z-0 md:h-screen md:w-fit md:flex-col md:items-center md:justify-between md:border-b-0 md:border-r md:p-3 md:pt-8">
       <div className="inline-flex md:block md:space-y-3">
         <ActiveLink
           href="/"
-          className="w-fit text-base after:content-['PlanMyTimetable'] md:w-24 md:text-sm md:after:content-['Home']"
+          className="w-fit text-sm after:content-['PlanMyTimetable'] md:w-24 md:after:content-['Home']"
         >
           <HiHome />
         </ActiveLink>
@@ -25,9 +28,15 @@ function Navbar() {
           <HiQuestionMarkCircle size={16} />
         </ActiveLink>
         <ThemeSelector />
-        <Button className=" w-full bg-green-500 text-green-100 hover:bg-green-600 dark:bg-green-500 dark:text-green-100 dark:hover:bg-green-600">
-          <a href="https://www.buymeacoffee.com/maxdionyssopoulos">Donate</a>
-        </Button>
+        <a
+          href="https://www.buymeacoffee.com/maxdionyssopoulos"
+          className="inline-flex h-8 w-fit items-center justify-center gap-1 whitespace-nowrap rounded-md bg-yellow-400 px-2.5 py-2 text-sm font-medium text-black shadow 
+          hover:bg-yellow-500 
+          dark:bg-yellow-400 dark:shadow-neutral-600 dark:hover:bg-yellow-500  
+          sm:px-4"
+        >
+          <BMCLogo /> <span className="hidden sm:inline"> Donate</span>
+        </a>
         <div className="hidden w-[6.2rem] space-y-1 border-t border-t-neutral-50 pt-2 dark:border-t-neutral-700 md:block">
           <p className="whitespace-break-spaces break-words text-xs font-medium">
             PlanMyTimetable
