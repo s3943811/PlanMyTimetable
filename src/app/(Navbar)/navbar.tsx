@@ -25,7 +25,7 @@ function Navbar() {
           <HiQuestionMarkCircle size={16} />
         </ActiveLink>
         <ThemeSelector />
-        <Button className=" bg-green-500 text-green-100 hover:bg-green-600 dark:bg-green-500 dark:text-green-100 dark:hover:bg-green-600">
+        <Button className=" w-full bg-green-500 text-green-100 hover:bg-green-600 dark:bg-green-500 dark:text-green-100 dark:hover:bg-green-600">
           <a href="https://www.buymeacoffee.com/maxdionyssopoulos">Donate</a>
         </Button>
         <div className="hidden w-[6.2rem] space-y-1 border-t border-t-neutral-50 pt-2 dark:border-t-neutral-700 md:block">
