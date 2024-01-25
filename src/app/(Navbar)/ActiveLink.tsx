@@ -29,8 +29,8 @@ export default function ActiveLink({
       data-state={active ? "active" : "inactive"}
       href={href}
       className={cn(
-        `flex h-8 w-24 flex-row items-center gap-1 whitespace-nowrap rounded-lg px-2.5 py-1.5 text-sm transition-all
-        hover:bg-neutral-100 active:bg-neutral-200 dark:hover:bg-neutral-700 dark:active:bg-neutral-600 `,
+        `flex h-8 w-24 flex-row items-center gap-1 whitespace-nowrap rounded-lg px-2.5 py-1.5 text-xs transition-all hover:bg-neutral-100
+        active:bg-neutral-200 dark:hover:bg-neutral-700 dark:active:bg-neutral-600 sm:text-sm `,
         activeStyle,
         className,
       )}
