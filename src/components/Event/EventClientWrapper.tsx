@@ -86,15 +86,24 @@ export default function EventClient({
     [preference],
   );
 
-  const sameTime = useMemo(() => {
-    return course?.options.some((option) => {
-      const similarOptions = course.options.filter(
-        (item) => item.start === option.start && item.day === option.day,
-      );
-      return similarOptions.length > 1;
-    });
-  }, [course]);
+  /**
+   * This will return true if a course has multiple times with the same day and start time
+   */
+  const doesCourseHaveAClashInItsTimes = useMemo(
+    () =>
+      course?.options.some((option) => {
+        const similarOptions = course.options.filter(
+          (item) => item.start === option.start && item.day === option.day,
+        );
+        return similarOptions.length > 1;
+      }),
+    [course, activeCourse],
+  );
 
+  /**
+   * This is to lower the opacity when the class card is being dragged
+   * and an event is already in the calendar
+   */
   const isDraggingActiveCourse = useMemo(() => {
     return activeCourse?.id === course?.id;
   }, [activeCourse, course]);
@@ -112,9 +121,9 @@ export default function EventClient({
         tabIndex={0}
         style={{ height: `${height}%` }}
         className={cn(
-          `z-10 flex flex-col overflow-hidden rounded px-3 py-2 `,
+          `z-10 flex w-1/2 flex-col overflow-hidden rounded px-3 py-2 `,
           (isDragging || isDraggingActiveCourse) &&
-            (sameTime ? "opacity-10" : "opacity-50"),
+            (doesCourseHaveAClashInItsTimes ? "opacity-10" : "opacity-50"),
           colourVariants[preference.colour],
           over ? "hover:cursor-copy" : "hover:cursor-grab",
         )}
@@ -144,7 +153,7 @@ export default function EventClient({
       className={cn(
         ` z-10 m-0.5 flex flex-col overflow-hidden rounded px-3 py-2 `,
         (isDragging || isDraggingActiveCourse) &&
-          (sameTime ? "opacity-10" : "opacity-50"),
+          (doesCourseHaveAClashInItsTimes ? "opacity-10" : "opacity-50"),
         colourVariants[preference.colour],
         over ? "hover:cursor-copy" : "hover:cursor-grab",
       )}

@@ -136,7 +136,7 @@ export function FriendClashEvent({
         gridRowStart: `${getRowIndex(item.time.start)}`,
       }}
       className={cn(
-        `m-1 flex flex-col overflow-hidden rounded-md border bg-neutral-50 py-2 
+        `flex w-1/2 flex-col overflow-hidden rounded-md border bg-neutral-50 py-2 
       pl-[1.19rem] pr-3 text-neutral-800 transition-all  dark:border-neutral-400 
       dark:bg-neutral-800 dark:text-white `,
         activeCourse ? "opacity-15" : "opacity-70 dark:opacity-50",
