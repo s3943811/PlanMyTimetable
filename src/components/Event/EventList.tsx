@@ -134,11 +134,12 @@ export default function EventList() {
   return (
     <>
       {eventsNoClashes.map((item) => (
-        <React.Fragment key={item.id + (item.grouped ? item.grouped_code : "")}>
-          <EventClient preference={item}>
-            <Event title={item.title} type={item.type} time={item.time} />
-          </EventClient>
-        </React.Fragment>
+        <EventClient
+          preference={item}
+          key={item.id + (item.grouped ? item.grouped_code : "")}
+        >
+          <Event title={item.title} type={item.type} time={item.time} />
+        </EventClient>
       ))}
       {friendsNoClashes.map((item) => (
         <React.Fragment key={item.id + item.friends.join(",")}>

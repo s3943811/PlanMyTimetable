@@ -93,7 +93,7 @@ export const formSchema = z.object({
 });
 
 const val: z.infer<typeof formSchema> = {
-  id: nanoid(),
+  id: "UNDEFINED",
   title: "",
   code: "",
   type: "Lecture",
@@ -148,8 +148,12 @@ export default function ClassForm({
   } | null>(null);
 
   function onSubmit(values: z.infer<typeof formSchema>) {
+    // if the id is undefinded then the id needs to be created -
+    //  as opposed to having the nanoid() as part of the val object which is then only ran once on the server
+    const id = values.id === "UNDEFINED" ? nanoid() : values.id;
+
     const course: Course = {
-      id: defaultValues?.id ?? values.id,
+      id: defaultValues?.id ?? id,
       title: values.title,
       courseCode: values.code,
       type: CourseType[values.type],
