@@ -97,7 +97,7 @@ export default function EventClient({
         );
         return similarOptions.length > 1;
       }),
-    [course, activeCourse],
+    [course],
   );
 
   /**

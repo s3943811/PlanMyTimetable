@@ -3,7 +3,6 @@ import { HiQuestionMarkCircle } from "react-icons/hi";
 import { ThemeSelector } from "~/components";
 import ActiveLink from "./ActiveLink";
 import { BMCLogo } from "./bmc";
-import { cn } from "~/lib/utils";
 
 function Navbar() {
   return (
